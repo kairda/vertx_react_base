@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
-  entry: './app-client.js',
+  entry: './client/app-client.js',
   output: {
     path: __dirname + '/webroot/dist',
     filename: 'bundle.js',
