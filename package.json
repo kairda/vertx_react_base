@@ -1,0 +1,27 @@
+{
+  "name": "vertxreactbase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app-client.js",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "author": "Kai Renz, heavily based on work by Paulo Lopes",
+  "license": "NONE",
+  "devDependencies": {
+    "webpack": "^1.12.2",
+    "babel": "^6.23.0",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "babel-eslint": "^5.0.0-beta6",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^3.0.2",
+    "eslint-loader": "^1.2.0",
+    "eslint-plugin-react": "^3.14.0"
+  }
+}
