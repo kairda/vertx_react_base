@@ -10,10 +10,14 @@ module.exports = {
     publicPath: '/dist/'
   },
   module: {
-    loaders: [{
+    loaders: [
+        {
       test: /\.js$/,
       loaders: ["babel"],
       exclude: /node_modules/
-    }]
+    }
+    , {
+            test: /\.css$/,
+            loaders : [ 'style-loader', 'css-loader' ]}]
   }
 };
