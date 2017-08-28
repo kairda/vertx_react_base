@@ -78,9 +78,9 @@ public class Server extends AbstractVerticle {
         if (doSetWebRoot) {
             logger.info("Setting webroot for development environment!");
             staticHandler.setWebRoot("src/main/resources/webroot");
+            staticHandler.setCachingEnabled(false);
+            staticHandler.setMaxAgeSeconds(1L);
         }
-        staticHandler.setCachingEnabled(false);
-        staticHandler.setMaxAgeSeconds(1L);
 
 
         Route handler = router.route().handler(staticHandler);
