@@ -4,6 +4,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
+import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
@@ -25,6 +26,9 @@ public class Server extends AbstractVerticle {
     static boolean doSetWebRoot = false;
 
     static Logger logger =  LoggerFactory.getLogger(Server.class.getName());
+
+
+    static int counter = 0;
 
     // Convenience method so you can run it in your IDE
     public static void main(String[] args) {
@@ -54,9 +58,7 @@ public class Server extends AbstractVerticle {
 
         }
 
-//    VertxOptions vo = new VertxOptions();
-//    vo.setFileResolverCachingEnabled(false);
-        Vertx vertx = Vertx.vertx(); // vo);
+        Vertx vertx = Vertx.vertx();
 
         Server thisServer = new Server();
 
@@ -83,11 +85,21 @@ public class Server extends AbstractVerticle {
         }
 
 
+        router.route("/api/counter").handler( (request) -> {
+
+            HttpServerResponse response = request.response();
+            response.putHeader("Content-Type", "application/json");
+
+            response.end("{\"counter\":" + counter++ + "}");
+        });
+
         Route handler = router.route().handler(staticHandler);
 
 
-        int port = config().getInteger("http.port", 8080);
 
+
+
+        int port = config().getInteger("http.port", 8080);
 
         // Start the web server and tell it to use the router to handle requests.
         vertx.createHttpServer().requestHandler(router::accept).listen(port);

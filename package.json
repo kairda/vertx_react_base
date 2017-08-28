@@ -7,7 +7,10 @@
     "material-components-web": "^0.19.0",
     "node-sass": "^4.5.2",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "superagent": "^3.6.0"
   },
   "author": "Kai Renz, heavily based on work by Paulo Lopes",
   "license": "NONE",

@@ -1,32 +1,31 @@
 import React, { Component } from 'react';
 
+
+import { connect } from 'react-redux';
+import { doServerCall} from "./actions/actions"
+
 class App extends Component {
+
+    constructor(props) {
+        // console.log("Props is " + JSON.stringify(props));
+        super(props);
+    }
+
+
   render() {
     return (
 
-/*      <div className="App">
-        <div className="App-header">
-          <img src="img/logo.svg" className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>client/src/App.js</code> and save to reload. And more ... <br/>
-            See how Kai did this ....
-        </p>
-          <p> Another paragraph ... Currently reloading and no cache set for development &ouml;!</p>
-          <p> This cache problem is persistent!</p>
-          <p> This cache problem is persistent!</p>
-      </div>
-*/
     <div>
           <h2 className="mdc-typography--display2">Hello, Material Components!</h2>
+        <h3 className="mdc-typography--display3">Counter is {this.props.counter}</h3>
           <div className="mdc-textfield" data-mdc-auto-init="MDCTextfield">
               <input type="text" className="mdc-textfield__input" id="demo-input"/>
                   <label className="mdc-textfield__label">Tell us how you feel!</label>
           </div>
 
-        <button type="button" className="mdc-button mdc-button--raised mdc-button--primary">
-            Press Me
+        <button type="button" className="mdc-button mdc-button--raised mdc-button--primary"
+            onClick={this.props.doServerCall}>
+            Server-Call Counter Increase
         </button>
 
         <main>
@@ -71,4 +70,11 @@ class App extends Component {
   }
 }
 
-export default App;
+
+// the state is the global store state
+// we connect the local property "counter" to the global state
+export default connect((state) => ( { counter : state.counter } ),
+    (dispatch) => ( {                         // the dispatch is provided by react-redux
+            doServerCall: () => {           // it is used to put transport the action to
+                doServerCall(dispatch)      // the reducers, resulting in a change in the global state
+            } }) )(App);
