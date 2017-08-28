@@ -22335,6 +22335,54 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
+	                    { className: 'mdc-layout-grid' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'mdc-layout-grid__inner' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell1'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell2'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell3'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell4'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell5'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell6'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell7'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell8'
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
 	                    { className: 'mdc-textfield', 'data-mdc-auto-init': 'MDCTextfield' },
 	                    _react2.default.createElement('input', { type: 'text', className: 'mdc-textfield__input', id: 'demo-input' }),
 	                    _react2.default.createElement(

@@ -52,6 +52,19 @@ class App extends Component {
 
 
 
+        <div className="mdc-layout-grid">
+            <div className="mdc-layout-grid__inner">
+                <div className="mdc-layout-grid__cell">Cell1</div>
+                <div className="mdc-layout-grid__cell">Cell2</div>
+                <div className="mdc-layout-grid__cell">Cell3</div>
+                <div className="mdc-layout-grid__cell">Cell4</div>
+                <div className="mdc-layout-grid__cell">Cell5</div>
+                <div className="mdc-layout-grid__cell">Cell6</div>
+                <div className="mdc-layout-grid__cell">Cell7</div>
+                <div className="mdc-layout-grid__cell">Cell8</div>
+            </div>
+        </div>
+
           <div className="mdc-textfield" data-mdc-auto-init="MDCTextfield">
               <input type="text" className="mdc-textfield__input" id="demo-input"/>
                   <label className="mdc-textfield__label">Tell us how you feel!</label>
