@@ -16,6 +16,7 @@ import io.vertx.ext.auth.shiro.ShiroAuthRealmType;
 import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.*;
+import io.vertx.ext.web.handler.sockjs.BridgeEventType;
 import io.vertx.ext.web.handler.sockjs.BridgeOptions;
 import io.vertx.ext.web.handler.sockjs.PermittedOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
@@ -137,6 +138,9 @@ public class Server extends AbstractVerticle {
                 context.failure();
             }
         });
+
+        router.route("/eventbus/*").handler(eventBusHandler());
+
         // router.route("/api/*").handler(RedirectAuthHandler.create(authProvider, "/loginpage.html"));
 
 
@@ -163,7 +167,9 @@ public class Server extends AbstractVerticle {
             response.putHeader("Content-Type", "application/json");
 
             // sending the increase counter value as a json string.
-            response.end("{\"counter\":" + (counter++) + "}");
+            response.end("{\"counter\":" + (++counter) + "}");
+
+            vertx.eventBus().publish("counter",counter);
         });
 
         Route handler = router.route().handler(staticHandler);
@@ -173,5 +179,16 @@ public class Server extends AbstractVerticle {
 
         // Start the web server and tell it to use the router to handle requests.
         vertx.createHttpServer().requestHandler(router::accept).listen(port);
+    }
+
+    private SockJSHandler eventBusHandler() {
+        BridgeOptions options = new BridgeOptions()
+                .addOutboundPermitted(new PermittedOptions().setAddress("counter"));
+        return SockJSHandler.create(vertx).bridge(options, event -> {
+            if (event.type() == BridgeEventType.SOCKET_CREATED) {
+                logger.info("A socket was created");
+            }
+            event.complete(true);
+        });
     }
 }

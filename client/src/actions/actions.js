@@ -16,40 +16,30 @@ export function getSetLoginInfoAction(loginInfo) {
 
 
 export function doServerCall(dispatch) {
-
     // now we call the server to increment the counter ....
-
 
     Request.get('/api/counter')
         .end(function(err, res) {
-
-
             if (res !== 'undefined' && res && res.body !== 'undefined' && res.body && res.body.counter) {
                 // console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
-
                 // this dispatches the new Action to all the reducers ...
-                dispatch(getSetCounterValueAction(res.body.counter));
+                console.log("Got new counter value " + res.body.counter);
+                // dispatch(getSetCounterValueAction(res.body.counter));
             }
         });
-
 }
 
 export function doCheckLogin(dispatch) {
 
     // now we call the server to increment the counter ....
-
-
     Request.get('/api/isLoggedIn')
         .end(function(err, res) {
-
-            console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
-
+            // console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
             if (res.body !== 'undefined' && res.body.isLoggedIn) {
                 dispatch(getSetLoginInfoAction(res.body.user));
             } else {
                 dispatch(getSetLoginInfoAction("not logged in"));
             }
         });
-
 }
 
