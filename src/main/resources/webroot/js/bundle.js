@@ -22193,7 +22193,7 @@
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -22211,63 +22211,115 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var App = function (_Component) {
-	  _inherits(App, _Component);
+	    _inherits(App, _Component);
 	
-	  function App() {
-	    _classCallCheck(this, App);
+	    function App() {
+	        _classCallCheck(this, App);
 	
-	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
-	  }
-	
-	  _createClass(App, [{
-	    key: "render",
-	    value: function render() {
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "App" },
-	        _react2.default.createElement(
-	          "div",
-	          { className: "App-header" },
-	          _react2.default.createElement("img", { src: "img/logo.svg", className: "App-logo", alt: "logo" }),
-	          _react2.default.createElement(
-	            "h2",
-	            null,
-	            "Welcome to React"
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "p",
-	          { className: "App-intro" },
-	          "To get started, edit ",
-	          _react2.default.createElement(
-	            "code",
-	            null,
-	            "client/src/App.js"
-	          ),
-	          " and save to reload. And more ... ",
-	          _react2.default.createElement("br", null),
-	          "See how Kai did this ...."
-	        ),
-	        _react2.default.createElement(
-	          "p",
-	          null,
-	          " Another paragraph ... Currently reloading and no cache set for development \xF6!"
-	        ),
-	        _react2.default.createElement(
-	          "p",
-	          null,
-	          " This cache problem is persistent!"
-	        ),
-	        _react2.default.createElement(
-	          "p",
-	          null,
-	          " This cache problem is persistent!"
-	        )
-	      );
+	        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
 	    }
-	  }]);
 	
-	  return App;
+	    _createClass(App, [{
+	        key: "render",
+	        value: function render() {
+	            return (
+	
+	                /*      <div className="App">
+	                        <div className="App-header">
+	                          <img src="img/logo.svg" className="App-logo" alt="logo" />
+	                          <h2>Welcome to React</h2>
+	                        </div>
+	                        <p className="App-intro">
+	                          To get started, edit <code>client/src/App.js</code> and save to reload. And more ... <br/>
+	                            See how Kai did this ....
+	                        </p>
+	                          <p> Another paragraph ... Currently reloading and no cache set for development &ouml;!</p>
+	                          <p> This cache problem is persistent!</p>
+	                          <p> This cache problem is persistent!</p>
+	                      </div>
+	                */
+	                _react2.default.createElement(
+	                    "div",
+	                    null,
+	                    _react2.default.createElement(
+	                        "h2",
+	                        { className: "mdc-typography--display2" },
+	                        "Hello, Material Components!"
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "mdc-textfield", "data-mdc-auto-init": "MDCTextfield" },
+	                        _react2.default.createElement("input", { type: "text", className: "mdc-textfield__input", id: "demo-input" }),
+	                        _react2.default.createElement(
+	                            "label",
+	                            { className: "mdc-textfield__label" },
+	                            "Tell us how you feel!"
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "button",
+	                        { type: "button", className: "mdc-button mdc-button--raised mdc-button--primary" },
+	                        "Press Me"
+	                    ),
+	                    _react2.default.createElement(
+	                        "main",
+	                        null,
+	                        _react2.default.createElement(
+	                            "h1",
+	                            { className: "mdc-typography--display1" },
+	                            "Tell us about yourself!"
+	                        ),
+	                        _react2.default.createElement(
+	                            "form",
+	                            { action: "#", id: "greeting-form" },
+	                            _react2.default.createElement(
+	                                "div",
+	                                null,
+	                                _react2.default.createElement(
+	                                    "div",
+	                                    { className: "mdc-form-field" },
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { className: "mdc-textfield", "data-mdc-auto-init": "MDCTextfield" },
+	                                        _react2.default.createElement("input", { id: "firstname", type: "text", className: "mdc-textfield__input" }),
+	                                        _react2.default.createElement(
+	                                            "label",
+	                                            { htmlFor: "firstname", className: "mdc-textfield__label" },
+	                                            "First Name"
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    "div",
+	                                    { className: "mdc-form-field" },
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { className: "mdc-textfield", "data-mdc-auto-init": "MDCTextfield" },
+	                                        _react2.default.createElement("input", { id: "lastname", type: "text", className: "mdc-textfield__input" }),
+	                                        _react2.default.createElement(
+	                                            "label",
+	                                            { htmlFor: "lastname", className: "mdc-textfield__label" },
+	                                            "Last Name"
+	                                        )
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                "button",
+	                                { type: "submit",
+	                                    className: "mdc-button mdc-button--raised mdc-button--primary mdc-ripple-surface",
+	                                    "data-mdc-auto-init": "MDCRipple" },
+	                                "Print Greeting"
+	                            )
+	                        ),
+	                        _react2.default.createElement("p", { className: "mdc-typography--headline", id: "greeting" })
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return App;
 	}(_react.Component);
 	
 	exports.default = App;
