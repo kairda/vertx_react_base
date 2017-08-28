@@ -1,24 +1,14 @@
-.App {
-  text-align: center;
+
+.my-card-container {
+  margin: 24px;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: left;
+  justify-content: left;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
+.my-card-container .mdc-card {
   height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  width: 250px;
+  margin: 10px;
 }

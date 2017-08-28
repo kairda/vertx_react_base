@@ -22254,10 +22254,84 @@
 	                    'Hello, Material Components!'
 	                ),
 	                _react2.default.createElement(
-	                    'h3',
-	                    { className: 'mdc-typography--display3' },
-	                    'Counter is ',
-	                    this.props.counter
+	                    'section',
+	                    { className: 'my-card-container' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'mdc-card' },
+	                        _react2.default.createElement(
+	                            'section',
+	                            { className: 'mdc-card__primary' },
+	                            _react2.default.createElement(
+	                                'h1',
+	                                { className: 'mdc-card__title mdc-card__title--large' },
+	                                'Title goes here'
+	                            ),
+	                            _react2.default.createElement(
+	                                'h2',
+	                                { className: 'mdc-card__subtitle' },
+	                                'Subtitle here'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'section',
+	                            { className: 'mdc-card__supporting-text' },
+	                            'Counter is ',
+	                            this.props.counter
+	                        ),
+	                        _react2.default.createElement(
+	                            'section',
+	                            { className: 'mdc-card__actions' },
+	                            _react2.default.createElement(
+	                                'button',
+	                                { className: 'mdc-button mdc-button--compact mdc-card__action' },
+	                                'Action 1'
+	                            ),
+	                            _react2.default.createElement(
+	                                'button',
+	                                { className: 'mdc-button mdc-button--compact mdc-card__action' },
+	                                'Action 2'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'mdc-card' },
+	                        _react2.default.createElement(
+	                            'section',
+	                            { className: 'mdc-card__primary' },
+	                            _react2.default.createElement(
+	                                'h1',
+	                                { className: 'mdc-card__title mdc-card__title--large' },
+	                                'Title goes here'
+	                            ),
+	                            _react2.default.createElement(
+	                                'h2',
+	                                { className: 'mdc-card__subtitle' },
+	                                'Subtitle here'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'section',
+	                            { className: 'mdc-card__supporting-text' },
+	                            'Counter is ',
+	                            this.props.counter
+	                        ),
+	                        _react2.default.createElement(
+	                            'section',
+	                            { className: 'mdc-card__actions' },
+	                            _react2.default.createElement(
+	                                'button',
+	                                { className: 'mdc-button mdc-button--compact mdc-card__action' },
+	                                'Action 1'
+	                            ),
+	                            _react2.default.createElement(
+	                                'button',
+	                                { className: 'mdc-button mdc-button--compact mdc-card__action' },
+	                                'Action 2'
+	                            )
+	                        )
+	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'div',

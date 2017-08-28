@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { doServerCall} from "./actions/actions"
 
+
+
+
 class App extends Component {
 
     constructor(props) {
@@ -17,11 +20,43 @@ class App extends Component {
 
     <div>
           <h2 className="mdc-typography--display2">Hello, Material Components!</h2>
-        <h3 className="mdc-typography--display3">Counter is {this.props.counter}</h3>
+
+        <section className="my-card-container">
+        <div className="mdc-card">
+            <section className="mdc-card__primary">
+                <h1 className="mdc-card__title mdc-card__title--large">Title goes here</h1>
+                <h2 className="mdc-card__subtitle">Subtitle here</h2>
+            </section>
+            <section className="mdc-card__supporting-text">
+                Counter is {this.props.counter}
+            </section>
+            <section className="mdc-card__actions">
+                <button className="mdc-button mdc-button--compact mdc-card__action">Action 1</button>
+                <button className="mdc-button mdc-button--compact mdc-card__action">Action 2</button>
+            </section>
+        </div>
+            <div className="mdc-card">
+                <section className="mdc-card__primary">
+                    <h1 className="mdc-card__title mdc-card__title--large">Title goes here</h1>
+                    <h2 className="mdc-card__subtitle">Subtitle here</h2>
+                </section>
+                <section className="mdc-card__supporting-text">
+                    Counter is {this.props.counter}
+                </section>
+                <section className="mdc-card__actions">
+                    <button className="mdc-button mdc-button--compact mdc-card__action">Action 1</button>
+                    <button className="mdc-button mdc-button--compact mdc-card__action">Action 2</button>
+                </section>
+            </div>
+        </section>
+
+
+
           <div className="mdc-textfield" data-mdc-auto-init="MDCTextfield">
               <input type="text" className="mdc-textfield__input" id="demo-input"/>
                   <label className="mdc-textfield__label">Tell us how you feel!</label>
           </div>
+
 
         <button type="button" className="mdc-button mdc-button--raised mdc-button--primary"
             onClick={this.props.doServerCall}>
