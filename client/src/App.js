@@ -51,6 +51,11 @@ class App extends Component {
         </section>
 
 
+        <button type="button" className="mdc-button mdc-button--raised mdc-button--primary"
+                onClick={this.props.doServerCall}>
+            Server-Call Counter Increase
+        </button>
+
 
         <div className="mdc-layout-grid">
             <div className="mdc-layout-grid__inner">
@@ -71,10 +76,6 @@ class App extends Component {
           </div>
 
 
-        <button type="button" className="mdc-button mdc-button--raised mdc-button--primary"
-            onClick={this.props.doServerCall}>
-            Server-Call Counter Increase
-        </button>
 
         <main>
             <h1 className="mdc-typography--display1">Tell us about yourself!</h1>

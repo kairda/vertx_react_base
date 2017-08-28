@@ -52,32 +52,41 @@
 	
 	var _reactDom = __webpack_require__(37);
 	
-	var _reactRedux = __webpack_require__(187);
+	var _reactRedux = __webpack_require__(184);
 	
-	var _redux = __webpack_require__(200);
+	var _redux = __webpack_require__(197);
 	
-	var _counterReducer = __webpack_require__(234);
+	var _counterReducer = __webpack_require__(224);
 	
-	var _actions = __webpack_require__(186);
+	var _actions = __webpack_require__(225);
 	
-	var _App = __webpack_require__(184);
+	var _NavBar = __webpack_require__(233);
+	
+	var _NavBar2 = _interopRequireDefault(_NavBar);
+	
+	var _App = __webpack_require__(234);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var store = (0, _redux.createStore)(_counterReducer.counterReducer, { counter: 0 });
+	var store = (0, _redux.createStore)(_counterReducer.counterReducer, { counter: 0, loginInfo: "Not logged in" });
 	
 	// this does the initial call to the server to that the value of the counter
 	// is incremented when the app starts.
+	
+	
+	(0, _actions.doCheckLogin)(store.dispatch);
+	
 	(0, _actions.doServerCall)(store.dispatch);
 	
+	var app = _react2.default.createElement(_App2.default, null);
 	// having the "Provider" with the global store
 	// allows App to be connected ... (see App.js)
 	(0, _reactDom.render)(_react2.default.createElement(
 	    _reactRedux.Provider,
 	    { store: store },
-	    _react2.default.createElement(_App2.default, null)
+	    _react2.default.createElement(_NavBar2.default, { content: app })
 	), document.getElementById("root"));
 
 /***/ }),
@@ -22210,325 +22219,18 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(187);
-	
-	var _actions = __webpack_require__(186);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var App = function (_Component) {
-	    _inherits(App, _Component);
-	
-	    function App(props) {
-	        _classCallCheck(this, App);
-	
-	        // console.log("Props is " + JSON.stringify(props));
-	        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-	    }
-	
-	    _createClass(App, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(
-	                    'h2',
-	                    { className: 'mdc-typography--display2' },
-	                    'Hello, Material Components!'
-	                ),
-	                _react2.default.createElement(
-	                    'section',
-	                    { className: 'my-card-container' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'mdc-card' },
-	                        _react2.default.createElement(
-	                            'section',
-	                            { className: 'mdc-card__primary' },
-	                            _react2.default.createElement(
-	                                'h1',
-	                                { className: 'mdc-card__title mdc-card__title--large' },
-	                                'Title goes here'
-	                            ),
-	                            _react2.default.createElement(
-	                                'h2',
-	                                { className: 'mdc-card__subtitle' },
-	                                'Subtitle here'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'section',
-	                            { className: 'mdc-card__supporting-text' },
-	                            'Counter is ',
-	                            this.props.counter
-	                        ),
-	                        _react2.default.createElement(
-	                            'section',
-	                            { className: 'mdc-card__actions' },
-	                            _react2.default.createElement(
-	                                'button',
-	                                { className: 'mdc-button mdc-button--compact mdc-card__action' },
-	                                'Action 1'
-	                            ),
-	                            _react2.default.createElement(
-	                                'button',
-	                                { className: 'mdc-button mdc-button--compact mdc-card__action' },
-	                                'Action 2'
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'mdc-card' },
-	                        _react2.default.createElement(
-	                            'section',
-	                            { className: 'mdc-card__primary' },
-	                            _react2.default.createElement(
-	                                'h1',
-	                                { className: 'mdc-card__title mdc-card__title--large' },
-	                                'Title goes here'
-	                            ),
-	                            _react2.default.createElement(
-	                                'h2',
-	                                { className: 'mdc-card__subtitle' },
-	                                'Subtitle here'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'section',
-	                            { className: 'mdc-card__supporting-text' },
-	                            'Counter is ',
-	                            this.props.counter
-	                        ),
-	                        _react2.default.createElement(
-	                            'section',
-	                            { className: 'mdc-card__actions' },
-	                            _react2.default.createElement(
-	                                'button',
-	                                { className: 'mdc-button mdc-button--compact mdc-card__action' },
-	                                'Action 1'
-	                            ),
-	                            _react2.default.createElement(
-	                                'button',
-	                                { className: 'mdc-button mdc-button--compact mdc-card__action' },
-	                                'Action 2'
-	                            )
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'mdc-layout-grid' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'mdc-layout-grid__inner' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'mdc-layout-grid__cell' },
-	                            'Cell1'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'mdc-layout-grid__cell' },
-	                            'Cell2'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'mdc-layout-grid__cell' },
-	                            'Cell3'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'mdc-layout-grid__cell' },
-	                            'Cell4'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'mdc-layout-grid__cell' },
-	                            'Cell5'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'mdc-layout-grid__cell' },
-	                            'Cell6'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'mdc-layout-grid__cell' },
-	                            'Cell7'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'mdc-layout-grid__cell' },
-	                            'Cell8'
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'mdc-textfield', 'data-mdc-auto-init': 'MDCTextfield' },
-	                    _react2.default.createElement('input', { type: 'text', className: 'mdc-textfield__input', id: 'demo-input' }),
-	                    _react2.default.createElement(
-	                        'label',
-	                        { className: 'mdc-textfield__label' },
-	                        'Tell us how you feel!'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'button',
-	                    { type: 'button', className: 'mdc-button mdc-button--raised mdc-button--primary',
-	                        onClick: this.props.doServerCall },
-	                    'Server-Call Counter Increase'
-	                ),
-	                _react2.default.createElement(
-	                    'main',
-	                    null,
-	                    _react2.default.createElement(
-	                        'h1',
-	                        { className: 'mdc-typography--display1' },
-	                        'Tell us about yourself!'
-	                    ),
-	                    _react2.default.createElement(
-	                        'form',
-	                        { action: '#', id: 'greeting-form' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            null,
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'mdc-form-field' },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'mdc-textfield', 'data-mdc-auto-init': 'MDCTextfield' },
-	                                    _react2.default.createElement('input', { id: 'firstname', type: 'text', className: 'mdc-textfield__input' }),
-	                                    _react2.default.createElement(
-	                                        'label',
-	                                        { htmlFor: 'firstname', className: 'mdc-textfield__label' },
-	                                        'First Name'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'mdc-form-field' },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'mdc-textfield', 'data-mdc-auto-init': 'MDCTextfield' },
-	                                    _react2.default.createElement('input', { id: 'lastname', type: 'text', className: 'mdc-textfield__input' }),
-	                                    _react2.default.createElement(
-	                                        'label',
-	                                        { htmlFor: 'lastname', className: 'mdc-textfield__label' },
-	                                        'Last Name'
-	                                    )
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'button',
-	                            { type: 'submit',
-	                                className: 'mdc-button mdc-button--raised mdc-button--primary mdc-ripple-surface',
-	                                'data-mdc-auto-init': 'MDCRipple' },
-	                            'Print Greeting'
-	                        )
-	                    ),
-	                    _react2.default.createElement('p', { className: 'mdc-typography--headline', id: 'greeting' })
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return App;
-	}(_react.Component);
-	
-	// the state is the global store state
-	// we connect the local property "counter" to the global state
-	
-	
-	exports.default = (0, _reactRedux.connect)(function (state) {
-	    return { counter: state.counter };
-	}, function (dispatch) {
-	    return { // the dispatch is provided by react-redux
-	        doServerCall: function doServerCall() {
-	            // it is used to put transport the action to
-	            (0, _actions.doServerCall)(dispatch); // the reducers, resulting in a change in the global state
-	        } };
-	})(App);
-
-/***/ }),
-/* 185 */,
-/* 186 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.SET_COUNTER_VALUE = undefined;
-	exports.getSetCounterValueAction = getSetCounterValueAction;
-	exports.doServerCall = doServerCall;
-	
-	var _superagent = __webpack_require__(227);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var SET_COUNTER_VALUE = exports.SET_COUNTER_VALUE = 'SET_COUNTER_VALUE';
-	
-	function getSetCounterValueAction(counter) {
-	    return { type: SET_COUNTER_VALUE, counter: counter };
-	}
-	
-	function doServerCall(dispatch) {
-	
-	    // now we call the server to increment the counter ....
-	
-	
-	    _superagent2.default.get('/api/counter').end(function (err, res) {
-	
-	        // console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
-	
-	        // this dispatches the new Action to all the reducers ...
-	        dispatch(getSetCounterValueAction(res.body.counter));
-	    });
-	}
-
-/***/ }),
-/* 187 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
 	exports.__esModule = true;
 	exports.connect = exports.connectAdvanced = exports.createProvider = exports.Provider = undefined;
 	
-	var _Provider = __webpack_require__(188);
+	var _Provider = __webpack_require__(185);
 	
 	var _Provider2 = _interopRequireDefault(_Provider);
 	
-	var _connectAdvanced = __webpack_require__(193);
+	var _connectAdvanced = __webpack_require__(190);
 	
 	var _connectAdvanced2 = _interopRequireDefault(_connectAdvanced);
 	
-	var _connect = __webpack_require__(197);
+	var _connect = __webpack_require__(194);
 	
 	var _connect2 = _interopRequireDefault(_connect);
 	
@@ -22540,7 +22242,7 @@
 	exports.connect = _connect2.default;
 
 /***/ }),
-/* 188 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -22550,13 +22252,13 @@
 	
 	var _react = __webpack_require__(1);
 	
-	var _propTypes = __webpack_require__(189);
+	var _propTypes = __webpack_require__(186);
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _PropTypes = __webpack_require__(191);
+	var _PropTypes = __webpack_require__(188);
 	
-	var _warning = __webpack_require__(192);
+	var _warning = __webpack_require__(189);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -22632,7 +22334,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 189 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22663,13 +22365,13 @@
 	} else {
 	  // By explicitly using `prop-types` you are opting into new production behavior.
 	  // http://fb.me/prop-types-in-prod
-	  module.exports = __webpack_require__(190)();
+	  module.exports = __webpack_require__(187)();
 	}
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 190 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -22734,7 +22436,7 @@
 
 
 /***/ }),
-/* 191 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22742,7 +22444,7 @@
 	exports.__esModule = true;
 	exports.storeShape = exports.subscriptionShape = undefined;
 	
-	var _propTypes = __webpack_require__(189);
+	var _propTypes = __webpack_require__(186);
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
@@ -22762,7 +22464,7 @@
 	});
 
 /***/ }),
-/* 192 */
+/* 189 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -22792,7 +22494,7 @@
 	}
 
 /***/ }),
-/* 193 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -22803,21 +22505,21 @@
 	
 	exports.default = connectAdvanced;
 	
-	var _hoistNonReactStatics = __webpack_require__(194);
+	var _hoistNonReactStatics = __webpack_require__(191);
 	
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 	
-	var _invariant = __webpack_require__(195);
+	var _invariant = __webpack_require__(192);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
 	var _react = __webpack_require__(1);
 	
-	var _Subscription = __webpack_require__(196);
+	var _Subscription = __webpack_require__(193);
 	
 	var _Subscription2 = _interopRequireDefault(_Subscription);
 	
-	var _PropTypes = __webpack_require__(191);
+	var _PropTypes = __webpack_require__(188);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -23104,7 +22806,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 194 */
+/* 191 */
 /***/ (function(module, exports) {
 
 	/**
@@ -23175,7 +22877,7 @@
 
 
 /***/ }),
-/* 195 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -23233,7 +22935,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 196 */
+/* 193 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -23334,7 +23036,7 @@
 	exports.default = Subscription;
 
 /***/ }),
-/* 197 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23345,27 +23047,27 @@
 	
 	exports.createConnect = createConnect;
 	
-	var _connectAdvanced = __webpack_require__(193);
+	var _connectAdvanced = __webpack_require__(190);
 	
 	var _connectAdvanced2 = _interopRequireDefault(_connectAdvanced);
 	
-	var _shallowEqual = __webpack_require__(198);
+	var _shallowEqual = __webpack_require__(195);
 	
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 	
-	var _mapDispatchToProps = __webpack_require__(199);
+	var _mapDispatchToProps = __webpack_require__(196);
 	
 	var _mapDispatchToProps2 = _interopRequireDefault(_mapDispatchToProps);
 	
-	var _mapStateToProps = __webpack_require__(223);
+	var _mapStateToProps = __webpack_require__(220);
 	
 	var _mapStateToProps2 = _interopRequireDefault(_mapStateToProps);
 	
-	var _mergeProps = __webpack_require__(224);
+	var _mergeProps = __webpack_require__(221);
 	
 	var _mergeProps2 = _interopRequireDefault(_mergeProps);
 	
-	var _selectorFactory = __webpack_require__(225);
+	var _selectorFactory = __webpack_require__(222);
 	
 	var _selectorFactory2 = _interopRequireDefault(_selectorFactory);
 	
@@ -23467,7 +23169,7 @@
 	exports.default = createConnect();
 
 /***/ }),
-/* 198 */
+/* 195 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -23506,7 +23208,7 @@
 	}
 
 /***/ }),
-/* 199 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23516,9 +23218,9 @@
 	exports.whenMapDispatchToPropsIsMissing = whenMapDispatchToPropsIsMissing;
 	exports.whenMapDispatchToPropsIsObject = whenMapDispatchToPropsIsObject;
 	
-	var _redux = __webpack_require__(200);
+	var _redux = __webpack_require__(197);
 	
-	var _wrapMapToProps = __webpack_require__(221);
+	var _wrapMapToProps = __webpack_require__(218);
 	
 	function whenMapDispatchToPropsIsFunction(mapDispatchToProps) {
 	  return typeof mapDispatchToProps === 'function' ? (0, _wrapMapToProps.wrapMapToPropsFunc)(mapDispatchToProps, 'mapDispatchToProps') : undefined;
@@ -23539,7 +23241,7 @@
 	exports.default = [whenMapDispatchToPropsIsFunction, whenMapDispatchToPropsIsMissing, whenMapDispatchToPropsIsObject];
 
 /***/ }),
-/* 200 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -23547,27 +23249,27 @@
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 	
-	var _createStore = __webpack_require__(201);
+	var _createStore = __webpack_require__(198);
 	
 	var _createStore2 = _interopRequireDefault(_createStore);
 	
-	var _combineReducers = __webpack_require__(216);
+	var _combineReducers = __webpack_require__(213);
 	
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 	
-	var _bindActionCreators = __webpack_require__(218);
+	var _bindActionCreators = __webpack_require__(215);
 	
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 	
-	var _applyMiddleware = __webpack_require__(219);
+	var _applyMiddleware = __webpack_require__(216);
 	
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 	
-	var _compose = __webpack_require__(220);
+	var _compose = __webpack_require__(217);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
-	var _warning = __webpack_require__(217);
+	var _warning = __webpack_require__(214);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -23591,7 +23293,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 201 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23600,11 +23302,11 @@
 	exports.ActionTypes = undefined;
 	exports['default'] = createStore;
 	
-	var _isPlainObject = __webpack_require__(202);
+	var _isPlainObject = __webpack_require__(199);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _symbolObservable = __webpack_require__(212);
+	var _symbolObservable = __webpack_require__(209);
 	
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 	
@@ -23857,12 +23559,12 @@
 	}
 
 /***/ }),
-/* 202 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(203),
-	    getPrototype = __webpack_require__(209),
-	    isObjectLike = __webpack_require__(211);
+	var baseGetTag = __webpack_require__(200),
+	    getPrototype = __webpack_require__(206),
+	    isObjectLike = __webpack_require__(208);
 	
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -23925,12 +23627,12 @@
 
 
 /***/ }),
-/* 203 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(204),
-	    getRawTag = __webpack_require__(207),
-	    objectToString = __webpack_require__(208);
+	var Symbol = __webpack_require__(201),
+	    getRawTag = __webpack_require__(204),
+	    objectToString = __webpack_require__(205);
 	
 	/** `Object#toString` result references. */
 	var nullTag = '[object Null]',
@@ -23959,10 +23661,10 @@
 
 
 /***/ }),
-/* 204 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var root = __webpack_require__(205);
+	var root = __webpack_require__(202);
 	
 	/** Built-in value references. */
 	var Symbol = root.Symbol;
@@ -23971,10 +23673,10 @@
 
 
 /***/ }),
-/* 205 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var freeGlobal = __webpack_require__(206);
+	var freeGlobal = __webpack_require__(203);
 	
 	/** Detect free variable `self`. */
 	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -23986,7 +23688,7 @@
 
 
 /***/ }),
-/* 206 */
+/* 203 */
 /***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
@@ -23997,10 +23699,10 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 207 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(204);
+	var Symbol = __webpack_require__(201);
 	
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -24049,7 +23751,7 @@
 
 
 /***/ }),
-/* 208 */
+/* 205 */
 /***/ (function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -24077,10 +23779,10 @@
 
 
 /***/ }),
-/* 209 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(210);
+	var overArg = __webpack_require__(207);
 	
 	/** Built-in value references. */
 	var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -24089,7 +23791,7 @@
 
 
 /***/ }),
-/* 210 */
+/* 207 */
 /***/ (function(module, exports) {
 
 	/**
@@ -24110,7 +23812,7 @@
 
 
 /***/ }),
-/* 211 */
+/* 208 */
 /***/ (function(module, exports) {
 
 	/**
@@ -24145,14 +23847,14 @@
 
 
 /***/ }),
-/* 212 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(213);
+	module.exports = __webpack_require__(210);
 
 
 /***/ }),
-/* 213 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, module) {'use strict';
@@ -24161,7 +23863,7 @@
 	  value: true
 	});
 	
-	var _ponyfill = __webpack_require__(215);
+	var _ponyfill = __webpack_require__(212);
 	
 	var _ponyfill2 = _interopRequireDefault(_ponyfill);
 	
@@ -24184,10 +23886,10 @@
 	
 	var result = (0, _ponyfill2['default'])(root);
 	exports['default'] = result;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(214)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(211)(module)))
 
 /***/ }),
-/* 214 */
+/* 211 */
 /***/ (function(module, exports) {
 
 	module.exports = function(module) {
@@ -24203,7 +23905,7 @@
 
 
 /***/ }),
-/* 215 */
+/* 212 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -24231,7 +23933,7 @@
 	};
 
 /***/ }),
-/* 216 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -24239,13 +23941,13 @@
 	exports.__esModule = true;
 	exports['default'] = combineReducers;
 	
-	var _createStore = __webpack_require__(201);
+	var _createStore = __webpack_require__(198);
 	
-	var _isPlainObject = __webpack_require__(202);
+	var _isPlainObject = __webpack_require__(199);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _warning = __webpack_require__(217);
+	var _warning = __webpack_require__(214);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -24380,7 +24082,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 217 */
+/* 214 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -24410,7 +24112,7 @@
 	}
 
 /***/ }),
-/* 218 */
+/* 215 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -24466,7 +24168,7 @@
 	}
 
 /***/ }),
-/* 219 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24477,7 +24179,7 @@
 	
 	exports['default'] = applyMiddleware;
 	
-	var _compose = __webpack_require__(220);
+	var _compose = __webpack_require__(217);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
@@ -24529,7 +24231,7 @@
 	}
 
 /***/ }),
-/* 220 */
+/* 217 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -24570,7 +24272,7 @@
 	}
 
 /***/ }),
-/* 221 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -24580,7 +24282,7 @@
 	exports.getDependsOnOwnProps = getDependsOnOwnProps;
 	exports.wrapMapToPropsFunc = wrapMapToPropsFunc;
 	
-	var _verifyPlainObject = __webpack_require__(222);
+	var _verifyPlainObject = __webpack_require__(219);
 	
 	var _verifyPlainObject2 = _interopRequireDefault(_verifyPlainObject);
 	
@@ -24654,7 +24356,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 222 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24662,11 +24364,11 @@
 	exports.__esModule = true;
 	exports.default = verifyPlainObject;
 	
-	var _isPlainObject = __webpack_require__(202);
+	var _isPlainObject = __webpack_require__(199);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _warning = __webpack_require__(192);
+	var _warning = __webpack_require__(189);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -24679,7 +24381,7 @@
 	}
 
 /***/ }),
-/* 223 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24688,7 +24390,7 @@
 	exports.whenMapStateToPropsIsFunction = whenMapStateToPropsIsFunction;
 	exports.whenMapStateToPropsIsMissing = whenMapStateToPropsIsMissing;
 	
-	var _wrapMapToProps = __webpack_require__(221);
+	var _wrapMapToProps = __webpack_require__(218);
 	
 	function whenMapStateToPropsIsFunction(mapStateToProps) {
 	  return typeof mapStateToProps === 'function' ? (0, _wrapMapToProps.wrapMapToPropsFunc)(mapStateToProps, 'mapStateToProps') : undefined;
@@ -24703,7 +24405,7 @@
 	exports.default = [whenMapStateToPropsIsFunction, whenMapStateToPropsIsMissing];
 
 /***/ }),
-/* 224 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -24717,7 +24419,7 @@
 	exports.whenMergePropsIsFunction = whenMergePropsIsFunction;
 	exports.whenMergePropsIsOmitted = whenMergePropsIsOmitted;
 	
-	var _verifyPlainObject = __webpack_require__(222);
+	var _verifyPlainObject = __webpack_require__(219);
 	
 	var _verifyPlainObject2 = _interopRequireDefault(_verifyPlainObject);
 	
@@ -24767,7 +24469,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 225 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -24777,7 +24479,7 @@
 	exports.pureFinalPropsSelectorFactory = pureFinalPropsSelectorFactory;
 	exports.default = finalPropsSelectorFactory;
 	
-	var _verifySubselectors = __webpack_require__(226);
+	var _verifySubselectors = __webpack_require__(223);
 	
 	var _verifySubselectors2 = _interopRequireDefault(_verifySubselectors);
 	
@@ -24886,7 +24588,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 226 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24894,7 +24596,7 @@
 	exports.__esModule = true;
 	exports.default = verifySubselectors;
 	
-	var _warning = __webpack_require__(192);
+	var _warning = __webpack_require__(189);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -24917,7 +24619,107 @@
 	}
 
 /***/ }),
-/* 227 */
+/* 224 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.counterReducer = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _actions = __webpack_require__(225);
+	
+	var counterReducer = exports.counterReducer = function counterReducer() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	    var action = arguments[1];
+	
+	    switch (action.type) {
+	        case _actions.SET_COUNTER_VALUE:
+	            return _extends({}, state, {
+	                counter: action.counter
+	            });
+	        case _actions.SET_LOGIN_INFO:
+	            console.log("Set_Login_Info with data " + JSON.stringify(action.loginInfo));
+	            return _extends({}, state, {
+	                loginInfo: JSON.stringify(action.loginInfo)
+	            });
+	        default:
+	            return state;
+	
+	    }
+	};
+
+/***/ }),
+/* 225 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.SET_LOGIN_INFO = exports.SET_COUNTER_VALUE = undefined;
+	exports.getSetCounterValueAction = getSetCounterValueAction;
+	exports.getSetLoginInfoAction = getSetLoginInfoAction;
+	exports.doServerCall = doServerCall;
+	exports.doCheckLogin = doCheckLogin;
+	
+	var _superagent = __webpack_require__(226);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var SET_COUNTER_VALUE = exports.SET_COUNTER_VALUE = 'SET_COUNTER_VALUE';
+	var SET_LOGIN_INFO = exports.SET_LOGIN_INFO = 'SET_LOGIN_INFO';
+	
+	function getSetCounterValueAction(counter) {
+	    return { type: SET_COUNTER_VALUE, counter: counter };
+	}
+	
+	function getSetLoginInfoAction(loginInfo) {
+	    return { type: SET_LOGIN_INFO, loginInfo: loginInfo };
+	}
+	
+	function doServerCall(dispatch) {
+	
+	    // now we call the server to increment the counter ....
+	
+	
+	    _superagent2.default.get('/api/counter').end(function (err, res) {
+	
+	        if (res !== 'undefined' && res && res.body !== 'undefined' && res.body && res.body.counter) {
+	            // console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
+	
+	            // this dispatches the new Action to all the reducers ...
+	            dispatch(getSetCounterValueAction(res.body.counter));
+	        }
+	    });
+	}
+	
+	function doCheckLogin(dispatch) {
+	
+	    // now we call the server to increment the counter ....
+	
+	
+	    _superagent2.default.get('/api/isLoggedIn').end(function (err, res) {
+	
+	        console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
+	
+	        if (res.body !== 'undefined' && res.body.isLoggedIn) {
+	            dispatch(getSetLoginInfoAction(res.body.user));
+	        } else {
+	            dispatch(getSetLoginInfoAction("not logged in"));
+	        }
+	    });
+	}
+
+/***/ }),
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -24934,11 +24736,11 @@
 	  root = this;
 	}
 	
-	var Emitter = __webpack_require__(228);
-	var RequestBase = __webpack_require__(229);
-	var isObject = __webpack_require__(230);
-	var ResponseBase = __webpack_require__(231);
-	var shouldRetry = __webpack_require__(233);
+	var Emitter = __webpack_require__(227);
+	var RequestBase = __webpack_require__(228);
+	var isObject = __webpack_require__(229);
+	var ResponseBase = __webpack_require__(230);
+	var shouldRetry = __webpack_require__(232);
 	
 	/**
 	 * Noop.
@@ -25829,7 +25631,7 @@
 
 
 /***/ }),
-/* 228 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
@@ -25998,13 +25800,13 @@
 
 
 /***/ }),
-/* 229 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(230);
+	var isObject = __webpack_require__(229);
 	
 	/**
 	 * Expose `RequestBase`.
@@ -26624,7 +26426,7 @@
 
 
 /***/ }),
-/* 230 */
+/* 229 */
 /***/ (function(module, exports) {
 
 	/**
@@ -26643,7 +26445,7 @@
 
 
 /***/ }),
-/* 231 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
@@ -26651,7 +26453,7 @@
 	 * Module dependencies.
 	 */
 	
-	var utils = __webpack_require__(232);
+	var utils = __webpack_require__(231);
 	
 	/**
 	 * Expose `ResponseBase`.
@@ -26782,7 +26584,7 @@
 
 
 /***/ }),
-/* 232 */
+/* 231 */
 /***/ (function(module, exports) {
 
 	
@@ -26855,7 +26657,7 @@
 	};
 
 /***/ }),
-/* 233 */
+/* 232 */
 /***/ (function(module, exports) {
 
 	var ERROR_CODES = [
@@ -26884,6 +26686,94 @@
 
 
 /***/ }),
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(184);
+	
+	var _App = __webpack_require__(234);
+	
+	var _App2 = _interopRequireDefault(_App);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var NavBar = function (_Component) {
+	    _inherits(NavBar, _Component);
+	
+	    function NavBar(props) {
+	        _classCallCheck(this, NavBar);
+	
+	        return _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+	    }
+	
+	    _createClass(NavBar, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'header',
+	                    { className: 'mdc-toolbar' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'mdc-toolbar__row' },
+	                        _react2.default.createElement(
+	                            'section',
+	                            { className: 'mdc-toolbar__section mdc-toolbar__section--align-start' },
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: '#', className: 'material-icons mdc-toolbar__icon--menu' },
+	                                'menu'
+	                            ),
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'mdc-toolbar__title' },
+	                                'Title'
+	                            ),
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'mdc-toolbar--flexible-space-minimized' },
+	                                this.props.loginInfo
+	                            )
+	                        )
+	                    )
+	                ),
+	                this.props.content
+	            );
+	        }
+	    }]);
+	
+	    return NavBar;
+	}(_react.Component);
+	
+	// the state is the global store state
+	// we connect the local property "counter" to the global state
+	
+	
+	exports.default = (0, _reactRedux.connect)(function (state) {
+	    return { loginInfo: state.loginInfo };
+	})(NavBar);
+
+/***/ }),
 /* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26892,26 +26782,263 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.counterReducer = undefined;
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _actions = __webpack_require__(186);
+	var _react = __webpack_require__(1);
 	
-	var counterReducer = exports.counterReducer = function counterReducer() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	    var action = arguments[1];
+	var _react2 = _interopRequireDefault(_react);
 	
-	    switch (action.type) {
-	        case _actions.SET_COUNTER_VALUE:
-	            return _extends({}, state, {
-	                counter: action.counter
-	            });
-	        default:
-	            return state;
+	var _reactRedux = __webpack_require__(184);
 	
+	var _actions = __webpack_require__(225);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var App = function (_Component) {
+	    _inherits(App, _Component);
+	
+	    function App(props) {
+	        _classCallCheck(this, App);
+	
+	        // console.log("Props is " + JSON.stringify(props));
+	        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 	    }
-	};
+	
+	    _createClass(App, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h2',
+	                    { className: 'mdc-typography--display2' },
+	                    'Hello, Material Components!'
+	                ),
+	                _react2.default.createElement(
+	                    'section',
+	                    { className: 'my-card-container' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'mdc-card' },
+	                        _react2.default.createElement(
+	                            'section',
+	                            { className: 'mdc-card__primary' },
+	                            _react2.default.createElement(
+	                                'h1',
+	                                { className: 'mdc-card__title mdc-card__title--large' },
+	                                'Title goes here'
+	                            ),
+	                            _react2.default.createElement(
+	                                'h2',
+	                                { className: 'mdc-card__subtitle' },
+	                                'Subtitle here'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'section',
+	                            { className: 'mdc-card__supporting-text' },
+	                            'Counter is ',
+	                            this.props.counter
+	                        ),
+	                        _react2.default.createElement(
+	                            'section',
+	                            { className: 'mdc-card__actions' },
+	                            _react2.default.createElement(
+	                                'button',
+	                                { className: 'mdc-button mdc-button--compact mdc-card__action' },
+	                                'Action 1'
+	                            ),
+	                            _react2.default.createElement(
+	                                'button',
+	                                { className: 'mdc-button mdc-button--compact mdc-card__action' },
+	                                'Action 2'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'mdc-card' },
+	                        _react2.default.createElement(
+	                            'section',
+	                            { className: 'mdc-card__primary' },
+	                            _react2.default.createElement(
+	                                'h1',
+	                                { className: 'mdc-card__title mdc-card__title--large' },
+	                                'Title goes here'
+	                            ),
+	                            _react2.default.createElement(
+	                                'h2',
+	                                { className: 'mdc-card__subtitle' },
+	                                'Subtitle here'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'section',
+	                            { className: 'mdc-card__supporting-text' },
+	                            'Counter is ',
+	                            this.props.counter
+	                        ),
+	                        _react2.default.createElement(
+	                            'section',
+	                            { className: 'mdc-card__actions' },
+	                            _react2.default.createElement(
+	                                'button',
+	                                { className: 'mdc-button mdc-button--compact mdc-card__action' },
+	                                'Action 1'
+	                            ),
+	                            _react2.default.createElement(
+	                                'button',
+	                                { className: 'mdc-button mdc-button--compact mdc-card__action' },
+	                                'Action 2'
+	                            )
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'button',
+	                    { type: 'button', className: 'mdc-button mdc-button--raised mdc-button--primary',
+	                        onClick: this.props.doServerCall },
+	                    'Server-Call Counter Increase'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'mdc-layout-grid' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'mdc-layout-grid__inner' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell1'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell2'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell3'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell4'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell5'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell6'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell7'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-layout-grid__cell' },
+	                            'Cell8'
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'mdc-textfield', 'data-mdc-auto-init': 'MDCTextfield' },
+	                    _react2.default.createElement('input', { type: 'text', className: 'mdc-textfield__input', id: 'demo-input' }),
+	                    _react2.default.createElement(
+	                        'label',
+	                        { className: 'mdc-textfield__label' },
+	                        'Tell us how you feel!'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'main',
+	                    null,
+	                    _react2.default.createElement(
+	                        'h1',
+	                        { className: 'mdc-typography--display1' },
+	                        'Tell us about yourself!'
+	                    ),
+	                    _react2.default.createElement(
+	                        'form',
+	                        { action: '#', id: 'greeting-form' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            null,
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'mdc-form-field' },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'mdc-textfield', 'data-mdc-auto-init': 'MDCTextfield' },
+	                                    _react2.default.createElement('input', { id: 'firstname', type: 'text', className: 'mdc-textfield__input' }),
+	                                    _react2.default.createElement(
+	                                        'label',
+	                                        { htmlFor: 'firstname', className: 'mdc-textfield__label' },
+	                                        'First Name'
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'mdc-form-field' },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'mdc-textfield', 'data-mdc-auto-init': 'MDCTextfield' },
+	                                    _react2.default.createElement('input', { id: 'lastname', type: 'text', className: 'mdc-textfield__input' }),
+	                                    _react2.default.createElement(
+	                                        'label',
+	                                        { htmlFor: 'lastname', className: 'mdc-textfield__label' },
+	                                        'Last Name'
+	                                    )
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'button',
+	                            { type: 'submit',
+	                                className: 'mdc-button mdc-button--raised mdc-button--primary mdc-ripple-surface',
+	                                'data-mdc-auto-init': 'MDCRipple' },
+	                            'Print Greeting'
+	                        )
+	                    ),
+	                    _react2.default.createElement('p', { className: 'mdc-typography--headline', id: 'greeting' })
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return App;
+	}(_react.Component);
+	
+	// the state is the global store state
+	// we connect the local property "counter" to the global state
+	
+	
+	exports.default = (0, _reactRedux.connect)(function (state) {
+	    return { counter: state.counter };
+	}, function (dispatch) {
+	    return { // the dispatch is provided by react-redux
+	        doServerCall: function doServerCall() {
+	            // it is used to put transport the action to
+	            (0, _actions.doServerCall)(dispatch); // the reducers, resulting in a change in the global state
+	        } };
+	})(App);
 
 /***/ })
 /******/ ]);

@@ -129,7 +129,14 @@ public class Server extends AbstractVerticle {
         });
 
 
-        router.route("/api/*").handler(BasicAuthHandler.create(authProvider));
+        router.route("/api/*").handler( (context) -> {
+            if (context.user() != null) {
+                // then we are logged in ....
+                context.next();
+            } else {
+                context.failure();
+            }
+        });
         // router.route("/api/*").handler(RedirectAuthHandler.create(authProvider, "/loginpage.html"));
 
 
