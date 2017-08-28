@@ -1,5 +1,3 @@
-@import 'globals';
-
 .App {
   text-align: center;
 }
@@ -13,10 +11,7 @@
   background-color: #222;
   height: 150px;
   padding: 20px;
-
-  h2 {
-    color: $md-white-base;
-  }
+  color: white;
 }
 
 .App-intro {

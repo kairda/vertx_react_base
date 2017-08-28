@@ -3,11 +3,10 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
-  entry: './client/app-client.js',
+  entry: './client/src/index.js',
   output: {
-    path: __dirname + '/webroot/dist',
-    filename: 'bundle.js',
-    publicPath: '/dist/'
+    path: __dirname + '/src/main/resources/webroot/js',
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
@@ -16,8 +15,6 @@ module.exports = {
       loaders: ["babel"],
       exclude: /node_modules/
     }
-    , {
-            test: /\.css$/,
-            loaders : [ 'style-loader', 'css-loader' ]}]
+  ]
   }
 };

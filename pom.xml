@@ -145,7 +145,6 @@
   </dependencies>
 
   <build>
-    <pluginManagement>
       <plugins>
         <!-- We specify the Maven compiler plugin as we need to set it to Java 1.8 -->
         <plugin>
@@ -160,11 +159,36 @@
             </compilerArgs>
           </configuration>
         </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-shade-plugin</artifactId>
+              <version>2.3</version>
+              <executions>
+                  <execution>
+                      <phase>package</phase>
+                      <goals>
+                          <goal>shade</goal>
+                      </goals>
+                      <configuration>
+                          <transformers>
+                              <transformer
+                                      implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                  <manifestEntries>
+                                      <Main-Class>server.Server</Main-Class>
+                                      <Main-Verticle>server.Server</Main-Verticle>
+                                  </manifestEntries>
+                              </transformer>
+                          </transformers>
+                          <artifactSet/>
+                          <outputFile>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar</outputFile>
+                      </configuration>
+                  </execution>
+              </executions>
+          </plugin>
       </plugins>
-    </pluginManagement>
   </build>
 
-  <profiles>
+<!--  <profiles>
     <profile>
       <id>staging</id>
       <repositories>
@@ -175,5 +199,5 @@
       </repositories>
     </profile>
   </profiles>
-
+-->
 </project>

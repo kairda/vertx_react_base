@@ -6,11 +6,7 @@
   "dependencies": {
     "node-sass": "^4.5.2",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-addons-css-transition-group": "^15.5.2",
-    "react-addons-transition-group": "^15.5.2",
-    "react-md": "*",
-    "webfontloader": "^1.6.27"
+    "react-dom": "^15.6.1"
   },
   "author": "Kai Renz, heavily based on work by Paulo Lopes",
   "license": "NONE",
@@ -23,15 +19,11 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.24.1",
-    "css-loader": "*",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^3.0.2",
     "eslint-loader": "^1.2.0",
     "eslint-plugin-react": "^3.14.0",
     "style-loader": "^0.18.2",
     "webpack": "^1.12.2"
-  },
-  "scripts": {
-    "build-css": "node-sass client/ -o client/"
   }
 }

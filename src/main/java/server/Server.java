@@ -3,7 +3,11 @@ package server;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
+import io.vertx.core.VertxOptions;
 import io.vertx.core.json.JsonObject;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
+import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.handler.sockjs.BridgeOptions;
@@ -18,47 +22,74 @@ import java.util.Map;
  */
 public class Server extends AbstractVerticle {
 
-  // Convenience method so you can run it in your IDE
-  public static void main(String[] args) {
+    static boolean doSetWebRoot = false;
+
+    static Logger logger =  LoggerFactory.getLogger(Server.class.getName());
+
+    // Convenience method so you can run it in your IDE
+    public static void main(String[] args) {
 
 
-    System.out.println("I have args " + args + " length " + args.length);
-    int port = -1;
-    if (args != null && args.length == 1) {
-      try {
-        port = Integer.parseInt(args[0]);
-      } catch (NumberFormatException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
+
+        int port = -1;
+
+        if (args.length >= 1) {
+            for (String arg: args) {
+               if (arg.startsWith("httpPort=")) {
+                   port=Integer.parseInt(arg.substring(9));
+               }
+               if (arg.startsWith("isDevelopment")) {
+                   doSetWebRoot = true;
+               }
+            }
+        }
+
+
+        DeploymentOptions deploymentOptions = new DeploymentOptions();
+
+        if (port > 0) {
+            Map<String, Object> configMap = new HashMap<>();
+            configMap.put("http.port", port);
+            deploymentOptions.setConfig(new JsonObject(configMap));
+
+        }
+
+//    VertxOptions vo = new VertxOptions();
+//    vo.setFileResolverCachingEnabled(false);
+        Vertx vertx = Vertx.vertx(); // vo);
+
+        Server thisServer = new Server();
+
+        vertx.deployVerticle(thisServer, deploymentOptions);
 
     }
 
-    DeploymentOptions deploymentOptions = new DeploymentOptions();
+    @Override
+    public void start() throws Exception {
 
-    if (port > 0) {
-      Map<String,Object> configMap = new HashMap<>();
-      configMap.put("http.port",port);
-      deploymentOptions.setConfig(new JsonObject(configMap));
+        Router router = Router.router(vertx);
+
+        // Create a router endpoint for the static content.
+
+        // in the case of a FAT JAR build, we do not need to set the WebRoot ..
+        // do this using config from outside!
+
+        StaticHandler staticHandler = StaticHandler.create();
+        if (doSetWebRoot) {
+            logger.info("Setting webroot for development environment!");
+            staticHandler.setWebRoot("src/main/resources/webroot");
+        }
+        staticHandler.setCachingEnabled(false);
+        staticHandler.setMaxAgeSeconds(1L);
+
+
+        Route handler = router.route().handler(staticHandler);
+
+
+        int port = config().getInteger("http.port", 8080);
+
+
+        // Start the web server and tell it to use the router to handle requests.
+        vertx.createHttpServer().requestHandler(router::accept).listen(port);
     }
-
-    Vertx vertx = Vertx.vertx();
-
-    Server thisServer = new Server();
-
-    vertx.deployVerticle(thisServer,deploymentOptions);
-
-  }
-
-  @Override
-  public void start() throws Exception {
-
-    Router router = Router.router(vertx);
-
-    // Create a router endpoint for the static content.
-    router.route().handler(StaticHandler.create());
-
-    // Start the web server and tell it to use the router to handle requests.
-    vertx.createHttpServer().requestHandler(router::accept).listen(8080);
-  }
 }
