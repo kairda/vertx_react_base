@@ -4,6 +4,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
+import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
@@ -75,6 +76,18 @@ public class Server extends AbstractVerticle {
     @Override
     public void start() throws Exception {
 
+
+/*Websocket client:
+
+        HttpClient httpClient = vertx.createHttpClient();
+        httpClient.websocket(8080,"localhost","/ws", (websocket) -> {
+                    websocket.handler(data -> {
+                        logger.info("Recevied websockt event on ws " + data);
+                    });
+                    websocket.writeTextMessage("Hello World!");
+                });
+                */
+
         Router router = Router.router(vertx);
 
 
@@ -139,7 +152,7 @@ public class Server extends AbstractVerticle {
             }
         });
 
-        router.route("/eventbus/*").handler(eventBusHandler());
+        // router.route("/eventbus/*").handler(eventBusHandler());
 
         // router.route("/api/*").handler(RedirectAuthHandler.create(authProvider, "/loginpage.html"));
 
@@ -169,7 +182,7 @@ public class Server extends AbstractVerticle {
             // sending the increase counter value as a json string.
             response.end("{\"counter\":" + (++counter) + "}");
 
-            vertx.eventBus().publish("counter",counter);
+            // vertx.eventBus().publish("counter",counter);
         });
 
         Route handler = router.route().handler(staticHandler);
@@ -178,7 +191,10 @@ public class Server extends AbstractVerticle {
         int port = config().getInteger("http.port", 8080);
 
         // Start the web server and tell it to use the router to handle requests.
-        vertx.createHttpServer().requestHandler(router::accept).listen(port);
+        vertx.createHttpServer().requestHandler(router::accept).websocketHandler(
+
+                (ws) -> {}
+        ).listen(port);
     }
 
     private SockJSHandler eventBusHandler() {
@@ -187,6 +203,10 @@ public class Server extends AbstractVerticle {
         return SockJSHandler.create(vertx).bridge(options, event -> {
             if (event.type() == BridgeEventType.SOCKET_CREATED) {
                 logger.info("A socket was created");
+            }
+
+            if (event.type() == BridgeEventType.SEND) {
+                logger.info("BridgeEventType SEND received");
             }
             event.complete(true);
         });

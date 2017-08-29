@@ -24,8 +24,8 @@ class App extends Component {
         <section className="my-card-container">
         <div className="mdc-card">
             <section className="mdc-card__primary">
-                <h1 className="mdc-card__title mdc-card__title--large">Title goes here</h1>
-                <h2 className="mdc-card__subtitle">Subtitle here</h2>
+                <h1 className="mdc-card__title mdc-card__title--large">Counter</h1>
+                <h2 className="mdc-card__subtitle">Zählt hoch</h2>
             </section>
             <section className="mdc-card__supporting-text">
                 Counter is {this.props.counter}

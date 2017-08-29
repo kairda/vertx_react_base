@@ -9,7 +9,6 @@ import { counterReducer} from "./redux/counterReducer"
 
 import { doServerCall, doCheckLogin, getSetCounterValueAction } from "./actions/actions"
 
-
 import EventBus from  './eventbus/vertx-eventbus';
 
 const store = createStore(
@@ -19,8 +18,21 @@ const store = createStore(
 // this does the initial call to the server to that the value of the counter
 // is incremented when the app starts.
 
+const wsURL = (path)  => {
+    var protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://';
+    var url = protocol + location.host;
+    if(location.hostname === 'localhost') {
+        url += '/' + location.pathname.split('/')[1]; // add context path
+    }
+    // console.log("WebsocketConnection:"+url+path);
+    return url + path;
+}
 
-var eb = new EventBus("http://localhost:8080/eventbus");
+var ws = new WebSocket(wsURL('eventbus/counter'));
+ws.onopen = (event) => { console.log("received event on open " + JSON.stringify(event))};
+ws.onmessage =  (msg) => { console.log("websocket on Message  " + JSON.stringify(msg))};
+
+/* var eb = new EventBus("http://localhost:8080/eventbus");
 
 eb.onopen = function () {
     eb.registerHandler("counter", function (err, msg) {
@@ -29,7 +41,7 @@ eb.onopen = function () {
 //        var str = "<code>" + msg.body + "</code><br>";
 //        $('#status').prepend(str);
     })
-}
+} */
 
 
 doCheckLogin(store.dispatch);
