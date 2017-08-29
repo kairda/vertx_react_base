@@ -32,7 +32,7 @@ class NavBar extends Component {
                     Try Login
                 </button>
                 <button type="button" className="mdc-button mdc-button--raised mdc-button--primary"
-                        onClick={this.props.doLogoutServerCall.bind(this, this.props.actions)}>
+                        onClick={this.props.doLogoutServerCall.bind(this, this.props.actions,  this.props.loginInfo)}>
                     Do Logout
                 </button>
 
@@ -52,7 +52,7 @@ export default connect((state) => ({loginInfo: state.login.loginInfo, actions: s
         doLoginServerCall: (actions, loginInfo ) => {
             doTryLogin(actions,loginInfo, "kai", "sausages");
         },
-        doLogoutServerCall: (actions) => {
-            doLogout(actions);
+        doLogoutServerCall: (actions, loginInfo) => {
+            doLogout(actions,loginInfo);
         }
     }))(NavBar);

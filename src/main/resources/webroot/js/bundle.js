@@ -26888,22 +26888,32 @@
 	    return { type: SET_LOGIN_INFO, loginInfo: loginInfo };
 	}
 	
+	function handleLoginResult(actions, err, res) {
+	    // console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
+	    if (res.body !== 'undefined' && res.body.isLoggedIn) {
+	        actions.dispatch(getSetLoginInfoAction(res.body.user));
+	
+	        // then we create a web-Socket-Connection ...
+	        actions.doWebSocketConnection('ws/counter?token=' + res.body.sessionid);
+	    } else {
+	        actions.doCloseWebSocketConnection();
+	        actions.dispatch(getSetLoginInfoAction("not logged in"));
+	    }
+	}
+	// This function is called only once at the very beginning of the
+	// life-cycle.
+	// it checkts, if we are already logged in somewhere else (through a
+	// still valid session, for example.
+	// if there is a valid session, then a websocket connection is
+	// established.
 	function doCheckLogin(actions) {
 	
 	    actions.doServerCall('/api/isLoggedIn', function (err, res) {
-	        // console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
-	        if (res.body !== 'undefined' && res.body.isLoggedIn) {
-	            actions.dispatch(getSetLoginInfoAction(res.body.user));
-	
-	            // then we create a web-Socket-Connection ...
-	            actions.doWebSocketConnection('ws/counter?token=' + res.body.sessionid);
-	        } else {
-	            actions.doCloseWebSocketConnection();
-	            actions.dispatch(getSetLoginInfoAction("not logged in"));
-	        }
+	        handleLoginResult(actions, err, res);
 	    });
 	}
 	
+	// tries to login with the given credentials
 	function doTryLogin(actions, loginInfo, username, password) {
 	    console.log("doTryLogin called with loginInfo " + JSON.stringify(loginInfo));
 	
@@ -26913,29 +26923,17 @@
 	    }
 	    // we only try to login, if we are not already logged in ...
 	    actions.doServerPostCall("/api/login", { username: username, password: password }, function (err, res) {
-	        console.log("Got err " + JSON.stringify(err));
-	        console.log("Got result " + JSON.stringify(res));
-	
-	        if (res.body !== 'undefined' && res.body.isLoggedIn) {
-	            actions.dispatch(getSetLoginInfoAction(res.body.user));
-	
-	            // then we create a web-Socket-Connection ...
-	            actions.doWebSocketConnection('ws/counter?token=' + res.body.sessionid);
-	        }
+	        handleLoginResult(actions, err, res);
 	    });
 	}
 	
-	function doLogout(actions) {
+	function doLogout(actions, loginInfo) {
+	    if (loginInfo === '"not logged in"') {
+	        console.log("Do not accept a logout, if not logged in in the first place ");
+	        return;
+	    }
 	    actions.doServerCall("/api/logout", function (err, res) {
-	        console.log("Got err " + JSON.stringify(err));
-	        console.log("Got result " + JSON.stringify(res));
-	
-	        if (res.body === 'undefined' || !res.body.isLoggedIn) {
-	
-	            console.log("Calling doCloseWebSocketConnection ...");
-	            actions.doCloseWebSocketConnection();
-	            actions.dispatch(getSetLoginInfoAction("not logged in"));
-	        }
+	        handleLoginResult(actions, err, res);
 	    });
 	}
 
@@ -27024,7 +27022,7 @@
 	                _react2.default.createElement(
 	                    'button',
 	                    { type: 'button', className: 'mdc-button mdc-button--raised mdc-button--primary',
-	                        onClick: this.props.doLogoutServerCall.bind(this, this.props.actions) },
+	                        onClick: this.props.doLogoutServerCall.bind(this, this.props.actions, this.props.loginInfo) },
 	                    'Do Logout'
 	                ),
 	                this.props.content
@@ -27049,8 +27047,8 @@
 	        doLoginServerCall: function doLoginServerCall(actions, loginInfo) {
 	            (0, _loginActions.doTryLogin)(actions, loginInfo, "kai", "sausages");
 	        },
-	        doLogoutServerCall: function doLogoutServerCall(actions) {
-	            (0, _loginActions.doLogout)(actions);
+	        doLogoutServerCall: function doLogoutServerCall(actions, loginInfo) {
+	            (0, _loginActions.doLogout)(actions, loginInfo);
 	        }
 	    };
 	})(NavBar);
