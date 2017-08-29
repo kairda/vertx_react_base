@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import { doCheckLogin} from "./actions/loginActions"
 
 class NavBar extends Component {
     constructor(props) {
         super(props);
+    }
+
+
+    componentDidMount() {
+        // this will check, if we are logged in ...
+        this.props.doCheckLogin(this.props.actions);
     }
 
     render() {
@@ -27,4 +34,5 @@ class NavBar extends Component {
 
 // the state is the global store state
 // we connect the local property "counter" to the global state
-export default connect( (state) => ({ loginInfo : state.loginInfo }))(NavBar);
+export default connect( (state) => ({ loginInfo : state.login.loginInfo, actions: state.base.actions }),
+    (dispatch) => ({ doCheckLogin : (actions) => { doCheckLogin(actions) }}))(NavBar);

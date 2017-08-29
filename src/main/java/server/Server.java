@@ -1,11 +1,10 @@
 package server;
 
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.DeploymentOptions;
-import io.vertx.core.Vertx;
-import io.vertx.core.VertxOptions;
-import io.vertx.core.http.HttpClient;
+import io.vertx.core.*;
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerResponse;
+import io.vertx.core.http.ServerWebSocket;
+import io.vertx.core.http.WebSocketFrame;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
@@ -17,14 +16,11 @@ import io.vertx.ext.auth.shiro.ShiroAuthRealmType;
 import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.*;
-import io.vertx.ext.web.handler.sockjs.BridgeEventType;
-import io.vertx.ext.web.handler.sockjs.BridgeOptions;
-import io.vertx.ext.web.handler.sockjs.PermittedOptions;
-import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.nio.charset.Charset;
+import java.util.*;
+
 
 /*
  * @author <a href="mailto:pmlopes@gmail.com">Paulo Lopes</a>
@@ -36,6 +32,7 @@ public class Server extends AbstractVerticle {
     static Logger logger = LoggerFactory.getLogger(Server.class.getName());
 
 
+    static Set<ServerWebSocket> webSocketSet = new HashSet<>();
     static int counter = 0;
 
     // Convenience method so you can run it in your IDE
@@ -94,7 +91,12 @@ public class Server extends AbstractVerticle {
         // We need cookies, sessions and request bodies
         router.route().handler(CookieHandler.create());
         router.route().handler(BodyHandler.create());
-        router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
+
+
+        SessionHandler sessionHandler = SessionHandler.create(LocalSessionStore.create(vertx));
+
+
+        router.route().handler(sessionHandler);
 
         ShiroAuthOptions shiroAuthOptions = new ShiroAuthOptions();
         shiroAuthOptions.setType(ShiroAuthRealmType.PROPERTIES);
@@ -124,7 +126,7 @@ public class Server extends AbstractVerticle {
 
         });
 
-        router.route("/api/logout").handler( (request) -> {
+        router.route("/api/logout").handler((request) -> {
 
             User user = request.user();
             if (user != null) {
@@ -143,7 +145,7 @@ public class Server extends AbstractVerticle {
         });
 
 
-        router.route("/api/*").handler( (context) -> {
+        router.route("/api/*").handler((context) -> {
             if (context.user() != null) {
                 // then we are logged in ....
                 context.next();
@@ -151,6 +153,8 @@ public class Server extends AbstractVerticle {
                 context.failure();
             }
         });
+
+
 
         // router.route("/eventbus/*").handler(eventBusHandler());
 
@@ -179,9 +183,29 @@ public class Server extends AbstractVerticle {
             HttpServerResponse response = request.response();
             response.putHeader("Content-Type", "application/json");
 
-            // sending the increase counter value as a json string.
-            response.end("{\"counter\":" + (++counter) + "}");
 
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.put("counter", (++counter));
+            response.end(jsonObject.toString());
+            // sending the increase counter value as a json string.
+            // response.end("{\"counter\":" + (++counter) + "}");
+
+
+            for (ServerWebSocket ws : webSocketSet) {
+
+
+                logger.info("Writing buffer to Websocket ....");
+
+
+                ws.writeTextMessage(jsonObject.toString());
+                ws.writeBinaryMessage(Buffer.buffer("bincounter " + counter));
+                ws.write(Buffer.buffer("My stuff !"));
+
+                ws.writeFrame(WebSocketFrame.binaryFrame(Buffer.buffer("{\"counter\":" + (counter) + "}", "UTF8"), true));
+//                ws.writeTextMessage("Hello World from Server!");
+//                ws.writeTextMessage("{\"counter\":" + (counter) + "}");
+//                ws.write(Buffer.buffer("{\"counter\":" + (counter) + "}"));
+            }
             // vertx.eventBus().publish("counter",counter);
         });
 
@@ -192,23 +216,64 @@ public class Server extends AbstractVerticle {
 
         // Start the web server and tell it to use the router to handle requests.
         vertx.createHttpServer().requestHandler(router::accept).websocketHandler(
+                (ServerWebSocket ws) -> {
 
-                (ws) -> {}
-        ).listen(port);
-    }
+                    logger.info("Websocket query is " + ws.query());
+                    // the query can be checked for a valid token ....
 
-    private SockJSHandler eventBusHandler() {
-        BridgeOptions options = new BridgeOptions()
-                .addOutboundPermitted(new PermittedOptions().setAddress("counter"));
-        return SockJSHandler.create(vertx).bridge(options, event -> {
-            if (event.type() == BridgeEventType.SOCKET_CREATED) {
-                logger.info("A socket was created");
-            }
+                    MultiMap headers = ws.headers();
+                    List<Map.Entry<String, String>> entries = headers.entries();
+                    for (Map.Entry<String,String> entry : entries) {
+                        logger.info("Header " + entry.getKey() + " has Value " + entry.getValue());
+                    }
+                    if (ws.path().startsWith("/ws")) {
+                        logger.info("Inside WebSocketHandler. path is " + ws.path());
+                        webSocketSet.add(ws);
+                        ws.handler((Buffer data) -> {
+                                logger.info("Inside WebSocketHandler handler. Data is " + data.toString(Charset.forName("UTF8")));
 
-            if (event.type() == BridgeEventType.SEND) {
-                logger.info("BridgeEventType SEND received");
-            }
-            event.complete(true);
-        });
-    }
+                                JsonObject jsonInputObject = new JsonObject(data);
+                                if (jsonInputObject != null && jsonInputObject.getString("name").equals("counter")) {
+                                    // then we increase the counter ....
+
+
+                                    JsonObject jsonObject = new JsonObject();
+                                    jsonObject.put("counter", (++counter));
+
+                                    for (ServerWebSocket ws2 : webSocketSet) {
+
+
+                                        logger.info("Writing buffer to Websocket ....");
+
+                                        ws2.writeTextMessage(jsonObject.toString());
+                                        ws2.writeBinaryMessage(Buffer.buffer("bincounter " + counter));
+                                        ws2.write(Buffer.buffer("My stuff !"));
+                                        ws2.writeFrame(WebSocketFrame.binaryFrame(Buffer.buffer("{\"counter\":" + (counter) + "}", "UTF8"), true));
+                                    }
+                                    return;
+
+                                }
+
+                                {
+                                    JsonObject jsonObject = new JsonObject();
+                                    jsonObject.put("message", "Hello World!");
+                                    jsonObject.put("counter", counter);
+                                    ws.writeTextMessage(jsonObject.toString());
+                                }
+
+                        });
+
+                        ws.closeHandler((empty) -> {
+                            logger.info("Removing websocket from webSocketSet");
+                            webSocketSet.remove(ws);
+                        });
+                    } else {
+                        ws.reject();
+                    }
+
+    }).
+
+    listen(port);
+}
+
 }

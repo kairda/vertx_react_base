@@ -1,45 +1,51 @@
-
 import Request from 'superagent';
+import WebSocketHelper from './../websocket/websocket-helper';
+
+import { handleBusinessMessages } from "./businessActions"
+
+class Actions {
+
+    dispatch = null;
+    wsh = null;
+
+    initDispatch(pDispatch) {
+        this.dispatch = pDispatch;
+    }
+
+    doWebSocketConnection(wsPath) {
+        this.wsh = new WebSocketHelper();
+        this.wsh.openConnection(this,this.dispatch, wsPath);
+    }
+
+    doCloseWebSocketConnection() {
+        if (this.wsh) {
+            this.wsh.close();
+        }
+        this.wsh = null;
+    }
 
 
-export const SET_COUNTER_VALUE = 'SET_COUNTER_VALUE'
-export const SET_LOGIN_INFO = 'SET_LOGIN_INFO'
+    doServerCall(name, endFunction) {
+        Request.get(name)
+            .end(endFunction);
+    }
 
+    doServerCallWebSocket(name, data) {
+        if (this.wsh) {
+            this.wsh.callWebSocketFunction(name, data);
+        }
+    }
 
-export function getSetCounterValueAction(counter) {
-    return { type: SET_COUNTER_VALUE, counter: counter }
+    receiveArrayBuffer(data) {
+        var mystrdata = WebSocketHelper.ab2str(event.data);
+        console.log("Received arrayBuffer, converted to string ..." + mystrdata);
+    }
+
+    receiveJSON(json) {
+        if (!handleBusinessMessages(this.dispatch, json)) {
+            console.log("Could not handle message " + JSON.stringify(json));
+        }
+    }
 }
 
-export function getSetLoginInfoAction(loginInfo) {
-    return { type: SET_LOGIN_INFO, loginInfo: loginInfo }
-}
-
-
-export function doServerCall(dispatch) {
-    // now we call the server to increment the counter ....
-
-    Request.get('/api/counter')
-        .end(function(err, res) {
-            if (res !== 'undefined' && res && res.body !== 'undefined' && res.body && res.body.counter) {
-                // console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
-                // this dispatches the new Action to all the reducers ...
-                console.log("Got new counter value " + res.body.counter);
-                // dispatch(getSetCounterValueAction(res.body.counter));
-            }
-        });
-}
-
-export function doCheckLogin(dispatch) {
-
-    // now we call the server to increment the counter ....
-    Request.get('/api/isLoggedIn')
-        .end(function(err, res) {
-            // console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
-            if (res.body !== 'undefined' && res.body.isLoggedIn) {
-                dispatch(getSetLoginInfoAction(res.body.user));
-            } else {
-                dispatch(getSetLoginInfoAction("not logged in"));
-            }
-        });
-}
-
+export default Actions;

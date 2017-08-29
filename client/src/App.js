@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 
 import { connect } from 'react-redux';
-import { doServerCall} from "./actions/actions"
-
 
 
 
@@ -31,7 +29,8 @@ class App extends Component {
                 Counter is {this.props.counter}
             </section>
             <section className="mdc-card__actions">
-                <button className="mdc-button mdc-button--compact mdc-card__action">Action 1</button>
+                <button className="mdc-button mdc-button--compact mdc-card__action"
+                        onClick={this.props.doActionCall.bind(this,this.props.actions)}>Action 1</button>
                 <button className="mdc-button mdc-button--compact mdc-card__action">Action 2</button>
             </section>
         </div>
@@ -52,7 +51,7 @@ class App extends Component {
 
 
         <button type="button" className="mdc-button mdc-button--raised mdc-button--primary"
-                onClick={this.props.doServerCall}>
+                onClick={this.props.doServerCall.bind(this,this.props.actions)}>
             Server-Call Counter Increase
         </button>
 
@@ -122,8 +121,11 @@ class App extends Component {
 
 // the state is the global store state
 // we connect the local property "counter" to the global state
-export default connect((state) => ( { counter : state.counter } ),
+export default connect((state) => ( { counter : state.counter.counter, actions: state.base.actions } ),
     (dispatch) => ( {                         // the dispatch is provided by react-redux
-            doServerCall: () => {           // it is used to put transport the action to
-                doServerCall(dispatch)      // the reducers, resulting in a change in the global state
-            } }) )(App);
+            doServerCall: (actions) => {           // it is used to put transport the action to
+                actions.doServerCallWebSocket('counter')      // the reducers, resulting in a change in the global state
+            },
+            doActionCall: (actions) => {
+                actions.doServerCallWebSocket('action')
+            }}) )(App);
