@@ -1,9 +1,12 @@
 import Request from 'superagent';
 import WebSocketHelper from './../websocket/websocket-helper';
 
+import { Component } from 'react';
+import { connect } from 'react-redux';
+
 import { handleBusinessMessages } from "./businessActions"
 
-class Actions {
+class Actions extends Component {
 
     dispatch = null;
     wsh = null;
@@ -13,12 +16,16 @@ class Actions {
     }
 
     doWebSocketConnection(wsPath) {
+        if (this.wsh != null) {
+            this.wsh.close();
+        }
         this.wsh = new WebSocketHelper();
         this.wsh.openConnection(this,this.dispatch, wsPath);
     }
 
     doCloseWebSocketConnection() {
         if (this.wsh) {
+            console.log("Calling close on WebSocketHelper");
             this.wsh.close();
         }
         this.wsh = null;

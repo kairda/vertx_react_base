@@ -1,4 +1,6 @@
 
+import { doLogout } from "../actions/loginActions"
+
 class WebSocketHelper {
 
 
@@ -13,7 +15,7 @@ class WebSocketHelper {
         if(location.hostname === 'localhost') {
             url += '/' + location.pathname.split('/')[1]; // add context path
         }
-        // console.log("WebsocketConnection:"+url+path);
+        console.log("WebsocketConnection:"+url+path);
         return url + path;
     }
 
@@ -25,6 +27,12 @@ class WebSocketHelper {
 
     openConnection(pActions,pDispatch, wsPath) {
 
+        console.log("Inside openConnection of WebSocketHelper");
+        if (this.ws && this.ws.readyState == WebSocket.OPEN) {
+            console.log("closing previous webSocket connection before opening a new connection ");
+            this.ws.close();
+        }
+
         this.actions = pActions;
         this.dispatch = pDispatch;
         this.ws = new WebSocket(WebSocketHelper.wsURL(wsPath));
@@ -32,6 +40,7 @@ class WebSocketHelper {
         this.ws.binaryType = 'arraybuffer';
         this.ws.onopen = this.onOpen.bind(this);
         this.ws.onmessage =  this.onMessage.bind(this);
+        this.ws.onclose = this.onClose.bind(this);
 
     }
 
@@ -54,10 +63,20 @@ class WebSocketHelper {
         }
     };
 
+    onClose = (event) => {
+        console.log("Receiving onClose on webSocket connection");
+        // then we have to close this websocket ....
+        // and do a logout ...
+        doLogout(this.actions);
+    }
+
 
 
     close() {
-        if (this.ws) {
+
+        console.log("WebSocketHelper close ....");
+        if (this.ws && this.ws.readyState == WebSocket.OPEN) {
+            console.log("Now closing the WebSocket ");
             this.ws.close();
         }
     }

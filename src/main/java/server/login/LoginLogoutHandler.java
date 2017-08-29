@@ -11,13 +11,25 @@ import io.vertx.ext.auth.User;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.Session;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginLogoutHandler {
 
 
+    public static Map<String,User> sessionIdToUserMap = new HashMap<>();
+
     public static Handler<RoutingContext> checkIsLoggedInHandler = (request) -> {
         User user = request.user();
+        Session session= request.session();
 
-        HttpServerResponse response = request.response();
+        generateResponse(request.response(),user,session.id());
+
+
+    };
+
+    private static void generateResponse(HttpServerResponse response, User user, String  sessionId) {
+
         response.putHeader("Content-Type", "application/json");
 
         // sending the increase counter value as a json string.
@@ -26,10 +38,11 @@ public class LoginLogoutHandler {
         if (user != null) {
             jsonObject.put("user", user.principal());
         }
+        if (sessionId != null) {
+            jsonObject.put("sessionid", sessionId);
+        }
         response.end(jsonObject.toString());
-
-    };
-
+    }
 
     public static Handler<RoutingContext> loginHandler(AuthProvider authProvider) {
         return (context) -> {
@@ -39,16 +52,7 @@ public class LoginLogoutHandler {
 
             if (context.user() != null) {
 
-                HttpServerResponse response = req.response();
-                response.putHeader("Content-Type", "application/json");
-
-                // sending the increase counter value as a json string.
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.put("isLoggedIn", context.user() != null);
-                if (context.user() != null) {
-                    jsonObject.put("user", context.user().principal());
-                }
-                response.end(jsonObject.toString());
+                generateResponse(req.response(),context.user(), context.session().id());
                 return;
             } else {
                 context.failure();
@@ -73,17 +77,9 @@ public class LoginLogoutHandler {
                                 session.regenerateId();
                             }
 
+                            sessionIdToUserMap.put(session.id(),user);
 
-                            HttpServerResponse response = req.response();
-                            response.putHeader("Content-Type", "application/json");
-
-                            // sending the increase counter value as a json string.
-                            JsonObject jsonObject = new JsonObject();
-                            jsonObject.put("isLoggedIn", user != null);
-                            if (user != null) {
-                                jsonObject.put("user", user.principal());
-                            }
-                            response.end(jsonObject.toString());
+                            generateResponse(req.response(),user,session.id());
 
                         } else {
                             context.fail(403);
@@ -104,19 +100,14 @@ public class LoginLogoutHandler {
 
     public static Handler<RoutingContext> logoutHandler = (request) -> {
 
+        sessionIdToUserMap.remove(request.session().id());
         User user = request.user();
         if (user != null) {
             request.clearUser();
             user = null;
         }
 
-        HttpServerResponse response = request.response();
-        response.putHeader("Content-Type", "application/json");
-
-        // sending the increase counter value as a json string.
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.put("isLoggedIn", false);
-        response.end(jsonObject.toString());
+        generateResponse(request.response(),user,null);
 
     };
 

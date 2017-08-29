@@ -14,7 +14,7 @@ export function doCheckLogin(actions) {
                 actions.dispatch(getSetLoginInfoAction(res.body.user));
 
                 // then we create a web-Socket-Connection ...
-                actions.doWebSocketConnection('ws/counter?token=1234567');
+                actions.doWebSocketConnection('ws/counter?token=' + res.body.sessionid);
 
             } else {
                 actions.doCloseWebSocketConnection();
@@ -25,7 +25,14 @@ export function doCheckLogin(actions) {
         )
 }
 
-export function doTryLogin(actions,username,password) {
+export function doTryLogin(actions,loginInfo, username,password) {
+    console.log("doTryLogin called with loginInfo " + JSON.stringify(loginInfo));
+
+    if (loginInfo !== '"not logged in"') {
+        console.log("Do not retry a login while we are still logged in ");
+        return;
+    }
+    // we only try to login, if we are not already logged in ...
     actions.doServerPostCall("/api/login" , { username : username , password : password },
         (err,res) => {
             console.log("Got err " + JSON.stringify(err));
@@ -35,7 +42,7 @@ export function doTryLogin(actions,username,password) {
                 actions.dispatch(getSetLoginInfoAction(res.body.user));
 
                 // then we create a web-Socket-Connection ...
-                actions.doWebSocketConnection('ws/counter?token=1234567');
+                actions.doWebSocketConnection('ws/counter?token=' + res.body.sessionid);
 
             }
         });
@@ -48,14 +55,9 @@ export function doLogout(actions) {
             console.log("Got err " + JSON.stringify(err));
             console.log("Got result " + JSON.stringify(res));
 
-            if (res.body !== 'undefined' && res.body.isLoggedIn) {
-                actions.dispatch(getSetLoginInfoAction(res.body.user));
+            if (res.body === 'undefined' || !res.body.isLoggedIn) {
 
-                // then we create a web-Socket-Connection ...
-                actions.doWebSocketConnection('ws/counter?token=1234567');
-            }
-
-            else {
+                console.log("Calling doCloseWebSocketConnection ...");
                 actions.doCloseWebSocketConnection();
                 actions.dispatch(getSetLoginInfoAction("not logged in"));
             }

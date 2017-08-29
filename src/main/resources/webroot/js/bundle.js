@@ -24672,18 +24672,35 @@
 	
 	var _websocketHelper2 = _interopRequireDefault(_websocketHelper);
 	
+	var _react = __webpack_require__(1);
+	
+	var _reactRedux = __webpack_require__(184);
+	
 	var _businessActions = __webpack_require__(234);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var Actions = function () {
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Actions = function (_Component) {
+	    _inherits(Actions, _Component);
+	
 	    function Actions() {
+	        var _ref;
+	
+	        var _temp, _this, _ret;
+	
 	        _classCallCheck(this, Actions);
 	
-	        this.dispatch = null;
-	        this.wsh = null;
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
+	        }
+	
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Actions.__proto__ || Object.getPrototypeOf(Actions)).call.apply(_ref, [this].concat(args))), _this), _this.dispatch = null, _this.wsh = null, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
 	
 	    _createClass(Actions, [{
@@ -24694,6 +24711,9 @@
 	    }, {
 	        key: 'doWebSocketConnection',
 	        value: function doWebSocketConnection(wsPath) {
+	            if (this.wsh != null) {
+	                this.wsh.close();
+	            }
 	            this.wsh = new _websocketHelper2.default();
 	            this.wsh.openConnection(this, this.dispatch, wsPath);
 	        }
@@ -24701,6 +24721,7 @@
 	        key: 'doCloseWebSocketConnection',
 	        value: function doCloseWebSocketConnection() {
 	            if (this.wsh) {
+	                console.log("Calling close on WebSocketHelper");
 	                this.wsh.close();
 	            }
 	            this.wsh = null;
@@ -24739,7 +24760,7 @@
 	    }]);
 	
 	    return Actions;
-	}();
+	}(_react.Component);
 	
 	exports.default = Actions;
 
@@ -26712,7 +26733,7 @@
 
 /***/ }),
 /* 233 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -26721,6 +26742,8 @@
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _loginActions = __webpack_require__(235);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -26743,11 +26766,24 @@
 	                _this.actions.receiveJSON(json);
 	            }
 	        };
+	
+	        this.onClose = function (event) {
+	            console.log("Receiving onClose on webSocket connection");
+	            // then we have to close this websocket ....
+	            // and do a logout ...
+	            (0, _loginActions.doLogout)(_this.actions);
+	        };
 	    }
 	
 	    _createClass(WebSocketHelper, [{
 	        key: 'openConnection',
 	        value: function openConnection(pActions, pDispatch, wsPath) {
+	
+	            console.log("Inside openConnection of WebSocketHelper");
+	            if (this.ws && this.ws.readyState == WebSocket.OPEN) {
+	                console.log("closing previous webSocket connection before opening a new connection ");
+	                this.ws.close();
+	            }
 	
 	            this.actions = pActions;
 	            this.dispatch = pDispatch;
@@ -26756,6 +26792,7 @@
 	            this.ws.binaryType = 'arraybuffer';
 	            this.ws.onopen = this.onOpen.bind(this);
 	            this.ws.onmessage = this.onMessage.bind(this);
+	            this.ws.onclose = this.onClose.bind(this);
 	        }
 	    }, {
 	        key: 'onOpen',
@@ -26768,7 +26805,10 @@
 	    }, {
 	        key: 'close',
 	        value: function close() {
-	            if (this.ws) {
+	
+	            console.log("WebSocketHelper close ....");
+	            if (this.ws && this.ws.readyState == WebSocket.OPEN) {
+	                console.log("Now closing the WebSocket ");
 	                this.ws.close();
 	            }
 	        }
@@ -26795,7 +26835,7 @@
 	    if (location.hostname === 'localhost') {
 	        url += '/' + location.pathname.split('/')[1]; // add context path
 	    }
-	    // console.log("WebsocketConnection:"+url+path);
+	    console.log("WebsocketConnection:" + url + path);
 	    return url + path;
 	};
 	
@@ -26856,7 +26896,7 @@
 	            actions.dispatch(getSetLoginInfoAction(res.body.user));
 	
 	            // then we create a web-Socket-Connection ...
-	            actions.doWebSocketConnection('ws/counter?token=1234567');
+	            actions.doWebSocketConnection('ws/counter?token=' + res.body.sessionid);
 	        } else {
 	            actions.doCloseWebSocketConnection();
 	            actions.dispatch(getSetLoginInfoAction("not logged in"));
@@ -26864,7 +26904,14 @@
 	    });
 	}
 	
-	function doTryLogin(actions, username, password) {
+	function doTryLogin(actions, loginInfo, username, password) {
+	    console.log("doTryLogin called with loginInfo " + JSON.stringify(loginInfo));
+	
+	    if (loginInfo !== '"not logged in"') {
+	        console.log("Do not retry a login while we are still logged in ");
+	        return;
+	    }
+	    // we only try to login, if we are not already logged in ...
 	    actions.doServerPostCall("/api/login", { username: username, password: password }, function (err, res) {
 	        console.log("Got err " + JSON.stringify(err));
 	        console.log("Got result " + JSON.stringify(res));
@@ -26873,7 +26920,7 @@
 	            actions.dispatch(getSetLoginInfoAction(res.body.user));
 	
 	            // then we create a web-Socket-Connection ...
-	            actions.doWebSocketConnection('ws/counter?token=1234567');
+	            actions.doWebSocketConnection('ws/counter?token=' + res.body.sessionid);
 	        }
 	    });
 	}
@@ -26883,12 +26930,9 @@
 	        console.log("Got err " + JSON.stringify(err));
 	        console.log("Got result " + JSON.stringify(res));
 	
-	        if (res.body !== 'undefined' && res.body.isLoggedIn) {
-	            actions.dispatch(getSetLoginInfoAction(res.body.user));
+	        if (res.body === 'undefined' || !res.body.isLoggedIn) {
 	
-	            // then we create a web-Socket-Connection ...
-	            actions.doWebSocketConnection('ws/counter?token=1234567');
-	        } else {
+	            console.log("Calling doCloseWebSocketConnection ...");
 	            actions.doCloseWebSocketConnection();
 	            actions.dispatch(getSetLoginInfoAction("not logged in"));
 	        }
@@ -26974,7 +27018,7 @@
 	                _react2.default.createElement(
 	                    'button',
 	                    { type: 'button', className: 'mdc-button mdc-button--raised mdc-button--primary',
-	                        onClick: this.props.doLoginServerCall.bind(this, this.props.actions) },
+	                        onClick: this.props.doLoginServerCall.bind(this, this.props.actions, this.props.loginInfo) },
 	                    'Try Login'
 	                ),
 	                _react2.default.createElement(
@@ -27002,8 +27046,8 @@
 	        doCheckLogin: function doCheckLogin(actions) {
 	            (0, _loginActions.doCheckLogin)(actions);
 	        },
-	        doLoginServerCall: function doLoginServerCall(actions) {
-	            (0, _loginActions.doTryLogin)(actions, "kai", "sausages");
+	        doLoginServerCall: function doLoginServerCall(actions, loginInfo) {
+	            (0, _loginActions.doTryLogin)(actions, loginInfo, "kai", "sausages");
 	        },
 	        doLogoutServerCall: function doLogoutServerCall(actions) {
 	            (0, _loginActions.doLogout)(actions);

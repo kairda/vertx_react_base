@@ -28,7 +28,7 @@ class NavBar extends Component {
                 </header>
 
                 <button type="button" className="mdc-button mdc-button--raised mdc-button--primary"
-                        onClick={this.props.doLoginServerCall.bind(this, this.props.actions)}>
+                        onClick={this.props.doLoginServerCall.bind(this, this.props.actions, this.props.loginInfo)}>
                     Try Login
                 </button>
                 <button type="button" className="mdc-button mdc-button--raised mdc-button--primary"
@@ -49,8 +49,8 @@ export default connect((state) => ({loginInfo: state.login.loginInfo, actions: s
         doCheckLogin: (actions) => {
             doCheckLogin(actions)
         },
-        doLoginServerCall: (actions) => {
-            doTryLogin(actions, "kai", "sausages");
+        doLoginServerCall: (actions, loginInfo ) => {
+            doTryLogin(actions,loginInfo, "kai", "sausages");
         },
         doLogoutServerCall: (actions) => {
             doLogout(actions);
