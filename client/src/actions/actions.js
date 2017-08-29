@@ -30,6 +30,14 @@ class Actions {
             .end(endFunction);
     }
 
+    doServerPostCall(name,headers,endFunction) {
+
+        Request.post('/api/login')
+            .set('Accept', 'application/json')
+            .send( headers )
+            .end(endFunction);
+    }
+
     doServerCallWebSocket(name, data) {
         if (this.wsh) {
             this.wsh.callWebSocketFunction(name, data);

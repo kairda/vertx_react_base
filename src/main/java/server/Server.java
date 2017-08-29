@@ -9,7 +9,6 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.auth.AuthProvider;
-import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.shiro.ShiroAuth;
 import io.vertx.ext.auth.shiro.ShiroAuthOptions;
 import io.vertx.ext.auth.shiro.ShiroAuthRealmType;
@@ -17,6 +16,7 @@ import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.sstore.LocalSessionStore;
+import server.login.LoginLogoutHandler;
 
 import java.nio.charset.Charset;
 import java.util.*;
@@ -74,16 +74,6 @@ public class Server extends AbstractVerticle {
     public void start() throws Exception {
 
 
-/*Websocket client:
-
-        HttpClient httpClient = vertx.createHttpClient();
-        httpClient.websocket(8080,"localhost","/ws", (websocket) -> {
-                    websocket.handler(data -> {
-                        logger.info("Recevied websockt event on ws " + data);
-                    });
-                    websocket.writeTextMessage("Hello World!");
-                });
-                */
 
         Router router = Router.router(vertx);
 
@@ -91,12 +81,7 @@ public class Server extends AbstractVerticle {
         // We need cookies, sessions and request bodies
         router.route().handler(CookieHandler.create());
         router.route().handler(BodyHandler.create());
-
-
-        SessionHandler sessionHandler = SessionHandler.create(LocalSessionStore.create(vertx));
-
-
-        router.route().handler(sessionHandler);
+        router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
 
         ShiroAuthOptions shiroAuthOptions = new ShiroAuthOptions();
         shiroAuthOptions.setType(ShiroAuthRealmType.PROPERTIES);
@@ -110,59 +95,15 @@ public class Server extends AbstractVerticle {
         router.route().handler(UserSessionHandler.create(authProvider));
 
         // this shows, if the user is logged in ....
-        router.route("/api/isLoggedIn").handler((request) -> {
-            User user = request.user();
+        router.route("/api/isLoggedIn").handler(LoginLogoutHandler.checkIsLoggedInHandler);
+        router.route("/api/logout").handler(LoginLogoutHandler.logoutHandler);
 
-            HttpServerResponse response = request.response();
-            response.putHeader("Content-Type", "application/json");
+        router.route("/api/login").handler(LoginLogoutHandler.loginHandler(authProvider));
 
-            // sending the increase counter value as a json string.
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.put("isLoggedIn", user != null);
-            if (user != null) {
-                jsonObject.put("user", user.principal());
-            }
-            response.end(jsonObject.toString());
+        router.route("/api/*").handler(LoginLogoutHandler.isLoggedInHandler);
 
-        });
-
-        router.route("/api/logout").handler((request) -> {
-
-            User user = request.user();
-            if (user != null) {
-                request.clearUser();
-                user = null;
-            }
-
-            HttpServerResponse response = request.response();
-            response.putHeader("Content-Type", "application/json");
-
-            // sending the increase counter value as a json string.
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.put("isLoggedIn", false);
-            response.end(jsonObject.toString());
-
-        });
-
-
-        router.route("/api/*").handler((context) -> {
-            if (context.user() != null) {
-                // then we are logged in ....
-                context.next();
-            } else {
-                context.failure();
-            }
-        });
-
-
-
-        // router.route("/eventbus/*").handler(eventBusHandler());
-
-        // router.route("/api/*").handler(RedirectAuthHandler.create(authProvider, "/loginpage.html"));
-
-
-        // Handles the actual login
-        router.route("/loginhandler").handler(FormLoginHandler.create(authProvider));
+        // Previously ... Handles the actual login
+        // router.route("/loginhandler").handler(FormLoginHandler.create(authProvider));
 
         // Create a router endpoint for the static content.
 

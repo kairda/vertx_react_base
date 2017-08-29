@@ -24711,6 +24711,12 @@
 	            _superagent2.default.get(name).end(endFunction);
 	        }
 	    }, {
+	        key: 'doServerPostCall',
+	        value: function doServerPostCall(name, headers, endFunction) {
+	
+	            _superagent2.default.post('/api/login').set('Accept', 'application/json').send(headers).end(endFunction);
+	        }
+	    }, {
 	        key: 'doServerCallWebSocket',
 	        value: function doServerCallWebSocket(name, data) {
 	            if (this.wsh) {
@@ -26834,6 +26840,8 @@
 	});
 	exports.getSetLoginInfoAction = getSetLoginInfoAction;
 	exports.doCheckLogin = doCheckLogin;
+	exports.doTryLogin = doTryLogin;
+	exports.doLogout = doLogout;
 	var SET_LOGIN_INFO = exports.SET_LOGIN_INFO = 'SET_LOGIN_INFO';
 	
 	function getSetLoginInfoAction(loginInfo) {
@@ -26844,6 +26852,37 @@
 	
 	    actions.doServerCall('/api/isLoggedIn', function (err, res) {
 	        // console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
+	        if (res.body !== 'undefined' && res.body.isLoggedIn) {
+	            actions.dispatch(getSetLoginInfoAction(res.body.user));
+	
+	            // then we create a web-Socket-Connection ...
+	            actions.doWebSocketConnection('ws/counter?token=1234567');
+	        } else {
+	            actions.doCloseWebSocketConnection();
+	            actions.dispatch(getSetLoginInfoAction("not logged in"));
+	        }
+	    });
+	}
+	
+	function doTryLogin(actions, username, password) {
+	    actions.doServerPostCall("/api/login", { username: username, password: password }, function (err, res) {
+	        console.log("Got err " + JSON.stringify(err));
+	        console.log("Got result " + JSON.stringify(res));
+	
+	        if (res.body !== 'undefined' && res.body.isLoggedIn) {
+	            actions.dispatch(getSetLoginInfoAction(res.body.user));
+	
+	            // then we create a web-Socket-Connection ...
+	            actions.doWebSocketConnection('ws/counter?token=1234567');
+	        }
+	    });
+	}
+	
+	function doLogout(actions) {
+	    actions.doServerCall("/api/logout", function (err, res) {
+	        console.log("Got err " + JSON.stringify(err));
+	        console.log("Got result " + JSON.stringify(res));
+	
 	        if (res.body !== 'undefined' && res.body.isLoggedIn) {
 	            actions.dispatch(getSetLoginInfoAction(res.body.user));
 	
@@ -26932,6 +26971,18 @@
 	                        )
 	                    )
 	                ),
+	                _react2.default.createElement(
+	                    'button',
+	                    { type: 'button', className: 'mdc-button mdc-button--raised mdc-button--primary',
+	                        onClick: this.props.doLoginServerCall.bind(this, this.props.actions) },
+	                    'Try Login'
+	                ),
+	                _react2.default.createElement(
+	                    'button',
+	                    { type: 'button', className: 'mdc-button mdc-button--raised mdc-button--primary',
+	                        onClick: this.props.doLogoutServerCall.bind(this, this.props.actions) },
+	                    'Do Logout'
+	                ),
 	                this.props.content
 	            );
 	        }
@@ -26947,9 +26998,17 @@
 	exports.default = (0, _reactRedux.connect)(function (state) {
 	    return { loginInfo: state.login.loginInfo, actions: state.base.actions };
 	}, function (dispatch) {
-	    return { doCheckLogin: function doCheckLogin(actions) {
+	    return {
+	        doCheckLogin: function doCheckLogin(actions) {
 	            (0, _loginActions.doCheckLogin)(actions);
-	        } };
+	        },
+	        doLoginServerCall: function doLoginServerCall(actions) {
+	            (0, _loginActions.doTryLogin)(actions, "kai", "sausages");
+	        },
+	        doLogoutServerCall: function doLogoutServerCall(actions) {
+	            (0, _loginActions.doLogout)(actions);
+	        }
+	    };
 	})(NavBar);
 
 /***/ }),

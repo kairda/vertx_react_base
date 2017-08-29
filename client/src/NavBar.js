@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import { doCheckLogin} from "./actions/loginActions"
+import {doCheckLogin, doTryLogin, doLogout } from "./actions/loginActions"
 
 class NavBar extends Component {
     constructor(props) {
@@ -26,6 +26,16 @@ class NavBar extends Component {
                         </section>
                     </div>
                 </header>
+
+                <button type="button" className="mdc-button mdc-button--raised mdc-button--primary"
+                        onClick={this.props.doLoginServerCall.bind(this, this.props.actions)}>
+                    Try Login
+                </button>
+                <button type="button" className="mdc-button mdc-button--raised mdc-button--primary"
+                        onClick={this.props.doLogoutServerCall.bind(this, this.props.actions)}>
+                    Do Logout
+                </button>
+
                 {this.props.content}
             </div>
         );
@@ -34,5 +44,15 @@ class NavBar extends Component {
 
 // the state is the global store state
 // we connect the local property "counter" to the global state
-export default connect( (state) => ({ loginInfo : state.login.loginInfo, actions: state.base.actions }),
-    (dispatch) => ({ doCheckLogin : (actions) => { doCheckLogin(actions) }}))(NavBar);
+export default connect((state) => ({loginInfo: state.login.loginInfo, actions: state.base.actions}),
+    (dispatch) => ({
+        doCheckLogin: (actions) => {
+            doCheckLogin(actions)
+        },
+        doLoginServerCall: (actions) => {
+            doTryLogin(actions, "kai", "sausages");
+        },
+        doLogoutServerCall: (actions) => {
+            doLogout(actions);
+        }
+    }))(NavBar);
