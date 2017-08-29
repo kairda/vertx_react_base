@@ -97,7 +97,6 @@ public class Server extends AbstractVerticle {
         // this shows, if the user is logged in ....
         router.route("/api/isLoggedIn").handler(LoginLogoutHandler.checkIsLoggedInHandler);
         router.route("/api/logout").handler(LoginLogoutHandler.logoutHandler);
-
         router.route("/api/login").handler(LoginLogoutHandler.loginHandler(authProvider));
 
         router.route("/api/*").handler(LoginLogoutHandler.isLoggedInHandler);
@@ -124,19 +123,15 @@ public class Server extends AbstractVerticle {
             HttpServerResponse response = request.response();
             response.putHeader("Content-Type", "application/json");
 
-
             JsonObject jsonObject = new JsonObject();
             jsonObject.put("counter", (++counter));
             response.end(jsonObject.toString());
             // sending the increase counter value as a json string.
             // response.end("{\"counter\":" + (++counter) + "}");
 
-
             for (ServerWebSocket ws : webSocketSet) {
 
-
                 logger.info("Writing buffer to Websocket ....");
-
 
                 ws.writeTextMessage(jsonObject.toString());
                 ws.writeBinaryMessage(Buffer.buffer("bincounter " + counter));
@@ -151,7 +146,6 @@ public class Server extends AbstractVerticle {
         });
 
         Route handler = router.route().handler(staticHandler);
-
 
         int port = config().getInteger("http.port", 8080);
 
