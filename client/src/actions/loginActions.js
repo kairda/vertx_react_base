@@ -13,7 +13,7 @@ function handleLoginResult(actions,err,res) {
     if (res && res !== 'undefined' && res.body && res.body !== 'undefined' && res.body.isLoggedIn) {
         actions.dispatch(getSetLoginInfoAction(true,JSON.stringify(res.body.user)));
         // then we create a web-Socket-Connection ...
-        actions.doWebSocketConnection('/ws/counter?token=' + res.body.sessionid);
+        actions.doWebSocketConnection('ws/counter?token=' + res.body.sessionid);
 
     } else {
         actions.doCloseWebSocketConnection();

@@ -24717,7 +24717,7 @@
 	    if (res && res !== 'undefined' && res.body && res.body !== 'undefined' && res.body.isLoggedIn) {
 	        actions.dispatch(getSetLoginInfoAction(true, JSON.stringify(res.body.user)));
 	        // then we create a web-Socket-Connection ...
-	        actions.doWebSocketConnection('/ws/counter?token=' + res.body.sessionid);
+	        actions.doWebSocketConnection('ws/counter?token=' + res.body.sessionid);
 	    } else {
 	        actions.doCloseWebSocketConnection();
 	        actions.dispatch(getSetLoginInfoAction(false, NOT_LOGGED_IN));
@@ -27025,10 +27025,13 @@
 	
 	WebSocketHelper.wsURL = function (path) {
 	    var protocol = location.protocol === 'https:' ? 'wss://' : 'ws://';
-	    var url = protocol + location.host;
-	    if (location.hostname === 'localhost') {
-	        url += '/' + location.pathname.split('/')[1]; // add context path
-	    }
+	    console.log("location.pathname is " + location.pathname);
+	    var pathname = location.pathname;
+	
+	    var url = protocol + location.host + pathname;
+	    // if(location.hostname === 'localhost') {
+	    //    url += '/' + location.pathname.split('/')[1]; // add context path
+	    // }
 	    console.log("WebsocketConnection:" + url + path);
 	    return url + path;
 	};
