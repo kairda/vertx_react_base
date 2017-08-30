@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import { Toolbar, ToolbarRow, ToolbarSection, ToolbarTitle,  Content, Button } from 'react-mdc-web'
 import {doCheckLogin, doTryLogin, doLogout } from "./actions/loginActions"
 
 import LoginView from './views/LoginView'
@@ -19,32 +20,32 @@ class NavBar extends Component {
     render() {
         return (
             <div>
-                <header className="mdc-toolbar">
-                    <div className="mdc-toolbar__row">
-                        <section className="mdc-toolbar__section mdc-toolbar__section--align-start">
+                <Toolbar>
+                    <ToolbarRow>
+                        <ToolbarSection align="start">
                             <a href="#" className="material-icons mdc-toolbar__icon--menu">menu</a>
-                            <span className="mdc-toolbar__title">Title</span>
-                            <span className="mdc-toolbar--flexible-space-minimized">{this.props.loginInfo}</span>
-                        </section>
-                    </div>
-                </header>
+                            <ToolbarTitle>Title</ToolbarTitle>
+                            {this.props.loginInfo}
+                        </ToolbarSection>
+                    </ToolbarRow>
+                </Toolbar>
 
+            <Content>
                 {!this.props.isLoggedIn ?
                 <div>
                     <LoginView />
 
-                <button type="button" className="mdc-button mdc-button--raised mdc-button--primary"
-                        onClick={this.props.doLoginServerCall.bind(this, this.props.actions, this.props.loginInfo)}>
-                    Try Login
-                </button>
                 </div> :
                     <div>
-                    <button type="button" className="mdc-button mdc-button--raised mdc-button--primary"
-                            onClick={this.props.doLogoutServerCall.bind(this, this.props.actions,  this.props.loginInfo)}>
-                        Do Logout
-                    </button>
+                    <Button raised primary
+                            onClick={this.props.doLogoutServerCall.bind(this, this.props.actions, this.props.loginInfo)}>
+                        Logout
+                    </Button>
+
                         {this.props.content}
-                    </div>}
+                    </div>
+                }
+            </Content>
             </div>
         );
     }
