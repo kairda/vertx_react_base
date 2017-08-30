@@ -10,13 +10,6 @@ class LoginView extends Component {
         super(props);
     }
 
-    componentDidMount() {
-        console.log("componentDidUpdate was called ...")
-        if (mdc) {
-            console.log("mdc.autoInit called .... ");
-            mdc.autoInit();
-        }
-    }
 
     render() {
 

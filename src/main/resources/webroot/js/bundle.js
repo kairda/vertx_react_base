@@ -27201,15 +27201,6 @@
 	    }
 	
 	    _createClass(LoginView, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            console.log("componentDidUpdate was called ...");
-	            if (mdc) {
-	                console.log("mdc.autoInit called .... ");
-	                mdc.autoInit();
-	            }
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
 	
