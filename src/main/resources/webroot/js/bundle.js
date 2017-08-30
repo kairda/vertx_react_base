@@ -26768,10 +26768,9 @@
 	        };
 	
 	        this.onClose = function (event) {
-	            console.log("Receiving onClose on webSocket connection");
-	            // then we have to close this websocket ....
-	            // and do a logout ...
-	            (0, _loginActions.doLogout)(_this.actions);
+	            console.log("Receiving onClose on webSocket connection, checking if we are still logged in.");
+	            // then the current websocket is closed, and we check, if we somehow still logged in ....
+	            (0, _loginActions.doCheckLogin)(_this.actions);
 	        };
 	    }
 	
@@ -26799,7 +26798,7 @@
 	        value: function onOpen(event) {
 	            console.log("received event on open " + JSON.stringify(event) + " " + JSON.stringify(event.data));
 	
-	            var sendObject = { name: "connection", data: "hello world!" };
+	            var sendObject = { name: "initConnection", data: "hello world!" };
 	            this.ws.send(JSON.stringify(sendObject));
 	        }
 	    }, {
@@ -26890,9 +26889,8 @@
 	
 	function handleLoginResult(actions, err, res) {
 	    // console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
-	    if (res.body !== 'undefined' && res.body.isLoggedIn) {
+	    if (res && res !== 'undefined' && res.body !== 'undefined' && res.body.isLoggedIn) {
 	        actions.dispatch(getSetLoginInfoAction(res.body.user));
-	
 	        // then we create a web-Socket-Connection ...
 	        actions.doWebSocketConnection('ws/counter?token=' + res.body.sessionid);
 	    } else {

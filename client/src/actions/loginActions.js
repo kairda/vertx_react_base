@@ -8,9 +8,8 @@ export function getSetLoginInfoAction(loginInfo) {
 
 function handleLoginResult(actions,err,res) {
     // console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
-    if (res.body !== 'undefined' && res.body.isLoggedIn) {
+    if (res && res !== 'undefined' && res.body !== 'undefined' && res.body.isLoggedIn) {
         actions.dispatch(getSetLoginInfoAction(res.body.user));
-
         // then we create a web-Socket-Connection ...
         actions.doWebSocketConnection('ws/counter?token=' + res.body.sessionid);
 

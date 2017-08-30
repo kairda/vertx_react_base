@@ -1,5 +1,5 @@
 
-import { doLogout } from "../actions/loginActions"
+import {doCheckLogin, doLogout} from "../actions/loginActions"
 
 class WebSocketHelper {
 
@@ -48,7 +48,7 @@ class WebSocketHelper {
     onOpen(event) {
         console.log("received event on open " + JSON.stringify(event) + " " + JSON.stringify(event.data));
 
-        var sendObject = { name : "connection", data : "hello world!"};
+        var sendObject = { name : "initConnection", data : "hello world!"};
         this.ws.send(JSON.stringify(sendObject));
 
     }
@@ -64,10 +64,9 @@ class WebSocketHelper {
     };
 
     onClose = (event) => {
-        console.log("Receiving onClose on webSocket connection");
-        // then we have to close this websocket ....
-        // and do a logout ...
-        doLogout(this.actions);
+        console.log("Receiving onClose on webSocket connection, checking if we are still logged in.");
+        // then the current websocket is closed, and we check, if we somehow still logged in ....
+        doCheckLogin(this.actions);
     }
 
 

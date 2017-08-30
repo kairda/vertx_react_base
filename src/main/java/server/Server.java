@@ -1,11 +1,8 @@
 package server;
 
 import io.vertx.core.*;
-import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerResponse;
-import io.vertx.core.http.ServerWebSocket;
-import io.vertx.core.http.WebSocketFrame;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
@@ -19,9 +16,10 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.sstore.LocalSessionStore;
+import server.businesslogic.BusinessLogicHandler;
 import server.login.LoginLogoutHandler;
+import server.websocket.WebSocketHandler;
 
-import java.nio.charset.Charset;
 import java.util.*;
 
 
@@ -35,8 +33,12 @@ public class Server extends AbstractVerticle {
     static Logger logger = LoggerFactory.getLogger(Server.class.getName());
 
 
-    static Map<String, List<ServerWebSocket>> sessionIdwebSocketMap = new HashMap<>();
-    static int counter = 0;
+
+
+    BusinessLogicHandler businessLogicHandler = null;
+    WebSocketHandler webSocketHandler = null;
+    LoginLogoutHandler loginLogoutHandler = null;
+
 
     // Convenience method so you can run it in your IDE
     public static void main(String[] args) {
@@ -78,6 +80,12 @@ public class Server extends AbstractVerticle {
 
 
 
+        businessLogicHandler = new BusinessLogicHandler(this);
+
+        webSocketHandler = new WebSocketHandler(this,businessLogicHandler);
+
+        loginLogoutHandler = new LoginLogoutHandler();
+
         Router router = Router.router(vertx);
 
 
@@ -98,11 +106,11 @@ public class Server extends AbstractVerticle {
         router.route().handler(UserSessionHandler.create(authProvider));
 
         // this shows, if the user is logged in ....
-        router.route("/api/isLoggedIn").handler(LoginLogoutHandler.checkIsLoggedInHandler);
-        router.route("/api/logout").handler(LoginLogoutHandler.logoutHandler);
-        router.route("/api/login").handler(LoginLogoutHandler.loginHandler(authProvider));
+        router.route("/api/isLoggedIn").handler(loginLogoutHandler.checkIsLoggedInHandler);
+        router.route("/api/logout").handler(loginLogoutHandler.logoutHandler);
+        router.route("/api/login").handler(loginLogoutHandler.loginHandler(authProvider));
 
-        router.route("/api/*").handler(LoginLogoutHandler.isLoggedInHandler);
+        router.route("/api/*").handler(loginLogoutHandler.isLoggedInHandler);
 
         // Previously ... Handles the actual login
         // router.route("/loginhandler").handler(FormLoginHandler.create(authProvider));
@@ -123,127 +131,41 @@ public class Server extends AbstractVerticle {
         // this is only callable, if the user is logged in ...
         router.route("/api/counter").handler((RoutingContext request) -> {
 
-
             HttpServerResponse response = request.response();
             response.putHeader("Content-Type", "application/json");
-
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.put("counter", (++counter));
+            JsonObject jsonObject = businessLogicHandler.increaseCounterAndGetJSonObject();
             response.end(jsonObject.toString());
-            // sending the increase counter value as a json string.
-            // response.end("{\"counter\":" + (++counter) + "}");
 
-            for (List<ServerWebSocket> wsList : sessionIdwebSocketMap.values()) {
-
-                for (ServerWebSocket ws : wsList) {
-                    logger.info("Writing buffer to Websocket ....");
-
-                    ws.writeTextMessage(jsonObject.toString());
-                    ws.writeBinaryMessage(Buffer.buffer("bincounter " + counter));
-                    ws.write(Buffer.buffer("My stuff !"));
-
-                    ws.writeFrame(WebSocketFrame.binaryFrame(Buffer.buffer("{\"counter\":" + (counter) + "}", "UTF8"), true));
-//                ws.writeTextMessage("Hello World from Server!");
-//                ws.writeTextMessage("{\"counter\":" + (counter) + "}");
-//                ws.write(Buffer.buffer("{\"counter\":" + (counter) + "}"));
-                }
-            }
-            // vertx.eventBus().publish("counter",counter);
+            webSocketHandler.brodacastMessage(jsonObject.toString());
         });
 
+        // serves the static contnet.
         Route handler = router.route().handler(staticHandler);
 
+        // default port is 8080, can be specified on the command line ....
         int port = config().getInteger("http.port", 8080);
+
+        // this message is called by the Logout-Route to make
+        // sure, that all Web-Sockets are closed, if a session is logged out.
+        vertx.eventBus().localConsumer("closeSession",(message) -> {
+
+            String sessionId = (String) message.body();
+            logger.info("Receiving closeSession from eventBus ; closing websocket .... " +
+            sessionId);
+
+            webSocketHandler.closeWebSocketsForSessionId(sessionId);
+        });
 
         // Start the web server and tell it to use the router to handle requests.
         HttpServer listen = vertx.createHttpServer().requestHandler(router::accept).websocketHandler(
-                (ServerWebSocket ws) -> {
-
-                    String sessionId = ws.query().substring("token=".length());
-
-                    User user = LoginLogoutHandler.sessionIdToUserMap.get(sessionId);
-                    if (user == null) {
-                        logger.warn("No user for sessionID " + sessionId);
-                        ws.reject();
-                        return;
-                    }
-                    logger.info("Websocket query is " + ws.query());
-                    // the query can be checked for a valid token ....
-
-//                    MultiMap headers = ws.headers();
-//                    List<Map.Entry<String, String>> entries = headers.entries();
-//                    for (Map.Entry<String,String> entry : entries) {
-//                        logger.info("Header " + entry.getKey() + " has Value " + entry.getValue());
-//                    }
-                    if (ws.path().startsWith("/ws")) {
-                        logger.info("Inside WebSocketHandler. path is " + ws.path());
-                        List<ServerWebSocket> serverWebSockets = sessionIdwebSocketMap.get(sessionId);
-                        if (serverWebSockets == null) {
-                            serverWebSockets = new ArrayList<>();
-                            sessionIdwebSocketMap.put(sessionId, serverWebSockets);
-                        }
-                        serverWebSockets.add(ws);
-
-                        logger.info("sessionIdWebSocketMap has " + sessionIdwebSocketMap.size() + " entries. Num ServerWebSocks " + serverWebSockets.size());
-                        ws.handler((Buffer data) -> {
-                            logger.info("Inside WebSocketHandler handler. Data is " + data.toString(Charset.forName("UTF8")));
-
-                            JsonObject jsonInputObject = new JsonObject(data);
-                            if (jsonInputObject != null && jsonInputObject.getString("name").equals("counter")) {
-                                // then we increase the counter ....
-
-
-                                JsonObject jsonObject = new JsonObject();
-                                jsonObject.put("counter", (++counter));
-
-                                for (List<ServerWebSocket> wsList : sessionIdwebSocketMap.values()) {
-
-
-                                    for (ServerWebSocket ws2 : wsList) {
-                                        logger.info("Writing buffer to Websocket ....");
-
-                                        ws2.writeTextMessage(jsonObject.toString());
-                                        ws2.writeBinaryMessage(Buffer.buffer("bincounter " + counter));
-                                        ws2.write(Buffer.buffer("My stuff !"));
-                                        ws2.writeFrame(WebSocketFrame.binaryFrame(Buffer.buffer("{\"counter\":" + (counter) + "}", "UTF8"), true));
-                                    }
-                                }
-                                return;
-
-                            }
-
-                            {
-                                JsonObject jsonObject = new JsonObject();
-                                jsonObject.put("message", "Hello World!");
-                                jsonObject.put("counter", counter);
-                                ws.writeTextMessage(jsonObject.toString());
-                            }
-
-                        });
-
-                        ws.closeHandler((empty) -> {
-                            logger.info("Removing websocket from webSocketSet");
-                            // then we have to close every websocket for the same session ....
-
-
-                            List<ServerWebSocket> wsList = sessionIdwebSocketMap.get(sessionId);
-                            if (wsList != null) {
-                                for (ServerWebSocket ws2 : wsList) {
-                                    if (!ws2.equals(ws)) {
-                                        logger.info("Calling close on other websocket ....");
-                                        ws2.close();
-                                    }
-                                }
-                                sessionIdwebSocketMap.remove(sessionId);
-                            }
-                        });
-                    } else {
-                        ws.reject();
-                    }
-
-                }).
-
-                listen(port);
+                webSocketHandler.webSocketHandler).listen(port);
     }
 
+    public void broadcastMessage(String s) {
+        webSocketHandler.brodacastMessage(s);
+    }
+
+    public User getUserForSessionId(String sessionId) {
+        return loginLogoutHandler.getUserForSessionId(sessionId);
+    }
 }
