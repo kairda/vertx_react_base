@@ -60,17 +60,17 @@
 	
 	var _combinedReducer2 = _interopRequireDefault(_combinedReducer);
 	
-	var _actions = __webpack_require__(225);
+	var _actions = __webpack_require__(230);
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
-	var _loginActions = __webpack_require__(235);
+	var _loginActions = __webpack_require__(226);
 	
-	var _NavBar = __webpack_require__(236);
+	var _NavBar = __webpack_require__(239);
 	
 	var _NavBar2 = _interopRequireDefault(_NavBar);
 	
-	var _App = __webpack_require__(237);
+	var _App = __webpack_require__(241);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
@@ -79,7 +79,7 @@
 	var actions = new _actions2.default();
 	
 	var store = (0, _redux.createStore)(_combinedReducer2.default, { counter: { counter: 0 },
-	    login: { loginInfo: "Not logged in" },
+	    login: { isLoggedIn: false, loginInfo: _loginActions.NOT_LOGGED_IN, bumba: "Hola" },
 	    base: { actions: actions } });
 	
 	actions.initDispatch(store.dispatch);
@@ -24638,11 +24638,11 @@
 	
 	var _redux = __webpack_require__(197);
 	
-	var _loginReducer = __webpack_require__(238);
+	var _loginReducer = __webpack_require__(225);
 	
-	var _counterReducer = __webpack_require__(239);
+	var _counterReducer = __webpack_require__(227);
 	
-	var _baseReducer = __webpack_require__(240);
+	var _baseReducer = __webpack_require__(229);
 	
 	var reducer = exports.reducer = (0, _redux.combineReducers)({
 	    counter: _counterReducer.counterReducer,
@@ -24656,6 +24656,201 @@
 /* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.loginReducer = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _loginActions = __webpack_require__(226);
+	
+	var loginReducer = exports.loginReducer = function loginReducer() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	    var action = arguments[1];
+	
+	    switch (action.type) {
+	        case _loginActions.SET_LOGIN_INFO:
+	            console.log("Set_Login_Info with data " + JSON.stringify(action.loginInfo));
+	            console.log("isLoggedIn set to " + action.isLoggedIn);
+	            var retValue = _extends({}, state, {
+	                isLoggedIn: action.isLoggedIn,
+	                loginInfo: action.loginInfo
+	
+	            });
+	            console.log("new state is " + JSON.stringify(retValue));
+	            return retValue;
+	        default:
+	            return state;
+	
+	    }
+	};
+	
+	exports.default = loginReducer;
+
+/***/ }),
+/* 226 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.getSetLoginInfoAction = getSetLoginInfoAction;
+	exports.doCheckLogin = doCheckLogin;
+	exports.doTryLogin = doTryLogin;
+	exports.doLogout = doLogout;
+	exports.isLoggedIn = isLoggedIn;
+	var SET_LOGIN_INFO = exports.SET_LOGIN_INFO = 'SET_LOGIN_INFO';
+	
+	var NOT_LOGGED_IN = exports.NOT_LOGGED_IN = "not logged in";
+	
+	function getSetLoginInfoAction(isLoggedIn, loginInfo) {
+	    return { type: SET_LOGIN_INFO, isLoggedIn: isLoggedIn, loginInfo: loginInfo };
+	}
+	
+	function handleLoginResult(actions, err, res) {
+	    // console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
+	    if (res && res !== 'undefined' && res.body && res.body !== 'undefined' && res.body.isLoggedIn) {
+	        actions.dispatch(getSetLoginInfoAction(true, JSON.stringify(res.body.user)));
+	        // then we create a web-Socket-Connection ...
+	        actions.doWebSocketConnection('ws/counter?token=' + res.body.sessionid);
+	    } else {
+	        actions.doCloseWebSocketConnection();
+	        actions.dispatch(getSetLoginInfoAction(false, NOT_LOGGED_IN));
+	    }
+	}
+	// This function is called only once at the very beginning of the
+	// life-cycle.
+	// it checkts, if we are already logged in somewhere else (through a
+	// still valid session, for example.
+	// if there is a valid session, then a websocket connection is
+	// established.
+	function doCheckLogin(actions) {
+	
+	    actions.doServerCall('/api/isLoggedIn', function (err, res) {
+	        handleLoginResult(actions, err, res);
+	    });
+	}
+	
+	// tries to login with the given credentials
+	function doTryLogin(actions, loginInfo, username, password) {
+	    console.log("doTryLogin called with loginInfo " + JSON.stringify(loginInfo));
+	
+	    if (isLoggedIn(loginInfo)) {
+	        console.log("Do not retry a login while we are still logged in ");
+	        return;
+	    }
+	    // we only try to login, if we are not already logged in ...
+	    actions.doServerPostCall("/api/login", { username: username, password: password }, function (err, res) {
+	        handleLoginResult(actions, err, res);
+	    });
+	}
+	
+	function doLogout(actions, loginInfo) {
+	    if (!isLoggedIn(loginInfo)) {
+	        console.log("Do not accept a logout, if not logged in in the first place " + loginInfo);
+	        return;
+	    }
+	    actions.doServerCall("/api/logout", function (err, res) {
+	        handleLoginResult(actions, err, res);
+	    });
+	}
+	
+	function isLoggedIn(loginInfo) {
+	    var isLoggedInRet = loginInfo !== NOT_LOGGED_IN;
+	    console.log("isLoggedIn for " + loginInfo + " returns " + isLoggedInRet);
+	    return isLoggedInRet;
+	}
+
+/***/ }),
+/* 227 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.counterReducer = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _businessActions = __webpack_require__(228);
+	
+	var counterReducer = exports.counterReducer = function counterReducer() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	    var action = arguments[1];
+	
+	    switch (action.type) {
+	        case _businessActions.SET_COUNTER_VALUE:
+	            return _extends({}, state, {
+	                counter: action.counter
+	            });
+	        default:
+	            return state;
+	
+	    }
+	};
+	
+	exports.default = counterReducer;
+
+/***/ }),
+/* 228 */
+/***/ (function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.getSetCounterValueAction = getSetCounterValueAction;
+	exports.handleBusinessMessages = handleBusinessMessages;
+	var SET_COUNTER_VALUE = exports.SET_COUNTER_VALUE = 'SET_COUNTER_VALUE';
+	
+	function getSetCounterValueAction(counter) {
+	    return { type: SET_COUNTER_VALUE, counter: counter };
+	}
+	
+	function handleBusinessMessages(dispatch, json) {
+	
+	    if (json && json.counter) {
+	        console.log("Dispatching new counter value " + json.counter);
+	        dispatch(getSetCounterValueAction(json.counter));
+	        return true;
+	    }
+	
+	    return false;
+	}
+
+/***/ }),
+/* 229 */
+/***/ (function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var baseReducer = exports.baseReducer = function baseReducer() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	    var action = arguments[1];
+	
+	    switch (action.type) {
+	        default:
+	            return state;
+	    }
+	};
+	
+	exports.default = baseReducer;
+
+/***/ }),
+/* 230 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -24664,11 +24859,11 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _superagent = __webpack_require__(226);
+	var _superagent = __webpack_require__(231);
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _websocketHelper = __webpack_require__(233);
+	var _websocketHelper = __webpack_require__(238);
 	
 	var _websocketHelper2 = _interopRequireDefault(_websocketHelper);
 	
@@ -24676,7 +24871,7 @@
 	
 	var _reactRedux = __webpack_require__(184);
 	
-	var _businessActions = __webpack_require__(234);
+	var _businessActions = __webpack_require__(228);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -24765,7 +24960,7 @@
 	exports.default = Actions;
 
 /***/ }),
-/* 226 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -24782,11 +24977,11 @@
 	  root = this;
 	}
 	
-	var Emitter = __webpack_require__(227);
-	var RequestBase = __webpack_require__(228);
-	var isObject = __webpack_require__(229);
-	var ResponseBase = __webpack_require__(230);
-	var shouldRetry = __webpack_require__(232);
+	var Emitter = __webpack_require__(232);
+	var RequestBase = __webpack_require__(233);
+	var isObject = __webpack_require__(234);
+	var ResponseBase = __webpack_require__(235);
+	var shouldRetry = __webpack_require__(237);
 	
 	/**
 	 * Noop.
@@ -25677,7 +25872,7 @@
 
 
 /***/ }),
-/* 227 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
@@ -25846,13 +26041,13 @@
 
 
 /***/ }),
-/* 228 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(229);
+	var isObject = __webpack_require__(234);
 	
 	/**
 	 * Expose `RequestBase`.
@@ -26472,7 +26667,7 @@
 
 
 /***/ }),
-/* 229 */
+/* 234 */
 /***/ (function(module, exports) {
 
 	/**
@@ -26491,7 +26686,7 @@
 
 
 /***/ }),
-/* 230 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
@@ -26499,7 +26694,7 @@
 	 * Module dependencies.
 	 */
 	
-	var utils = __webpack_require__(231);
+	var utils = __webpack_require__(236);
 	
 	/**
 	 * Expose `ResponseBase`.
@@ -26630,7 +26825,7 @@
 
 
 /***/ }),
-/* 231 */
+/* 236 */
 /***/ (function(module, exports) {
 
 	
@@ -26703,7 +26898,7 @@
 	};
 
 /***/ }),
-/* 232 */
+/* 237 */
 /***/ (function(module, exports) {
 
 	var ERROR_CODES = [
@@ -26732,7 +26927,7 @@
 
 
 /***/ }),
-/* 233 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26743,7 +26938,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _loginActions = __webpack_require__(235);
+	var _loginActions = __webpack_require__(226);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -26841,102 +27036,7 @@
 	exports.default = WebSocketHelper;
 
 /***/ }),
-/* 234 */
-/***/ (function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.getSetCounterValueAction = getSetCounterValueAction;
-	exports.handleBusinessMessages = handleBusinessMessages;
-	var SET_COUNTER_VALUE = exports.SET_COUNTER_VALUE = 'SET_COUNTER_VALUE';
-	
-	function getSetCounterValueAction(counter) {
-	    return { type: SET_COUNTER_VALUE, counter: counter };
-	}
-	
-	function handleBusinessMessages(dispatch, json) {
-	
-	    if (json && json.counter) {
-	        console.log("Dispatching new counter value " + json.counter);
-	        dispatch(getSetCounterValueAction(json.counter));
-	        return true;
-	    }
-	
-	    return false;
-	}
-
-/***/ }),
-/* 235 */
-/***/ (function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.getSetLoginInfoAction = getSetLoginInfoAction;
-	exports.doCheckLogin = doCheckLogin;
-	exports.doTryLogin = doTryLogin;
-	exports.doLogout = doLogout;
-	var SET_LOGIN_INFO = exports.SET_LOGIN_INFO = 'SET_LOGIN_INFO';
-	
-	function getSetLoginInfoAction(loginInfo) {
-	    return { type: SET_LOGIN_INFO, loginInfo: loginInfo };
-	}
-	
-	function handleLoginResult(actions, err, res) {
-	    // console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
-	    if (res && res !== 'undefined' && res.body !== 'undefined' && res.body.isLoggedIn) {
-	        actions.dispatch(getSetLoginInfoAction(res.body.user));
-	        // then we create a web-Socket-Connection ...
-	        actions.doWebSocketConnection('ws/counter?token=' + res.body.sessionid);
-	    } else {
-	        actions.doCloseWebSocketConnection();
-	        actions.dispatch(getSetLoginInfoAction("not logged in"));
-	    }
-	}
-	// This function is called only once at the very beginning of the
-	// life-cycle.
-	// it checkts, if we are already logged in somewhere else (through a
-	// still valid session, for example.
-	// if there is a valid session, then a websocket connection is
-	// established.
-	function doCheckLogin(actions) {
-	
-	    actions.doServerCall('/api/isLoggedIn', function (err, res) {
-	        handleLoginResult(actions, err, res);
-	    });
-	}
-	
-	// tries to login with the given credentials
-	function doTryLogin(actions, loginInfo, username, password) {
-	    console.log("doTryLogin called with loginInfo " + JSON.stringify(loginInfo));
-	
-	    if (loginInfo !== '"not logged in"') {
-	        console.log("Do not retry a login while we are still logged in ");
-	        return;
-	    }
-	    // we only try to login, if we are not already logged in ...
-	    actions.doServerPostCall("/api/login", { username: username, password: password }, function (err, res) {
-	        handleLoginResult(actions, err, res);
-	    });
-	}
-	
-	function doLogout(actions, loginInfo) {
-	    if (loginInfo === '"not logged in"') {
-	        console.log("Do not accept a logout, if not logged in in the first place ");
-	        return;
-	    }
-	    actions.doServerCall("/api/logout", function (err, res) {
-	        handleLoginResult(actions, err, res);
-	    });
-	}
-
-/***/ }),
-/* 236 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26953,7 +27053,11 @@
 	
 	var _reactRedux = __webpack_require__(184);
 	
-	var _loginActions = __webpack_require__(235);
+	var _loginActions = __webpack_require__(226);
+	
+	var _LoginView = __webpack_require__(240);
+	
+	var _LoginView2 = _interopRequireDefault(_LoginView);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -27011,19 +27115,27 @@
 	                        )
 	                    )
 	                ),
-	                _react2.default.createElement(
-	                    'button',
-	                    { type: 'button', className: 'mdc-button mdc-button--raised mdc-button--primary',
-	                        onClick: this.props.doLoginServerCall.bind(this, this.props.actions, this.props.loginInfo) },
-	                    'Try Login'
-	                ),
-	                _react2.default.createElement(
-	                    'button',
-	                    { type: 'button', className: 'mdc-button mdc-button--raised mdc-button--primary',
-	                        onClick: this.props.doLogoutServerCall.bind(this, this.props.actions, this.props.loginInfo) },
-	                    'Do Logout'
-	                ),
-	                this.props.content
+	                !this.props.isLoggedIn ? _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(_LoginView2.default, null),
+	                    _react2.default.createElement(
+	                        'button',
+	                        { type: 'button', className: 'mdc-button mdc-button--raised mdc-button--primary',
+	                            onClick: this.props.doLoginServerCall.bind(this, this.props.actions, this.props.loginInfo) },
+	                        'Try Login'
+	                    )
+	                ) : _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                        'button',
+	                        { type: 'button', className: 'mdc-button mdc-button--raised mdc-button--primary',
+	                            onClick: this.props.doLogoutServerCall.bind(this, this.props.actions, this.props.loginInfo) },
+	                        'Do Logout'
+	                    ),
+	                    this.props.content
+	                )
 	            );
 	        }
 	    }]);
@@ -27036,7 +27148,7 @@
 	
 	
 	exports.default = (0, _reactRedux.connect)(function (state) {
-	    return { loginInfo: state.login.loginInfo, actions: state.base.actions };
+	    return { isLoggedIn: state.login.isLoggedIn, loginInfo: state.login.loginInfo, actions: state.base.actions };
 	}, function (dispatch) {
 	    return {
 	        doCheckLogin: function doCheckLogin(actions) {
@@ -27052,7 +27164,160 @@
 	})(NavBar);
 
 /***/ }),
-/* 237 */
+/* 240 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(184);
+	
+	var _loginActions = __webpack_require__(226);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var LoginView = function (_Component) {
+	    _inherits(LoginView, _Component);
+	
+	    function LoginView(props) {
+	        _classCallCheck(this, LoginView);
+	
+	        return _possibleConstructorReturn(this, (LoginView.__proto__ || Object.getPrototypeOf(LoginView)).call(this, props));
+	    }
+	
+	    _createClass(LoginView, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            console.log("componentDidUpdate was called ...");
+	            if (mdc) {
+	                console.log("mdc.autoInit called .... ");
+	                mdc.autoInit();
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                this.props.isLoggedIn === true ? _react2.default.createElement(
+	                    'h4',
+	                    null,
+	                    'You are already logged in ... '
+	                ) : _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                        'h2',
+	                        { className: 'mdc-typography--display2' },
+	                        'You need to login ....'
+	                    ),
+	                    _react2.default.createElement(
+	                        'section',
+	                        { className: 'my-card-container' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdc-card' },
+	                            _react2.default.createElement(
+	                                'section',
+	                                { className: 'mdc-card__primary' },
+	                                _react2.default.createElement(
+	                                    'h1',
+	                                    { className: 'mdc-card__title mdc-card__title--large' },
+	                                    'Provide login details'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'h2',
+	                                    { className: 'mdc-card__subtitle' },
+	                                    'go for it ... '
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'section',
+	                                { className: 'mdc-card__supporting-text' },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'mdc-form-field' },
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'mdc-textfield', 'data-mdc-auto-init': 'MDCTextfield' },
+	                                        _react2.default.createElement('input', { id: 'username', ref: 'username', type: 'text', className: 'mdc-textfield__input' }),
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            { htmlFor: 'username', className: 'mdc-textfield__label' },
+	                                            'Username'
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'mdc-form-field' },
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'mdc-textfield', 'data-mdc-auto-init': 'MDCTextfield' },
+	                                        _react2.default.createElement('input', { id: 'password', ref: 'password', type: 'password', className: 'mdc-textfield__input' }),
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            { htmlFor: 'password', className: 'mdc-textfield__label' },
+	                                            'Password'
+	                                        )
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'section',
+	                                { className: 'mdc-card__actions' },
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { className: 'mdc-button mdc-button--compact mdc-card__action',
+	                                        onClick: this.props.doLoginAction.bind(this, this.props.actions, this.props.loginInfo, 'kai', 'sausages') },
+	                                    'Login ...'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { className: 'mdc-button mdc-button--compact mdc-card__action' },
+	                                    'Cancel'
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return LoginView;
+	}(_react.Component);
+	
+	exports.default = (0, _reactRedux.connect)(function (state) {
+	    return { isLoggedIn: state.login.isLoggedIn, loginInfo: state.login.loginInfo, actions: state.base.actions };
+	}, function (dispatch) {
+	    return {
+	        doLoginAction: function doLoginAction(actions, loginInfo, username, password) {
+	            console.log("Inside do LoginAction of login-view with username and password " + username + " " + password);
+	            (0, _loginActions.doTryLogin)(actions, loginInfo, username, password);
+	        }
+	    };
+	})(LoginView);
+
+/***/ }),
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27319,92 +27584,6 @@
 	            actions.doServerCallWebSocket('action');
 	        } };
 	})(App);
-
-/***/ }),
-/* 238 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.loginReducer = undefined;
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _loginActions = __webpack_require__(235);
-	
-	var loginReducer = exports.loginReducer = function loginReducer() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	    var action = arguments[1];
-	
-	    switch (action.type) {
-	        case _loginActions.SET_LOGIN_INFO:
-	            console.log("Set_Login_Info with data " + JSON.stringify(action.loginInfo));
-	            return _extends({}, state, {
-	                loginInfo: JSON.stringify(action.loginInfo)
-	            });
-	        default:
-	            return state;
-	
-	    }
-	};
-	
-	exports.default = loginReducer;
-
-/***/ }),
-/* 239 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.counterReducer = undefined;
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _businessActions = __webpack_require__(234);
-	
-	var counterReducer = exports.counterReducer = function counterReducer() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	    var action = arguments[1];
-	
-	    switch (action.type) {
-	        case _businessActions.SET_COUNTER_VALUE:
-	            return _extends({}, state, {
-	                counter: action.counter
-	            });
-	        default:
-	            return state;
-	
-	    }
-	};
-	
-	exports.default = counterReducer;
-
-/***/ }),
-/* 240 */
-/***/ (function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	var baseReducer = exports.baseReducer = function baseReducer() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	    var action = arguments[1];
-	
-	    switch (action.type) {
-	        default:
-	            return state;
-	    }
-	};
-	
-	exports.default = baseReducer;
 
 /***/ })
 /******/ ]);

@@ -7,7 +7,7 @@ import { createStore } from 'redux'
 import combinedReducer from './redux/combinedReducer'
 
 import Actions from "./actions/actions"
-import { doCheckLogin} from "./actions/loginActions"
+import {doCheckLogin, NOT_LOGGED_IN} from "./actions/loginActions"
 
 import NavBar from './NavBar';
 import App from './App';
@@ -17,7 +17,7 @@ var actions = new Actions();
 
 const store = createStore(
     combinedReducer, { counter : { counter : 0 },
-        login : { loginInfo : "Not logged in" } ,
+        login : { isLoggedIn : false, loginInfo : NOT_LOGGED_IN, bumba : "Hola" } ,
         base : { actions: actions } }
 );
 

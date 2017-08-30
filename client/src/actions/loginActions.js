@@ -1,21 +1,23 @@
 
 export const SET_LOGIN_INFO = 'SET_LOGIN_INFO';
 
-export function getSetLoginInfoAction(loginInfo) {
-    return { type: SET_LOGIN_INFO, loginInfo: loginInfo }
+export const NOT_LOGGED_IN = "not logged in";
+
+export function getSetLoginInfoAction(isLoggedIn,loginInfo) {
+    return { type: SET_LOGIN_INFO, isLoggedIn : isLoggedIn, loginInfo: loginInfo }
 }
 
 
 function handleLoginResult(actions,err,res) {
     // console.log("We got an answer " + JSON.stringify(err) + " " + JSON.stringify(res));
-    if (res && res !== 'undefined' && res.body !== 'undefined' && res.body.isLoggedIn) {
-        actions.dispatch(getSetLoginInfoAction(res.body.user));
+    if (res && res !== 'undefined' && res.body && res.body !== 'undefined' && res.body.isLoggedIn) {
+        actions.dispatch(getSetLoginInfoAction(true,JSON.stringify(res.body.user)));
         // then we create a web-Socket-Connection ...
         actions.doWebSocketConnection('ws/counter?token=' + res.body.sessionid);
 
     } else {
         actions.doCloseWebSocketConnection();
-        actions.dispatch(getSetLoginInfoAction("not logged in"));
+        actions.dispatch(getSetLoginInfoAction(false,NOT_LOGGED_IN));
     }
 
 }
@@ -35,7 +37,7 @@ export function doCheckLogin(actions) {
 export function doTryLogin(actions,loginInfo, username,password) {
     console.log("doTryLogin called with loginInfo " + JSON.stringify(loginInfo));
 
-    if (loginInfo !== '"not logged in"') {
+    if (isLoggedIn(loginInfo)) {
         console.log("Do not retry a login while we are still logged in ");
         return;
     }
@@ -45,8 +47,8 @@ export function doTryLogin(actions,loginInfo, username,password) {
 }
 
 export function doLogout(actions,loginInfo) {
-    if (loginInfo === '"not logged in"') {
-        console.log("Do not accept a logout, if not logged in in the first place ");
+    if (!isLoggedIn(loginInfo)) {
+        console.log("Do not accept a logout, if not logged in in the first place " + loginInfo);
         return;
     }
     actions.doServerCall("/api/logout" ,
@@ -54,3 +56,8 @@ export function doLogout(actions,loginInfo) {
 
 }
 
+export function isLoggedIn(loginInfo) {
+    var isLoggedInRet = (loginInfo !== NOT_LOGGED_IN );
+    console.log("isLoggedIn for " + loginInfo + " returns " + isLoggedInRet);
+    return isLoggedInRet;
+}
