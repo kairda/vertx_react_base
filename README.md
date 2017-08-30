@@ -11,6 +11,8 @@ mvn clean package
 
 java -jar target/vertxreactbase-1.0.0-SNAPSHOT-fat.jar
 
+Open browser and point to [http://localhost:8080](http://localhost:8080)
+
 # Running within an IDE
 
 Run webpack in watch mode:
