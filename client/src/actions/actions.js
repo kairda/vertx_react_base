@@ -39,7 +39,7 @@ class Actions extends Component {
 
     doServerPostCall(name,headers,endFunction) {
 
-        Request.post('/api/login')
+        Request.post(name)
             .set('Accept', 'application/json')
             .send( headers )
             .end(endFunction);
