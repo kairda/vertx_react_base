@@ -65,7 +65,7 @@ class WebSocketHelper {
 
     onClose = (event) => {
         console.log("Receiving onClose on webSocket connection, checking if we are still logged in.");
-        // then the current websocket is closed, and we check, if we somehow still logged in ....
+        // then the current websocket is closed, and we check, if we somehow still are logged in ....
         doCheckLogin(this.actions);
     }
 

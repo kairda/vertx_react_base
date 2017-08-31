@@ -17,7 +17,7 @@ var actions = new Actions();
 
 const store = createStore(
     combinedReducer, { counter : { counter : 0 },
-        login : { isLoggedIn : false, loginInfo : NOT_LOGGED_IN, bumba : "Hola" } ,
+        login : { isLoggedIn : false, loginInfo : NOT_LOGGED_IN } ,
         base : { actions: actions } }
 );
 
