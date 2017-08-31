@@ -11,10 +11,13 @@ class WebSocketHelper {
 
     static wsURL = (path)  => {
         var protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://';
-        var url = protocol + location.host;
-        if(location.hostname === 'localhost') {
-            url += '/' + location.pathname.split('/')[1]; // add context path
-        }
+	console.log("location.pathname is " + location.pathname);
+	var pathname = location.pathname;
+	
+        var url = protocol + location.host + pathname;
+        // if(location.hostname === 'localhost') {
+        //    url += '/' + location.pathname.split('/')[1]; // add context path
+        // }
         console.log("WebsocketConnection:"+url+path);
         return url + path;
     }

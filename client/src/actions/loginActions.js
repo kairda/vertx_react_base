@@ -29,7 +29,7 @@ function handleLoginResult(actions,err,res) {
 // established.
 export function doCheckLogin(actions) {
 
-    actions.doServerCall('/api/isLoggedIn',
+    actions.doServerCall('./api/isLoggedIn',
         (err,res) => { handleLoginResult(actions, err,res); } );
 }
 
@@ -42,7 +42,7 @@ export function doTryLogin(actions,loginInfo, username,password) {
         return;
     }
     // we only try to login, if we are not already logged in ...
-    actions.doServerPostCall("/api/login" , { username : username , password : password },
+    actions.doServerPostCall("./api/login" , { username : username , password : password },
         (err,res) => { handleLoginResult(actions, err,res); } );
 }
 
@@ -51,7 +51,7 @@ export function doLogout(actions,loginInfo) {
         console.log("Do not accept a logout, if not logged in in the first place " + loginInfo);
         return;
     }
-    actions.doServerCall("/api/logout" ,
+    actions.doServerCall("./api/logout" ,
         (err,res) => { handleLoginResult(actions, err,res); } );
 
 }
