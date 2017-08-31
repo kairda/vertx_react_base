@@ -79,7 +79,7 @@
 	var actions = new _actions2.default();
 	
 	var store = (0, _redux.createStore)(_combinedReducer2.default, { counter: { counter: 0 },
-	    login: { isLoggedIn: false, loginInfo: _loginActions.NOT_LOGGED_IN, bumba: "Hola" },
+	    login: { isLoggedIn: false, loginInfo: _loginActions.NOT_LOGGED_IN },
 	    base: { actions: actions } });
 	
 	actions.initDispatch(store.dispatch);
@@ -24673,15 +24673,13 @@
 	
 	    switch (action.type) {
 	        case _loginActions.SET_LOGIN_INFO:
-	            console.log("Set_Login_Info with data " + JSON.stringify(action.loginInfo));
-	            console.log("isLoggedIn set to " + action.isLoggedIn);
-	            var retValue = _extends({}, state, {
+	            //console.log("Set_Login_Info with data " + JSON.stringify(action.loginInfo));
+	            //console.log("isLoggedIn set to " + action.isLoggedIn);
+	            return _extends({}, state, {
 	                isLoggedIn: action.isLoggedIn,
 	                loginInfo: action.loginInfo
 	
 	            });
-	            console.log("new state is " + JSON.stringify(retValue));
-	            return retValue;
 	        default:
 	            return state;
 	
@@ -26964,7 +26962,7 @@
 	
 	        this.onClose = function (event) {
 	            console.log("Receiving onClose on webSocket connection, checking if we are still logged in.");
-	            // then the current websocket is closed, and we check, if we somehow still logged in ....
+	            // then the current websocket is closed, and we check, if we somehow still are logged in ....
 	            (0, _loginActions.doCheckLogin)(_this.actions);
 	        };
 	    }
