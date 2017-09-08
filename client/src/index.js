@@ -13,6 +13,7 @@ import NavBar from './NavBar';
 import App from './App';
 
 
+
 var actions = new Actions();
 
 const store = createStore(

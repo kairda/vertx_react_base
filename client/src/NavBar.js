@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-
+import { Container } from 'react-bootstrap'
 import {doCheckLogin, doTryLogin, doLogout} from "./actions/loginActions"
 
 import LoginView from './views/LoginView'
@@ -24,7 +24,7 @@ class NavBar extends Component {
                     <span style={{ align: "right"}}>{this.props.loginInfo}</span></div>
 
 
-                <section>
+                <section className="container">
                     {!this.props.isLoggedIn ?
                         <div>
                             <LoginView/>
@@ -36,7 +36,9 @@ class NavBar extends Component {
                                 Logout
                             </button>
 
+                            <div className="container">
                             {this.props.content}
+                            </div>
                         </div>
                     }
                 </section>
