@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import Toolbar from 'react-md/lib/Toolbars';
+
+import Button from 'react-md/lib/Buttons/Button';
+
+import ToolbarMenu from './ToolbarMenu';
 
 import {doCheckLogin, doTryLogin, doLogout} from "./actions/loginActions"
 
@@ -17,12 +22,24 @@ class NavBar extends Component {
         this.props.doCheckLogin(this.props.actions);
     }
 
-    render() {
-        return (
-            <div>
-                <div style={{ width: "100%", height: "40px"}}>Simple Plain Example
-                    <span style={{ align: "right"}}>{this.props.loginInfo}</span></div>
 
+    nav = <Button key="nav" icon>menu</Button>;
+
+    actions =  [
+        <ToolbarMenu key="menu"/>
+    ];
+    render() {
+
+
+        return (
+
+            <div>
+                <Toolbar
+                    colored
+                    title="Simple react-md Sample"
+                    nav={this.nav}
+                    actions={this.actions}
+                />
 
                 <section>
                     {!this.props.isLoggedIn ?
@@ -31,10 +48,9 @@ class NavBar extends Component {
 
                         </div> :
                         <div>
-                            <button
-                                onClick={this.props.doLogoutServerCall.bind(this, this.props.actions, this.props.loginInfo)}>
-                                Logout
-                            </button>
+                            <Button flat
+                                onClick={this.props.doLogoutServerCall.bind(this, this.props.actions, this.props.loginInfo)}
+                                label="Logout" />
 
                             {this.props.content}
                         </div>

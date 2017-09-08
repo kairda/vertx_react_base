@@ -13,6 +13,8 @@ import NavBar from './NavBar';
 import App from './App';
 
 
+import './styles.scss';
+
 var actions = new Actions();
 
 const store = createStore(
