@@ -27167,6 +27167,8 @@
 	
 	var _reactRedux = __webpack_require__(184);
 	
+	var _reactFoundation = __webpack_require__(242);
+	
 	var _loginActions = __webpack_require__(226);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -27217,36 +27219,51 @@
 	                    'Provide login details'
 	                ),
 	                _react2.default.createElement(
-	                    'label',
-	                    null,
-	                    'Username:'
+	                    _reactFoundation.Row,
+	                    { className: 'display' },
+	                    _react2.default.createElement(
+	                        _reactFoundation.Column,
+	                        { small: 6, centerOnSmall: true },
+	                        _react2.default.createElement(
+	                            'label',
+	                            null,
+	                            'Username:'
+	                        ),
+	                        _react2.default.createElement('input', {
+	                            id: 'username',
+	                            type: 'text',
+	                            value: this.state.username,
+	                            onChange: function onChange(value) {
+	                                _this2.setState({ username: value });
+	                            }
+	                        })
+	                    )
 	                ),
-	                _react2.default.createElement('input', {
-	                    id: 'username',
-	                    type: 'text',
-	                    value: this.state.username,
-	                    onChange: function onChange(value) {
-	                        _this2.setState({ username: value });
-	                    }
-	                }),
+	                _react2.default.createElement(
+	                    _reactFoundation.Row,
+	                    { className: 'display' },
+	                    _react2.default.createElement(
+	                        _reactFoundation.Column,
+	                        { small: 6, centerOnSmall: true },
+	                        _react2.default.createElement(
+	                            'label',
+	                            null,
+	                            'Password:'
+	                        ),
+	                        _react2.default.createElement('input', {
+	                            id: 'password',
+	                            type: 'password',
+	                            value: this.state.password,
+	                            onChange: function onChange(value) {
+	                                _this2.setState({ password: value });
+	                            }
+	                        })
+	                    )
+	                ),
 	                _react2.default.createElement('br', null),
 	                _react2.default.createElement(
-	                    'label',
-	                    null,
-	                    'Password:'
-	                ),
-	                _react2.default.createElement('input', {
-	                    id: 'password',
-	                    type: 'password',
-	                    value: this.state.password,
-	                    onChange: function onChange(value) {
-	                        _this2.setState({ password: value });
-	                    }
-	                }),
-	                _react2.default.createElement('br', null),
-	                _react2.default.createElement(
-	                    'button',
-	                    { onClick: this.doClickLogin.bind(this) },
+	                    _reactFoundation.Button,
+	                    { isHollow: true, onClick: this.doClickLogin.bind(this) },
 	                    'Login'
 	                )
 	            );
@@ -27368,6 +27385,2941 @@
 	        }
 	    };
 	})(App);
+
+/***/ }),
+/* 242 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _accordion = __webpack_require__(243);
+	
+	Object.defineProperty(exports, 'Accordion', {
+	  enumerable: true,
+	  get: function get() {
+	    return _accordion.Accordion;
+	  }
+	});
+	Object.defineProperty(exports, 'AccordionItem', {
+	  enumerable: true,
+	  get: function get() {
+	    return _accordion.AccordionItem;
+	  }
+	});
+	Object.defineProperty(exports, 'AccordionTitle', {
+	  enumerable: true,
+	  get: function get() {
+	    return _accordion.AccordionTitle;
+	  }
+	});
+	Object.defineProperty(exports, 'AccordionContent', {
+	  enumerable: true,
+	  get: function get() {
+	    return _accordion.AccordionContent;
+	  }
+	});
+	
+	var _badge = __webpack_require__(247);
+	
+	Object.defineProperty(exports, 'Badge', {
+	  enumerable: true,
+	  get: function get() {
+	    return _badge.Badge;
+	  }
+	});
+	
+	var _breadcrumbs = __webpack_require__(248);
+	
+	Object.defineProperty(exports, 'Breadcrumbs', {
+	  enumerable: true,
+	  get: function get() {
+	    return _breadcrumbs.Breadcrumbs;
+	  }
+	});
+	Object.defineProperty(exports, 'BreadcrumbItem', {
+	  enumerable: true,
+	  get: function get() {
+	    return _breadcrumbs.BreadcrumbItem;
+	  }
+	});
+	
+	var _button = __webpack_require__(249);
+	
+	Object.defineProperty(exports, 'Button', {
+	  enumerable: true,
+	  get: function get() {
+	    return _button.Button;
+	  }
+	});
+	Object.defineProperty(exports, 'Link', {
+	  enumerable: true,
+	  get: function get() {
+	    return _button.Link;
+	  }
+	});
+	
+	var _buttonGroup = __webpack_require__(250);
+	
+	Object.defineProperty(exports, 'ButtonGroup', {
+	  enumerable: true,
+	  get: function get() {
+	    return _buttonGroup.ButtonGroup;
+	  }
+	});
+	
+	var _callout = __webpack_require__(251);
+	
+	Object.defineProperty(exports, 'Callout', {
+	  enumerable: true,
+	  get: function get() {
+	    return _callout.Callout;
+	  }
+	});
+	
+	var _closeButton = __webpack_require__(252);
+	
+	Object.defineProperty(exports, 'CloseButton', {
+	  enumerable: true,
+	  get: function get() {
+	    return _closeButton.CloseButton;
+	  }
+	});
+	
+	var _reveal = __webpack_require__(253);
+	
+	Object.defineProperty(exports, 'Reveal', {
+	  enumerable: true,
+	  get: function get() {
+	    return _reveal.Reveal;
+	  }
+	});
+	
+	var _flexVideo = __webpack_require__(254);
+	
+	Object.defineProperty(exports, 'FlexVideo', {
+	  enumerable: true,
+	  get: function get() {
+	    return _flexVideo.FlexVideo;
+	  }
+	});
+	
+	var _grid = __webpack_require__(255);
+	
+	Object.defineProperty(exports, 'Row', {
+	  enumerable: true,
+	  get: function get() {
+	    return _grid.Row;
+	  }
+	});
+	Object.defineProperty(exports, 'Column', {
+	  enumerable: true,
+	  get: function get() {
+	    return _grid.Column;
+	  }
+	});
+	
+	var _element = __webpack_require__(256);
+	
+	Object.defineProperty(exports, 'Block', {
+	  enumerable: true,
+	  get: function get() {
+	    return _element.Block;
+	  }
+	});
+	Object.defineProperty(exports, 'Inline', {
+	  enumerable: true,
+	  get: function get() {
+	    return _element.Inline;
+	  }
+	});
+	
+	var _icon = __webpack_require__(257);
+	
+	Object.defineProperty(exports, 'Icon', {
+	  enumerable: true,
+	  get: function get() {
+	    return _icon.Icon;
+	  }
+	});
+	
+	var _label = __webpack_require__(258);
+	
+	Object.defineProperty(exports, 'Label', {
+	  enumerable: true,
+	  get: function get() {
+	    return _label.Label;
+	  }
+	});
+	
+	var _mediaObject = __webpack_require__(259);
+	
+	Object.defineProperty(exports, 'MediaObject', {
+	  enumerable: true,
+	  get: function get() {
+	    return _mediaObject.MediaObject;
+	  }
+	});
+	Object.defineProperty(exports, 'MediaObjectSection', {
+	  enumerable: true,
+	  get: function get() {
+	    return _mediaObject.MediaObjectSection;
+	  }
+	});
+	
+	var _menu = __webpack_require__(260);
+	
+	Object.defineProperty(exports, 'Menu', {
+	  enumerable: true,
+	  get: function get() {
+	    return _menu.Menu;
+	  }
+	});
+	Object.defineProperty(exports, 'MenuItem', {
+	  enumerable: true,
+	  get: function get() {
+	    return _menu.MenuItem;
+	  }
+	});
+	Object.defineProperty(exports, 'MenuText', {
+	  enumerable: true,
+	  get: function get() {
+	    return _menu.MenuText;
+	  }
+	});
+	
+	var _pagination = __webpack_require__(261);
+	
+	Object.defineProperty(exports, 'Pagination', {
+	  enumerable: true,
+	  get: function get() {
+	    return _pagination.Pagination;
+	  }
+	});
+	Object.defineProperty(exports, 'PaginationItem', {
+	  enumerable: true,
+	  get: function get() {
+	    return _pagination.PaginationItem;
+	  }
+	});
+	Object.defineProperty(exports, 'PaginationPrevious', {
+	  enumerable: true,
+	  get: function get() {
+	    return _pagination.PaginationPrevious;
+	  }
+	});
+	Object.defineProperty(exports, 'PaginationNext', {
+	  enumerable: true,
+	  get: function get() {
+	    return _pagination.PaginationNext;
+	  }
+	});
+	Object.defineProperty(exports, 'PaginationEllipsis', {
+	  enumerable: true,
+	  get: function get() {
+	    return _pagination.PaginationEllipsis;
+	  }
+	});
+	
+	var _progressBar = __webpack_require__(262);
+	
+	Object.defineProperty(exports, 'Progress', {
+	  enumerable: true,
+	  get: function get() {
+	    return _progressBar.Progress;
+	  }
+	});
+	Object.defineProperty(exports, 'ProgressMeter', {
+	  enumerable: true,
+	  get: function get() {
+	    return _progressBar.ProgressMeter;
+	  }
+	});
+	Object.defineProperty(exports, 'ProgressMeterWithText', {
+	  enumerable: true,
+	  get: function get() {
+	    return _progressBar.ProgressMeterWithText;
+	  }
+	});
+	Object.defineProperty(exports, 'ProgressMeterText', {
+	  enumerable: true,
+	  get: function get() {
+	    return _progressBar.ProgressMeterText;
+	  }
+	});
+	Object.defineProperty(exports, 'NativeProgress', {
+	  enumerable: true,
+	  get: function get() {
+	    return _progressBar.NativeProgress;
+	  }
+	});
+	
+	var _responsive = __webpack_require__(263);
+	
+	Object.defineProperty(exports, 'ResponsiveNavigation', {
+	  enumerable: true,
+	  get: function get() {
+	    return _responsive.ResponsiveNavigation;
+	  }
+	});
+	Object.defineProperty(exports, 'TitleBar', {
+	  enumerable: true,
+	  get: function get() {
+	    return _responsive.TitleBar;
+	  }
+	});
+	Object.defineProperty(exports, 'MenuIcon', {
+	  enumerable: true,
+	  get: function get() {
+	    return _responsive.MenuIcon;
+	  }
+	});
+	Object.defineProperty(exports, 'TitleBarTitle', {
+	  enumerable: true,
+	  get: function get() {
+	    return _responsive.TitleBarTitle;
+	  }
+	});
+	
+	var _switch = __webpack_require__(265);
+	
+	Object.defineProperty(exports, 'Switch', {
+	  enumerable: true,
+	  get: function get() {
+	    return _switch.Switch;
+	  }
+	});
+	Object.defineProperty(exports, 'SwitchInput', {
+	  enumerable: true,
+	  get: function get() {
+	    return _switch.SwitchInput;
+	  }
+	});
+	Object.defineProperty(exports, 'SwitchPaddle', {
+	  enumerable: true,
+	  get: function get() {
+	    return _switch.SwitchPaddle;
+	  }
+	});
+	Object.defineProperty(exports, 'SwitchActive', {
+	  enumerable: true,
+	  get: function get() {
+	    return _switch.SwitchActive;
+	  }
+	});
+	Object.defineProperty(exports, 'SwitchInactive', {
+	  enumerable: true,
+	  get: function get() {
+	    return _switch.SwitchInactive;
+	  }
+	});
+	
+	var _thumbnail = __webpack_require__(266);
+	
+	Object.defineProperty(exports, 'Thumbnail', {
+	  enumerable: true,
+	  get: function get() {
+	    return _thumbnail.Thumbnail;
+	  }
+	});
+	Object.defineProperty(exports, 'ThumbnailLink', {
+	  enumerable: true,
+	  get: function get() {
+	    return _thumbnail.ThumbnailLink;
+	  }
+	});
+	
+	var _tabs = __webpack_require__(267);
+	
+	Object.defineProperty(exports, 'Tabs', {
+	  enumerable: true,
+	  get: function get() {
+	    return _tabs.Tabs;
+	  }
+	});
+	Object.defineProperty(exports, 'TabItem', {
+	  enumerable: true,
+	  get: function get() {
+	    return _tabs.TabItem;
+	  }
+	});
+	Object.defineProperty(exports, 'TabsContent', {
+	  enumerable: true,
+	  get: function get() {
+	    return _tabs.TabsContent;
+	  }
+	});
+	Object.defineProperty(exports, 'TabPanel', {
+	  enumerable: true,
+	  get: function get() {
+	    return _tabs.TabPanel;
+	  }
+	});
+	
+	var _topBar = __webpack_require__(264);
+	
+	Object.defineProperty(exports, 'TopBar', {
+	  enumerable: true,
+	  get: function get() {
+	    return _topBar.TopBar;
+	  }
+	});
+	Object.defineProperty(exports, 'TopBarTitle', {
+	  enumerable: true,
+	  get: function get() {
+	    return _topBar.TopBarTitle;
+	  }
+	});
+	Object.defineProperty(exports, 'TopBarLeft', {
+	  enumerable: true,
+	  get: function get() {
+	    return _topBar.TopBarLeft;
+	  }
+	});
+	Object.defineProperty(exports, 'TopBarRight', {
+	  enumerable: true,
+	  get: function get() {
+	    return _topBar.TopBarRight;
+	  }
+	});
+	
+	var _xyGrid = __webpack_require__(268);
+	
+	Object.defineProperty(exports, 'GridContainer', {
+	  enumerable: true,
+	  get: function get() {
+	    return _xyGrid.GridContainer;
+	  }
+	});
+	Object.defineProperty(exports, 'Grid', {
+	  enumerable: true,
+	  get: function get() {
+	    return _xyGrid.Grid;
+	  }
+	});
+	Object.defineProperty(exports, 'Cell', {
+	  enumerable: true,
+	  get: function get() {
+	    return _xyGrid.Cell;
+	  }
+	});
+	
+	var _enums = __webpack_require__(246);
+	
+	Object.defineProperty(exports, 'Breakpoints', {
+	  enumerable: true,
+	  get: function get() {
+	    return _enums.Breakpoints;
+	  }
+	});
+	Object.defineProperty(exports, 'Colors', {
+	  enumerable: true,
+	  get: function get() {
+	    return _enums.Colors;
+	  }
+	});
+	Object.defineProperty(exports, 'Sizes', {
+	  enumerable: true,
+	  get: function get() {
+	    return _enums.Sizes;
+	  }
+	});
+	Object.defineProperty(exports, 'Alignments', {
+	  enumerable: true,
+	  get: function get() {
+	    return _enums.Alignments;
+	  }
+	});
+	Object.defineProperty(exports, 'FloatTypes', {
+	  enumerable: true,
+	  get: function get() {
+	    return _enums.FloatTypes;
+	  }
+	});
+	Object.defineProperty(exports, 'InputTypes', {
+	  enumerable: true,
+	  get: function get() {
+	    return _enums.InputTypes;
+	  }
+	});
+	Object.defineProperty(exports, 'GutterTypes', {
+	  enumerable: true,
+	  get: function get() {
+	    return _enums.GutterTypes;
+	  }
+	});
+	Object.defineProperty(exports, 'ExtendedBreakpoints', {
+	  enumerable: true,
+	  get: function get() {
+	    return _enums.ExtendedBreakpoints;
+	  }
+	});
+	Object.defineProperty(exports, 'SpaceControls', {
+	  enumerable: true,
+	  get: function get() {
+	    return _enums.SpaceControls;
+	  }
+	});
+
+/***/ }),
+/* 243 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.AccordionTitle = exports.AccordionContent = exports.AccordionItem = exports.Accordion = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Accordion component.
+	 * http://foundation.zurb.com/sites/docs/accordion.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Accordion = exports.Accordion = function Accordion(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'accordion', props.className, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Accordion.propTypes));
+	
+	  return _react2.default.createElement(
+	    'ul',
+	    _extends({}, passProps, { className: className }),
+	    props.children || []
+	  );
+	};
+	
+	Accordion.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  children: _propTypes2.default.any
+	});
+	
+	/**
+	 * Accordion item component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var AccordionItem = exports.AccordionItem = function AccordionItem(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'accordion-item', props.className, {
+	    'is-active': props.isActive
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(AccordionItem.propTypes));
+	
+	  return _react2.default.createElement('li', _extends({}, passProps, { className: className }));
+	};
+	
+	AccordionItem.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  isActive: _propTypes2.default.bool
+	});
+	
+	/**
+	 * Accordion panel container component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var AccordionContent = exports.AccordionContent = function AccordionContent(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'accordion-content', props.className, {
+	    'is-active': props.isActive
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(AccordionContent.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	AccordionContent.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  isActive: _propTypes2.default.bool
+	});
+	
+	/**
+	 * Accordion panel title component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var AccordionTitle = exports.AccordionTitle = function AccordionTitle(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'accordion-title', props.className, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(AccordionContent.propTypes));
+	
+	  return _react2.default.createElement('a', _extends({}, passProps, { className: className }));
+	};
+	
+	AccordionTitle.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes);
+
+/***/ }),
+/* 244 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.FlexboxPropTypes = exports.GeneralPropTypes = undefined;
+	exports.createClassName = createClassName;
+	exports.generalClassNames = generalClassNames;
+	exports.objectKeys = objectKeys;
+	exports.objectValues = objectValues;
+	exports.removeProps = removeProps;
+	exports.isDefined = isDefined;
+	exports.addBreakpoint = addBreakpoint;
+	exports.setDirection = setDirection;
+	exports.flexboxClassNames = flexboxClassNames;
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _classnames = __webpack_require__(245);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	var _enums = __webpack_require__(246);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Property types for general properties.
+	 *
+	 * @returns {Object}
+	 */
+	var GeneralPropTypes = exports.GeneralPropTypes = {
+	  showFor: _propTypes2.default.oneOf([_enums.Breakpoints.MEDIUM, _enums.Breakpoints.LARGE]),
+	  showOnlyFor: _propTypes2.default.oneOf(objectValues(_enums.Breakpoints)),
+	  hideFor: _propTypes2.default.oneOf([_enums.Breakpoints.MEDIUM, _enums.Breakpoints.LARGE]),
+	  hideOnlyFor: _propTypes2.default.oneOf(objectValues(_enums.Breakpoints)),
+	  isHidden: _propTypes2.default.bool,
+	  isInvisible: _propTypes2.default.bool,
+	  showForLandscape: _propTypes2.default.bool,
+	  showForPortrait: _propTypes2.default.bool,
+	  showForSr: _propTypes2.default.bool,
+	  showOnFocus: _propTypes2.default.bool,
+	  isClearfix: _propTypes2.default.bool,
+	  float: _propTypes2.default.oneOf(objectValues(_enums.FloatTypes))
+	};
+	
+	/**
+	 * Creates class names from the given arguments.
+	 *
+	 * @param {*} args
+	 * @returns {string}
+	 */
+	function createClassName() {
+	  return _classnames2.default.apply(undefined, arguments);
+	}
+	
+	/**
+	 * Parses the general class names from the given properties.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	function generalClassNames(props) {
+	  return {
+	    'show-for-medium': props.showFor === _enums.Breakpoints.MEDIUM,
+	    'show-for-large': props.showFor === _enums.Breakpoints.LARGE,
+	    'show-for-small-only': props.showOnlyFor === _enums.Breakpoints.SMALL,
+	    'show-for-medium-only': props.showOnlyFor === _enums.Breakpoints.MEDIUM,
+	    'show-for-large-only': props.showOnlyFor === _enums.Breakpoints.LARGE,
+	    'hide-for-medium': props.hideFor === _enums.Breakpoints.MEDIUM,
+	    'hide-for-large': props.hideFor === _enums.Breakpoints.LARGE,
+	    'hide-for-small-only': props.hideOnlyFor === _enums.Breakpoints.SMALL,
+	    'hide-for-medium-only': props.hideOnlyFor === _enums.Breakpoints.MEDIUM,
+	    'hide-for-large-only': props.hideOnlyFor === _enums.Breakpoints.LARGE,
+	    'hide': props.isHidden,
+	    'invisible': props.isInvisible,
+	    'show-for-landscape': props.showForLandscape,
+	    'show-for-portrait': props.showForPortrait,
+	    'show-for-sr': props.showForSr,
+	    'show-on-focus': props.showOnFocus,
+	    'clearfix': props.isClearfix,
+	    'float-left': props.float === _enums.FloatTypes.LEFT,
+	    'float-center': props.float === _enums.FloatTypes.CENTER,
+	    'float-right': props.float === _enums.FloatTypes.RIGHT
+	  };
+	}
+	
+	/**
+	 * Returns the keys for the given object.
+	 * This method is used for getting the keys for prop types.
+	 *
+	 * @param {Object} object
+	 * @returns {Array}
+	 */
+	function objectKeys(object) {
+	  return Object.keys(object);
+	}
+	
+	/**
+	 * Returns the values for the given object.
+	 * This method is used for getting the values for enumerables.
+	 *
+	 * @param {Object} object
+	 * @returns {Array}
+	 */
+	function objectValues(object) {
+	  var values = [];
+	
+	  for (var property in object) {
+	    if (object.hasOwnProperty(property)) {
+	      values.push(object[property]);
+	    }
+	  }
+	
+	  return values;
+	}
+	
+	/**
+	 * Removes properties from the given object.
+	 * This method is used for removing valid attributes from component props prior to rendering.
+	 *
+	 * @param {Object} object
+	 * @param {Array} remove
+	 * @returns {Object}
+	 */
+	function removeProps(object, remove) {
+	  var result = {};
+	
+	  for (var property in object) {
+	    if (object.hasOwnProperty(property) && remove.indexOf(property) === -1) {
+	      result[property] = object[property];
+	    }
+	  }
+	
+	  return result;
+	}
+	
+	/**
+	 * Returns whether or not the given value is defined.
+	 *
+	 * @param {*} value
+	 * @returns {boolean}
+	 */
+	function isDefined(value) {
+	  return typeof value !== 'undefined';
+	}
+	
+	/**
+	 * Adds a breakpoint to a class if breakpoint is specified.
+	 *
+	 * @param {String} prop
+	 * @param {String} size
+	 * @returns {string}
+	 */
+	function addBreakpoint(prop, size) {
+	  return size === 'all' ? prop : size + '-' + prop;
+	}
+	
+	/**
+	 * Sets direction for grid and gutters (horizontal or vertical).
+	 *
+	 * @param {boolean} isVertical
+	 * @param {String} gutters
+	 * @returns {string}
+	 */
+	function setDirection(isVertical) {
+	  var gutters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+	
+	  if (gutters) {
+	    return isVertical === true ? 'grid-' + gutters + '-y' : 'grid-' + gutters + '-x';
+	  } else {
+	    return isVertical === true ? 'grid-y' : 'grid-x';
+	  }
+	}
+	
+	// Flexbox Utilities
+	
+	/**
+	 * Property types for flexbox utilities.
+	 *
+	 * @returns {Object}
+	 */
+	var FlexboxPropTypes = exports.FlexboxPropTypes = {
+	  alignX: _propTypes2.default.oneOf(objectValues(_enums.HorizontalAlignments)),
+	  alignY: _propTypes2.default.oneOf(objectValues(_enums.VerticalAlignments)),
+	  selfAlignX: _propTypes2.default.oneOf(objectValues(_enums.HorizontalAlignments)),
+	  selfAlignY: _propTypes2.default.oneOf(objectValues(_enums.VerticalAlignments)),
+	  centerAlign: _propTypes2.default.bool,
+	  flexContainer: _propTypes2.default.bool,
+	  flexDirRow: _propTypes2.default.oneOf(objectValues(_enums.ExtendedBreakpoints)),
+	  flexDirRowRev: _propTypes2.default.oneOf(objectValues(_enums.ExtendedBreakpoints)),
+	  flexDirCol: _propTypes2.default.oneOf(objectValues(_enums.ExtendedBreakpoints)),
+	  flexDirColRev: _propTypes2.default.oneOf(objectValues(_enums.ExtendedBreakpoints)),
+	  flexChild: _propTypes2.default.oneOf(objectValues(_enums.SpaceControls)),
+	  flexOrder: _propTypes2.default.number,
+	  flexOrderSmall: _propTypes2.default.number,
+	  flexOrderMedium: _propTypes2.default.number,
+	  flexOrderLarge: _propTypes2.default.number
+	};
+	
+	/**
+	 * Parses the flexbox class names from the given properties.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	function flexboxClassNames(props) {
+	  var flexClassNames = {
+	    'flex-container': props.flexContainer,
+	    'align-center-middle': props.centerAlign
+	  };
+	
+	  if (isDefined(props.alignX)) flexClassNames['align-' + props.alignX] = true;
+	  if (isDefined(props.alignY)) flexClassNames['align-' + props.alignY] = true;
+	  if (isDefined(props.flexDirRow)) flexClassNames[addBreakpoint('flex-dir-row', props.flexDirRow)] = true;
+	  if (isDefined(props.flexDirRowRev)) flexClassNames[addBreakpoint('flex-dir-row-reverse', props.flexDirRowRev)] = true;
+	  if (isDefined(props.flexDirCol)) flexClassNames[addBreakpoint('flex-dir-column', props.flexDirCol)] = true;
+	  if (isDefined(props.flexDirColRev)) flexClassNames[addBreakpoint('flex-dir-column-reverse', props.flexDirColRev)] = true;
+	  if (isDefined(props.flexChild)) flexClassNames['flex-child-' + props.flexChild] = true;
+	  if (isDefined(props.flexOrder)) flexClassNames['order-' + props.flexOrder] = true;
+	  if (isDefined(props.flexOrderSmall)) flexClassNames['small-order-' + props.flexOrder] = true;
+	  if (isDefined(props.flexOrderMedium)) flexClassNames['medium-order-' + props.flexOrder] = true;
+	  if (isDefined(props.flexOrderLarge)) flexClassNames['large-order-' + props.flexOrder] = true;
+	
+	  return flexClassNames;
+	}
+
+/***/ }),
+/* 245 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2016 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+	
+	(function () {
+		'use strict';
+	
+		var hasOwn = {}.hasOwnProperty;
+	
+		function classNames () {
+			var classes = [];
+	
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+	
+				var argType = typeof arg;
+	
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+	
+			return classes.join(' ');
+		}
+	
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ }),
+/* 246 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	/**
+	 * Breakpoints enumerable.
+	 *
+	 * @type {{SMALL: string, MEDIUM: string, LARGE: string, XLARGE: string, XXLARGE: string}}
+	 */
+	var Breakpoints = exports.Breakpoints = {
+	  SMALL: 'small',
+	  MEDIUM: 'medium',
+	  LARGE: 'large',
+	  XLARGE: 'xlarge',
+	  XXLARGE: 'xxlarge'
+	};
+	
+	/**
+	 * Badge color enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var BadgeColors = exports.BadgeColors = {
+	  INFO: 'info',
+	  SECONDARY: 'secondary',
+	  SUCCESS: 'success',
+	  WARNING: 'warning',
+	  ALERT: 'alert'
+	};
+	
+	/**
+	 * Button color enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var ButtonColors = exports.ButtonColors = {
+	  PRIMARY: 'primary',
+	  SECONDARY: 'secondary',
+	  SUCCESS: 'success',
+	  ALERT: 'alert',
+	  WARNING: 'warning'
+	};
+	
+	/**
+	 * Button group color enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var ButtonGroupColors = exports.ButtonGroupColors = {
+	  PRIMARY: 'primary',
+	  SECONDARY: 'secondary',
+	  SUCCESS: 'success',
+	  ALERT: 'alert',
+	  WARNING: 'warning'
+	};
+	
+	/**
+	 * Callout color enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var CalloutColors = exports.CalloutColors = {
+	  PRIMARY: 'primary',
+	  SECONDARY: 'secondary',
+	  SUCCESS: 'success',
+	  WARNING: 'warning',
+	  ALERT: 'alert'
+	};
+	
+	/**
+	 * Label color enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var LabelColors = exports.LabelColors = {
+	  INFO: 'info',
+	  SECONDARY: 'secondary',
+	  SUCCESS: 'success',
+	  WARNING: 'warning',
+	  ALERT: 'alert'
+	};
+	
+	/**
+	 * Progress colors enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var ProgressColors = exports.ProgressColors = {
+	  SECONDARY: 'secondary',
+	  SUCCESS: 'success',
+	  WARNING: 'warning',
+	  ALERT: 'alert'
+	};
+	
+	/**
+	 * Color meta-enumerable.
+	 * This is exposed to the consumer, while the sub-sets are only used internally.
+	 *
+	 * @type {Object}
+	 */
+	var Colors = exports.Colors = _extends({}, BadgeColors, ButtonColors, ButtonGroupColors, CalloutColors, LabelColors, ProgressColors);
+	
+	/**
+	 * Callout size enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var CalloutSizes = exports.CalloutSizes = {
+	  SMALL: 'small',
+	  LARGE: 'large'
+	};
+	
+	/**
+	 * Button size enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var ButtonSizes = exports.ButtonSizes = {
+	  TINY: 'tiny',
+	  SMALL: 'small',
+	  LARGE: 'large'
+	};
+	
+	/**
+	 * Button group size enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var ButtonGroupSizes = exports.ButtonGroupSizes = {
+	  TINY: 'tiny',
+	  SMALL: 'small',
+	  LARGE: 'large'
+	};
+	
+	/**
+	 * Switch size enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var SwitchSizes = exports.SwitchSizes = {
+	  TINY: 'tiny',
+	  SMALL: 'small',
+	  LARGE: 'large'
+	};
+	
+	/**
+	 * Size meta-enumerable.
+	 * This is exposed to the consumer, while the sub-sets are only used internally.
+	 *
+	 * @type {Object}
+	 */
+	var Sizes = exports.Sizes = _extends({}, ButtonSizes, ButtonGroupSizes, CalloutSizes, SwitchSizes);
+	
+	/**
+	 * Horizontal alignment enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var HorizontalAlignments = exports.HorizontalAlignments = {
+	  CENTER: 'center',
+	  RIGHT: 'right',
+	  JUSTIFY: 'justify',
+	  SPACED: 'spaced'
+	};
+	
+	/**
+	 * Vertical alignment enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var VerticalAlignments = exports.VerticalAlignments = {
+	  TOP: 'top',
+	  MIDDLE: 'middle',
+	  BOTTOM: 'bottom',
+	  STRETCH: 'stretch'
+	};
+	
+	/**
+	 * Menu alignment enumerable.
+	 *
+	 * @type {{RIGHT: string, CENTER: string}}
+	 */
+	var MenuAlignments = exports.MenuAlignments = {
+	  RIGHT: 'right',
+	  CENTER: 'center'
+	};
+	
+	/**
+	 * Alignments meta-enumerable.
+	 * This is exposed to the consumer, while the sub-sets are only used internally.
+	 *
+	 * @type {Object}
+	 */
+	var Alignments = exports.Alignments = _extends({}, HorizontalAlignments, VerticalAlignments, MenuAlignments);
+	
+	/**
+	 * Float types enumerable.
+	 *
+	 * @type {{LEFT: string, CENTER: string, RIGHT: string}}
+	 */
+	var FloatTypes = exports.FloatTypes = {
+	  LEFT: 'left',
+	  CENTER: 'center',
+	  RIGHT: 'right'
+	};
+	
+	/**
+	 * Switch type enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var SwitchInputTypes = exports.SwitchInputTypes = {
+	  CHECKBOX: 'checkbox',
+	  RADIO: 'radio'
+	};
+	
+	/**
+	 * Input type meta-enumerable.
+	 * This is exposed to the consumer, while the sub-sets are only used internally.
+	 *
+	 * @type {Object}
+	 */
+	var InputTypes = exports.InputTypes = _extends({}, SwitchInputTypes);
+	
+	/**
+	 * Gutter type enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var GutterTypes = exports.GutterTypes = {
+	  MARGIN: 'margin',
+	  PADDING: 'padding'
+	};
+	
+	/**
+	 * Extended breakpoints enumerable (includes 'ALL' option, which is useful when breakpoint is not defined).
+	 *
+	 * @type {{SMALL: string, MEDIUM: string, LARGE: string, XLARGE: string, XXLARGE: string, ALL: string}}
+	 */
+	var ExtendedBreakpoints = exports.ExtendedBreakpoints = {
+	  SMALL: 'small',
+	  MEDIUM: 'medium',
+	  LARGE: 'large',
+	  XLARGE: 'xlarge',
+	  XXLARGE: 'xxlarge',
+	  ALL: 'all'
+	};
+	
+	/**
+	 * Space control enumerable.
+	 *
+	 * @type {Object}
+	 */
+	var SpaceControls = exports.SpaceControls = {
+	  AUTO: 'auto',
+	  GROW: 'grow',
+	  SHRINK: 'shrink'
+	};
+
+/***/ }),
+/* 247 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Badge = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _enums = __webpack_require__(246);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Badge component.
+	 * http://foundation.zurb.com/sites/docs/badge.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Badge = exports.Badge = function Badge(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'badge', props.className, props.color, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Badge.propTypes));
+	
+	  return _react2.default.createElement('span', _extends({}, passProps, { className: className }));
+	};
+	
+	Badge.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  color: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.BadgeColors))
+	});
+
+/***/ }),
+/* 248 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.BreadcrumbItem = exports.Breadcrumbs = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Breadcrumbs component.
+	 * http://foundation.zurb.com/sites/docs/breadcrumbs.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Breadcrumbs = exports.Breadcrumbs = function Breadcrumbs(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'breadcrumbs', props.className, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Breadcrumbs.propTypes));
+	
+	  return _react2.default.createElement('ul', _extends({}, passProps, { className: className }));
+	};
+	
+	Breadcrumbs.propTypes = _extends({}, _utils.GeneralPropTypes);
+	
+	/**
+	 * Breadcrumb item component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var BreadcrumbItem = exports.BreadcrumbItem = function BreadcrumbItem(props) {
+	  var className = (0, _utils.createClassName)(props.className, {
+	    'disabled': props.isDisabled
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(BreadcrumbItem.propTypes));
+	
+	  return _react2.default.createElement('li', _extends({}, passProps, { className: className }));
+	};
+	
+	BreadcrumbItem.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  isDisabled: _propTypes2.default.bool
+	});
+
+/***/ }),
+/* 249 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Link = exports.Button = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _enums = __webpack_require__(246);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Button property types.
+	 *
+	 * @type {Object}
+	 */
+	var ButtonPropTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  color: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.ButtonColors)),
+	  size: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.ButtonSizes)),
+	  isHollow: _propTypes2.default.bool,
+	  isExpanded: _propTypes2.default.bool,
+	  isDisabled: _propTypes2.default.bool,
+	  isDropdown: _propTypes2.default.bool
+	});
+	
+	/**
+	 * Button component.
+	 * http://foundation.zurb.com/sites/docs/button.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Button = exports.Button = function Button(props) {
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Button.propTypes));
+	
+	  return _react2.default.createElement('button', _extends({}, passProps, { className: createButtonClassName(props) }));
+	};
+	
+	Button.propTypes = ButtonPropTypes;
+	
+	/**
+	 * Link button component.
+	 * http://foundation.zurb.com/sites/docs/button.html#basics
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Link = exports.Link = function Link(props) {
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Button.propTypes));
+	
+	  return _react2.default.createElement('a', _extends({}, passProps, { className: createButtonClassName(props) }));
+	};
+	
+	Link.propTypes = ButtonPropTypes;
+	
+	/**
+	 * Creates button class name from the given properties.
+	 *
+	 * @param {Object} props
+	 * @returns {string}
+	 */
+	function createButtonClassName(props) {
+	  return (0, _utils.createClassName)(props.noDefaultClassName ? null : 'button', props.className, props.size, props.color, {
+	    'hollow': props.isHollow,
+	    'expanded': props.isExpanded,
+	    'disabled': props.isDisabled,
+	    'dropdown': props.isDropdown,
+	    'arrow-only': props.isArrowOnly
+	  }, (0, _utils.generalClassNames)(props));
+	}
+
+/***/ }),
+/* 250 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.ButtonGroup = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _enums = __webpack_require__(246);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Button group component.
+	 * http://foundation.zurb.com/sites/docs/button-group.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var ButtonGroup = exports.ButtonGroup = function ButtonGroup(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'button-group', props.className, props.color, props.size, {
+	    'expanded': props.isExpanded,
+	    'stacked-for-small': props.stackFor === _enums.Breakpoints.SMALL,
+	    'stacked-for-medium': props.stackFor === _enums.Breakpoints.MEDIUM,
+	    'stacked-for-large': props.stackFor === _enums.Breakpoints.LARGE,
+	    'stacked': props.isStacked
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(ButtonGroup.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	ButtonGroup.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  color: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.ButtonGroupColors)),
+	  size: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.ButtonGroupSizes)),
+	  stackFor: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.Breakpoints)),
+	  isExpanded: _propTypes2.default.bool,
+	  isStacked: _propTypes2.default.bool
+	});
+
+/***/ }),
+/* 251 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Callout = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _enums = __webpack_require__(246);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Callout component.
+	 * http://foundation.zurb.com/sites/docs/callout.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Callout = exports.Callout = function Callout(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'callout', props.className, props.color, props.size, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Callout.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	Callout.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  color: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.CalloutColors)),
+	  size: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.CalloutSizes))
+	});
+
+/***/ }),
+/* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.CloseButton = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Close button component.
+	 * http://foundation.zurb.com/sites/docs/close-button.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var CloseButton = exports.CloseButton = function CloseButton(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'close-button', props.className, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(CloseButton.propTypes));
+	
+	  return _react2.default.createElement('button', _extends({}, passProps, { className: className }));
+	};
+	
+	CloseButton.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes);
+
+/***/ }),
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Reveal = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Reveal component.
+	 * http://foundation.zurb.com/sites/docs/reveal.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	
+	var Reveal = exports.Reveal = function Reveal(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'reveal', props.className, {
+	    'tiny': props.isTiny,
+	    'small': props.isSmall,
+	    'large': props.isLarge,
+	    'full': props.isFullscreen
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Reveal.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className, 'data-reveal': true }));
+	};
+	
+	Reveal.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  isTiny: _propTypes2.default.bool,
+	  isSmall: _propTypes2.default.bool,
+	  isLarge: _propTypes2.default.bool,
+	  isFullscreen: _propTypes2.default.bool
+	});
+
+/***/ }),
+/* 254 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.FlexVideo = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * FlexVideo component.
+	 * http://foundation.zurb.com/sites/docs/flex-video.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var FlexVideo = exports.FlexVideo = function FlexVideo(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'flex-video', props.className, {
+	    widescreen: props.isWidescreen,
+	    vimeo: props.isVimeo
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(FlexVideo.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	FlexVideo.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  isWidescreen: _propTypes2.default.bool,
+	  isVimeo: _propTypes2.default.bool
+	});
+
+/***/ }),
+/* 255 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Column = exports.Row = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _enums = __webpack_require__(246);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Row component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Row = exports.Row = function Row(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'row', props.className, (0, _utils.isDefined)(props.upOnSmall) ? 'small-up-' + props.upOnSmall : null, (0, _utils.isDefined)(props.upOnMedium) ? 'medium-up-' + props.upOnMedium : null, (0, _utils.isDefined)(props.upOnLarge) ? 'large-up-' + props.upOnLarge : null, {
+	    'align-right': props.horizontalAlignment === _enums.HorizontalAlignments.RIGHT,
+	    'align-center': props.horizontalAlignment === _enums.HorizontalAlignments.CENTER,
+	    'align-justify': props.horizontalAlignment === _enums.HorizontalAlignments.JUSTIFY,
+	    'align-spaced': props.horizontalAlignment === _enums.HorizontalAlignments.SPACED,
+	    'align-top': props.verticalAlignment === _enums.VerticalAlignments.TOP,
+	    'align-middle': props.verticalAlignment === _enums.VerticalAlignments.MIDDLE,
+	    'align-bottom': props.verticalAlignment === _enums.VerticalAlignments.BOTTOM,
+	    'align-stretch': props.verticalAlignment === _enums.VerticalAlignments.STRETCH,
+	    'small-unstack': props.unstackOnSmall,
+	    'medium-unstack': props.unstackOnMedium,
+	    'large-unstack': props.unstackOnLarge,
+	    'small-collapse': props.collapseOnSmall,
+	    'medium-collapse': props.collapseOnMedium,
+	    'large-collapse': props.collapseOnLarge,
+	    'small-uncollapse': props.uncollapseOnSmall,
+	    'medium-uncollapse': props.uncollapseOnMedium,
+	    'large-uncollapse': props.uncollapseOnLarge,
+	    'collapse': props.isCollapsed,
+	    'expanded': props.isExpanded,
+	    'column': props.isColumn
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Row.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	Row.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  upOnSmall: _propTypes2.default.number,
+	  upOnMedium: _propTypes2.default.number,
+	  upOnLarge: _propTypes2.default.number,
+	  horizontalAlignment: _propTypes2.default.string,
+	  verticalAlignment: _propTypes2.default.string,
+	  unstackOnSmall: _propTypes2.default.bool,
+	  unstackOnMedium: _propTypes2.default.bool,
+	  unstackOnLarge: _propTypes2.default.bool,
+	  collapseOnSmall: _propTypes2.default.bool,
+	  collapseOnMedium: _propTypes2.default.bool,
+	  collapseOnLarge: _propTypes2.default.bool,
+	  uncollapseOnSmall: _propTypes2.default.bool,
+	  uncollapseOnMedium: _propTypes2.default.bool,
+	  uncollapseOnLarge: _propTypes2.default.bool,
+	  isCollapsed: _propTypes2.default.bool,
+	  isExpanded: _propTypes2.default.bool,
+	  isColumn: _propTypes2.default.bool
+	});
+	
+	/**
+	 * Column component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Column = exports.Column = function Column(props) {
+	  var defaultClassName = props.isColumn ? 'column' : 'columns';
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : defaultClassName, props.className, props.small ? 'small-' + props.small : null, props.medium ? 'medium-' + props.medium : null, props.large ? 'large-' + props.large : null, (0, _utils.isDefined)(props.offsetOnSmall) ? 'small-offset-' + props.offsetOnSmall : null, (0, _utils.isDefined)(props.offsetOnMedium) ? 'medium-offset-' + props.offsetOnMedium : null, (0, _utils.isDefined)(props.offsetOnLarge) ? 'large-offset-' + props.offsetOnLarge : null, (0, _utils.isDefined)(props.pushOnSmall) ? 'small-push-' + props.pushOnSmall : null, (0, _utils.isDefined)(props.pushOnMedium) ? 'medium-push-' + props.pushOnMedium : null, (0, _utils.isDefined)(props.pushOnLarge) ? 'large-push-' + props.pushOnLarge : null, (0, _utils.isDefined)(props.pullOnSmall) ? 'small-pull-' + props.pullOnSmall : null, (0, _utils.isDefined)(props.pullOnMedium) ? 'medium-pull-' + props.pullOnMedium : null, (0, _utils.isDefined)(props.pullOnLarge) ? 'large-pull-' + props.pullOnLarge : null, (0, _utils.isDefined)(props.orderOnSmall) ? 'small-order-' + props.orderOnSmall : null, (0, _utils.isDefined)(props.orderOnMedium) ? 'medium-order-' + props.orderOnMedium : null, (0, _utils.isDefined)(props.orderOnLarge) ? 'large-order-' + props.orderOnLarge : null, {
+	    'small-centered': props.centerOnSmall,
+	    'medium-centered': props.centerOnMedium,
+	    'large-centered': props.centerOnLarge,
+	    'small-uncentered': props.uncenterOnSmall,
+	    'medium-uncentered': props.uncenterOnMedium,
+	    'large-uncentered': props.uncenterOnLarge,
+	    'small-expand': props.expandOnSmall,
+	    'medium-expand': props.expandOnMedium,
+	    'large-expand': props.expandOnLarge,
+	    'shrink': props.isShrunk,
+	    'end': props.isLast
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Column.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	Column.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  small: _propTypes2.default.number,
+	  medium: _propTypes2.default.number,
+	  large: _propTypes2.default.number,
+	  offsetOnSmall: _propTypes2.default.number,
+	  offsetOnMedium: _propTypes2.default.number,
+	  offsetOnLarge: _propTypes2.default.number,
+	  pushOnSmall: _propTypes2.default.number,
+	  pushOnMedium: _propTypes2.default.number,
+	  pushOnLarge: _propTypes2.default.number,
+	  pullOnSmall: _propTypes2.default.number,
+	  pullOnMedium: _propTypes2.default.number,
+	  pullOnLarge: _propTypes2.default.number,
+	  orderOnSmall: _propTypes2.default.number,
+	  orderOnMedium: _propTypes2.default.number,
+	  orderOnLarge: _propTypes2.default.number,
+	  centerOnSmall: _propTypes2.default.bool,
+	  centerOnMedium: _propTypes2.default.bool,
+	  centerOnLarge: _propTypes2.default.bool,
+	  uncenterOnSmall: _propTypes2.default.bool,
+	  uncenterOnMedium: _propTypes2.default.bool,
+	  uncenterOnLarge: _propTypes2.default.bool,
+	  expandOnSmall: _propTypes2.default.bool,
+	  expandOnMedium: _propTypes2.default.bool,
+	  expandOnLarge: _propTypes2.default.bool,
+	  isShrunk: _propTypes2.default.bool,
+	  isLast: _propTypes2.default.bool
+	});
+
+/***/ }),
+/* 256 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Inline = exports.Block = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Div component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Block = exports.Block = function Block(props) {
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Block.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: (0, _utils.createClassName)(props.className, (0, _utils.generalClassNames)(props)) }));
+	};
+	
+	Block.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes);
+	
+	/**
+	 * Span component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Inline = exports.Inline = function Inline(props) {
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Inline.propTypes));
+	
+	  return _react2.default.createElement('span', _extends({}, passProps, { className: (0, _utils.createClassName)(props.className, (0, _utils.generalClassNames)(props)) }));
+	};
+	
+	Inline.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes);
+
+/***/ }),
+/* 257 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Icon = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Icon component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Icon = exports.Icon = function Icon(props) {
+	  var className = (0, _utils.createClassName)(props.prefix, props.prefix ? props.prefix + '-' + props.name : props.name, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Icon.propTypes));
+	
+	  return _react2.default.createElement('i', _extends({}, passProps, { className: className }));
+	};
+	
+	Icon.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  name: _propTypes2.default.string.isRequired,
+	  prefix: _propTypes2.default.string
+	});
+
+/***/ }),
+/* 258 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Label = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _enums = __webpack_require__(246);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Label component.
+	 * http://foundation.zurb.com/sites/docs/label.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Label = exports.Label = function Label(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'label', props.className, props.color, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Label.propTypes));
+	
+	  return _react2.default.createElement('span', _extends({}, passProps, { className: className }));
+	};
+	
+	Label.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  color: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.LabelColors))
+	});
+
+/***/ }),
+/* 259 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.MediaObjectSection = exports.MediaObject = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _enums = __webpack_require__(246);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Media object component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var MediaObject = exports.MediaObject = function MediaObject(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'media-object', props.className, {
+	    'stack-for-small': props.stackForSmall
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(MediaObject.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	MediaObject.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  stackForSmall: _propTypes2.default.bool
+	});
+	
+	/**
+	 * Media object section component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var MediaObjectSection = exports.MediaObjectSection = function MediaObjectSection(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'media-object-section', props.className, {
+	    'align-self-center': props.alignment === _enums.HorizontalAlignments.CENTER,
+	    'align-self-right': props.alignment === _enums.HorizontalAlignments.RIGHT,
+	    'align-self-justify': props.alignment === _enums.HorizontalAlignments.JUSTIFY,
+	    'align-self-spaced': props.alignment === _enums.HorizontalAlignments.SPACED,
+	    'main-section': props.isMain,
+	    'middle': props.isMiddle,
+	    'bottom': props.isBottom
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(MediaObjectSection.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	MediaObjectSection.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  alignment: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.HorizontalAlignments)),
+	  isMain: _propTypes2.default.bool,
+	  isMiddle: _propTypes2.default.bool,
+	  isBottom: _propTypes2.default.bool
+	});
+
+/***/ }),
+/* 260 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.MenuText = exports.MenuItem = exports.Menu = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _enums = __webpack_require__(246);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Menu component.
+	 * http://foundation.zurb.com/sites/docs/menu.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Menu = exports.Menu = function Menu(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'menu', props.className, {
+	    'align-right': props.alignment === _enums.MenuAlignments.RIGHT,
+	    'align-center': props.alignment === _enums.MenuAlignments.CENTER,
+	    'icon-top': props.iconsOnTop,
+	    'expanded': props.isExpanded,
+	    'vertical': props.isVertical,
+	    'simple': props.isSimple,
+	    'nested': props.isNested,
+	    'dropdown': props.isDropdown,
+	    'medium-horizontal': props.horizontalOnMedium
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Menu.propTypes));
+	
+	  return _react2.default.createElement('ul', _extends({}, passProps, { className: className }));
+	};
+	
+	Menu.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  alignment: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.MenuAlignments)),
+	  iconsOnTop: _propTypes2.default.bool,
+	  isExpanded: _propTypes2.default.bool,
+	  isVertical: _propTypes2.default.bool,
+	  isDropdown: _propTypes2.default.bool,
+	  isSimple: _propTypes2.default.bool,
+	  isNested: _propTypes2.default.bool,
+	  horizontalOnMedium: _propTypes2.default.bool
+	});
+	
+	/**
+	 * Menu item component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var MenuItem = exports.MenuItem = function MenuItem(props) {
+	  var className = (0, _utils.createClassName)(props.className, {
+	    'active': props.isActive
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(MenuItem.propTypes));
+	
+	  return _react2.default.createElement('li', _extends({}, passProps, { className: className }));
+	};
+	
+	MenuItem.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  isActive: _propTypes2.default.bool
+	});
+	
+	/**
+	 * Menu text wrapper-component.
+	 *
+	 * @param {Object} props
+	 * @returns {XML}
+	 */
+	var MenuText = exports.MenuText = function MenuText(props) {
+	  return _react2.default.createElement(MenuItem, _extends({}, props, { className: props.className || 'menu-text' }));
+	};
+
+/***/ }),
+/* 261 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.PaginationEllipsis = exports.PaginationNext = exports.PaginationPrevious = exports.PaginationItem = exports.Pagination = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Pagination component.
+	 * http://foundation.zurb.com/sites/docs/pagination.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Pagination = exports.Pagination = function Pagination(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'pagination', props.className, {
+	    'text-center': props.isCentered
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Pagination.propTypes));
+	
+	  return _react2.default.createElement('ul', _extends({}, passProps, { className: className, role: 'navigation' }));
+	};
+	
+	Pagination.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  isCentered: _propTypes2.default.bool
+	});
+	
+	/**
+	 * Pagination item component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var PaginationItem = exports.PaginationItem = function PaginationItem(props) {
+	  var className = (0, _utils.createClassName)(props.className, {
+	    'current': props.isCurrent,
+	    'disabled': props.isDisabled
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(PaginationItem.propTypes));
+	
+	  return _react2.default.createElement('li', _extends({}, passProps, { className: className }));
+	};
+	
+	PaginationItem.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  isCurrent: _propTypes2.default.bool,
+	  isDisabled: _propTypes2.default.bool
+	});
+	
+	/**
+	 * Pagination previous wrapper-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var PaginationPrevious = exports.PaginationPrevious = function PaginationPrevious(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'pagination-previous', props.className, (0, _utils.generalClassNames)(props));
+	
+	  return _react2.default.createElement(PaginationItem, _extends({}, props, { className: className }));
+	};
+	
+	/**
+	 * Pagination next wrapper-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var PaginationNext = exports.PaginationNext = function PaginationNext(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'pagination-next', props.className, (0, _utils.generalClassNames)(props));
+	
+	  return _react2.default.createElement(PaginationItem, _extends({}, props, { className: className }));
+	};
+	
+	/**
+	 * Pagination ellipsis wrapper-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var PaginationEllipsis = exports.PaginationEllipsis = function PaginationEllipsis(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'ellipsis', props.className, (0, _utils.generalClassNames)(props));
+	
+	  return _react2.default.createElement(PaginationItem, _extends({}, props, { className: className }));
+	};
+
+/***/ }),
+/* 262 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.NativeProgress = exports.ProgressMeterText = exports.ProgressMeterWithText = exports.ProgressMeter = exports.Progress = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _enums = __webpack_require__(246);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Progress component.
+	 * http://foundation.zurb.com/sites/docs/progress-bar.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Progress = exports.Progress = function Progress(props) {
+	  var _props$meter = props.meter,
+	      meterProps = _props$meter === undefined ? {} : _props$meter;
+	
+	
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'progress', props.className, props.color, (0, _utils.generalClassNames)(props));
+	
+	  if (props.value) {
+	    meterProps.style = meterProps.style || {};
+	    meterProps.style.width = props.value + '%';
+	  }
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Progress.propTypes));
+	
+	  return _react2.default.createElement(
+	    'div',
+	    _extends({}, passProps, {
+	      className: className,
+	      role: 'progressbar',
+	      'aria-valuemin': props.min,
+	      'aria-valuemax': props.max,
+	      'aria-valuenow': props.value,
+	      'aria-valuetext': props.valueText }),
+	    meterProps.text ? _react2.default.createElement(ProgressMeterWithText, meterProps) : _react2.default.createElement(ProgressMeter, meterProps)
+	  );
+	};
+	
+	Progress.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  min: _propTypes2.default.number,
+	  max: _propTypes2.default.number,
+	  value: _propTypes2.default.number,
+	  color: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.ProgressColors))
+	});
+	
+	/**
+	 * Progress meter sub-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var ProgressMeter = exports.ProgressMeter = function ProgressMeter(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'progress-meter', props.className, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(ProgressMeter.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	ProgressMeter.propTypes = _extends({}, _utils.GeneralPropTypes);
+	
+	/**
+	 * Progress meter with text sub-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var ProgressMeterWithText = exports.ProgressMeterWithText = function ProgressMeterWithText(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'progress-meter', props.className, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(ProgressMeterWithText.propTypes));
+	
+	  return _react2.default.createElement(
+	    'span',
+	    _extends({}, passProps, { className: className }),
+	    _react2.default.createElement(
+	      ProgressMeterText,
+	      null,
+	      props.text
+	    )
+	  );
+	};
+	
+	ProgressMeterWithText.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  text: _propTypes2.default.string.isRequired
+	});
+	
+	/**
+	 * Progress meter text sub-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var ProgressMeterText = exports.ProgressMeterText = function ProgressMeterText(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'progress-meter-text', props.className, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(ProgressMeterText.propTypes));
+	
+	  return _react2.default.createElement('p', _extends({}, passProps, { className: className }));
+	};
+	
+	ProgressMeterText.propTypes = _extends({}, _utils.GeneralPropTypes);
+	
+	/**
+	 * Native progress component.
+	 * http://foundation.zurb.com/sites/docs/progress-bar.html#native-progress
+	 *
+	 * @returns {Object}
+	 */
+	var NativeProgress = exports.NativeProgress = function NativeProgress(props) {
+	  var className = (0, _utils.createClassName)(props.className, props.color, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(NativeProgress.propTypes));
+	
+	  return _react2.default.createElement('progress', _extends({}, passProps, { max: props.max, value: props.value, className: className }));
+	};
+	
+	NativeProgress.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  max: _propTypes2.default.number,
+	  value: _propTypes2.default.number,
+	  color: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.ProgressColors))
+	});
+	
+	// TODO: Consider adding support for native meter.
+
+/***/ }),
+/* 263 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.TitleBarTitle = exports.MenuIcon = exports.TitleBar = exports.ResponsiveNavigation = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _topBar = __webpack_require__(264);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Default pixel value when title bar is displayed and top bar is hidden.
+	var DEFAULT_BREAKPOINT = 640;
+	
+	/**
+	 * Responsive navigation component.
+	 * http://foundation.zurb.com/sites/docs/responsive-navigation.html
+	 */
+	
+	var ResponsiveNavigation = exports.ResponsiveNavigation = function (_Component) {
+	  _inherits(ResponsiveNavigation, _Component);
+	
+	  function ResponsiveNavigation() {
+	    _classCallCheck(this, ResponsiveNavigation);
+	
+	    var _this = _possibleConstructorReturn(this, (ResponsiveNavigation.__proto__ || Object.getPrototypeOf(ResponsiveNavigation)).call(this));
+	
+	    _this.state = {
+	      isTitleBarVisible: true,
+	      isTopBarVisible: false
+	    };
+	
+	    _this.update = _this.update.bind(_this);
+	    _this.toggle = _this.toggle.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(ResponsiveNavigation, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.update();
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      window.addEventListener('resize', this.update);
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      window.removeEventListener('resize', this.update);
+	    }
+	
+	    /**
+	     * Updates the state of this component.
+	     * While this might seem like a sub-optimal solution, it is actually the only solution.
+	     * Using 'hide' and 'show' -classes won't work because they set display with `!important`.
+	     */
+	
+	  }, {
+	    key: 'update',
+	    value: function update() {
+	      var breakpoint = this.props.breakpoint;
+	
+	
+	      this.setState({
+	        isTitleBarVisible: window.innerWidth < breakpoint,
+	        isTopBarVisible: window.innerWidth >= breakpoint
+	      });
+	    }
+	
+	    /**
+	     * Called when the menu icon is clicked.
+	     */
+	
+	  }, {
+	    key: 'toggle',
+	    value: function toggle() {
+	      this.setState({
+	        isTopBarVisible: !this.state.isTopBarVisible
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _state = this.state,
+	          isTitleBarVisible = _state.isTitleBarVisible,
+	          isTopBarVisible = _state.isTopBarVisible;
+	      var _props = this.props,
+	          _props$titleBar = _props.titleBar,
+	          titleBarProps = _props$titleBar === undefined ? {} : _props$titleBar,
+	          _props$menuIcon = _props.menuIcon,
+	          menuIconProps = _props$menuIcon === undefined ? {} : _props$menuIcon,
+	          _props$titleBarTitle = _props.titleBarTitle,
+	          titleBarTitleProps = _props$titleBarTitle === undefined ? {} : _props$titleBarTitle,
+	          _props$topBar = _props.topBar,
+	          topBarProps = _props$topBar === undefined ? {} : _props$topBar,
+	          children = _props.children;
+	
+	
+	      return _react2.default.createElement(
+	        'div',
+	        (0, _utils.removeProps)(this.props, ['breakpoint']),
+	        _react2.default.createElement(
+	          TitleBar,
+	          _extends({}, titleBarProps, { isHidden: !isTitleBarVisible }),
+	          _react2.default.createElement(MenuIcon, _extends({}, menuIconProps, { onClick: this.toggle })),
+	          _react2.default.createElement(TitleBarTitle, titleBarTitleProps)
+	        ),
+	        _react2.default.createElement(
+	          _topBar.TopBar,
+	          _extends({}, topBarProps, { isHidden: !isTopBarVisible }),
+	          children
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return ResponsiveNavigation;
+	}(_react.Component);
+	
+	ResponsiveNavigation.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  breakpoint: _propTypes2.default.number.isRequired
+	});
+	
+	ResponsiveNavigation.defaultProps = {
+	  breakpoint: DEFAULT_BREAKPOINT
+	};
+	
+	/**
+	 * Title bar sub-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var TitleBar = exports.TitleBar = function TitleBar(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'title-bar', props.className, (0, _utils.generalClassNames)(props));
+	
+	  return _react2.default.createElement('div', _extends({}, props, { className: className }));
+	};
+	
+	/**
+	 * Title bar menu icon sub-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var MenuIcon = exports.MenuIcon = function MenuIcon(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'menu-icon', props.className, (0, _utils.generalClassNames)(props));
+	
+	  return _react2.default.createElement('button', _extends({}, props, { className: className, type: 'button' }));
+	};
+	
+	/**
+	 * Title bar title sub-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var TitleBarTitle = exports.TitleBarTitle = function TitleBarTitle(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'title-bar-title', props.className, (0, _utils.generalClassNames)(props));
+	
+	  return _react2.default.createElement('div', _extends({}, props, { className: className }));
+	};
+
+/***/ }),
+/* 264 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.TopBarRight = exports.TopBarLeft = exports.TopBarTitle = exports.TopBar = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Top bar component.
+	 * http://foundation.zurb.com/sites/docs/top-bar.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var TopBar = exports.TopBar = function TopBar(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'top-bar', props.className, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(TopBar.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	TopBar.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes);
+	
+	/**
+	 * Top bar title sub-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var TopBarTitle = exports.TopBarTitle = function TopBarTitle(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'top-bar-title', props.className, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(TopBarTitle.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	TopBarTitle.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes);
+	
+	/**
+	 * Top bar left sub-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var TopBarLeft = exports.TopBarLeft = function TopBarLeft(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'top-bar-left', props.className, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(TopBarLeft.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	TopBarLeft.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes);
+	
+	/**
+	 * Top bar right sub-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var TopBarRight = exports.TopBarRight = function TopBarRight(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'top-bar-right', props.className, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(TopBarRight.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	TopBarRight.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes);
+
+/***/ }),
+/* 265 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.SwitchInactive = exports.SwitchActive = exports.SwitchPaddle = exports.SwitchInput = exports.Switch = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _enums = __webpack_require__(246);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var currentId = 0;
+	
+	/**
+	 * Switch component.
+	 * http://foundation.zurb.com/sites/docs/switch.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Switch = exports.Switch = function Switch(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'switch', props.className, props.size, (0, _utils.generalClassNames)(props));
+	
+	  var switchId = props.id || 'switch' + currentId++;
+	
+	  // TODO: Consider refactoring this, the rendering a little bit messy...
+	
+	  return _react2.default.createElement(
+	    'div',
+	    _extends({}, (0, _utils.removeProps)(props, ['id']), { className: className }),
+	    _react2.default.createElement(SwitchInput, _extends({}, props.input, { id: switchId })),
+	    _react2.default.createElement(
+	      SwitchPaddle,
+	      _extends({}, props.paddle, { htmlFor: switchId }),
+	      props.active ? _react2.default.createElement(SwitchActive, props.active) : null,
+	      props.inactive ? _react2.default.createElement(SwitchInactive, props.inactive) : null
+	    )
+	  );
+	};
+	
+	Switch.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  size: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.SwitchSizes)),
+	  id: _propTypes2.default.string
+	});
+	
+	/**
+	 * Switch input sub-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var SwitchInput = exports.SwitchInput = function SwitchInput(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'switch-input', props.className, (0, _utils.generalClassNames)(props));
+	
+	  return _react2.default.createElement('input', _extends({}, (0, _utils.removeProps)(props, ['type']), { className: className, type: props.type || _enums.SwitchInputTypes.CHECKBOX }));
+	};
+	
+	SwitchInput.propTypes = _extends({
+	  type: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.SwitchInputTypes))
+	}, _utils.GeneralPropTypes);
+	
+	/**
+	 * Switch paddle sub-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var SwitchPaddle = exports.SwitchPaddle = function SwitchPaddle(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'switch-paddle', props.className, (0, _utils.generalClassNames)(props));
+	
+	  return _react2.default.createElement('label', _extends({}, props, { className: className }));
+	};
+	
+	/**
+	 * Switch active sub-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var SwitchActive = exports.SwitchActive = function SwitchActive(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'switch-active', props.className, (0, _utils.generalClassNames)(props));
+	
+	  return _react2.default.createElement(
+	    'span',
+	    _extends({}, props, { className: className, 'aria-hidden': 'true' }),
+	    props.text
+	  );
+	};
+	
+	/**
+	 * Switch inactive sub-component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var SwitchInactive = exports.SwitchInactive = function SwitchInactive(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'switch-inactive', props.className, (0, _utils.generalClassNames)(props));
+	
+	  return _react2.default.createElement(
+	    'span',
+	    _extends({}, props, { className: className, 'aria-hidden': 'true' }),
+	    props.text
+	  );
+	};
+
+/***/ }),
+/* 266 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.ThumbnailLink = exports.Thumbnail = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Thumbnail component.
+	 * http://foundation.zurb.com/sites/docs/switch.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Thumbnail = exports.Thumbnail = function Thumbnail(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'thumbnail', props.className, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Thumbnail.propTypes));
+	
+	  return _react2.default.createElement('img', _extends({}, passProps, { className: className }));
+	};
+	
+	Thumbnail.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes);
+	
+	/**
+	 * Thumbnail link component.
+	 * http://foundation.zurb.com/sites/docs/switch.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var ThumbnailLink = exports.ThumbnailLink = function ThumbnailLink(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'thumbnail', props.className, (0, _utils.generalClassNames)(props));
+	
+	  // TODO: Consider improving how properties are set for both the link and image.
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(ThumbnailLink.propTypes));
+	
+	  return _react2.default.createElement(
+	    'a',
+	    { className: className },
+	    _react2.default.createElement('img', passProps)
+	  );
+	};
+	
+	ThumbnailLink.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes);
+
+/***/ }),
+/* 267 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.TabPanel = exports.TabsContent = exports.TabItem = exports.Tabs = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Tabs component.
+	 * http://foundation.zurb.com/sites/docs/tabs.html
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Tabs = exports.Tabs = function Tabs(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'tabs', props.className, {
+	    'vertical': props.isVertical
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Tabs.propTypes));
+	
+	  return _react2.default.createElement('ul', _extends({}, passProps, { className: className }));
+	};
+	
+	Tabs.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  isVertical: _propTypes2.default.bool
+	});
+	
+	/**
+	 * Tab item component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var TabItem = exports.TabItem = function TabItem(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'tabs-title', props.className, {
+	    'is-active': props.isActive
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(TabItem.propTypes));
+	
+	  return _react2.default.createElement('li', _extends({}, passProps, { className: className }));
+	};
+	
+	TabItem.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  isActive: _propTypes2.default.bool
+	});
+	
+	/**
+	 * Tab panel container component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var TabsContent = exports.TabsContent = function TabsContent(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'tabs-content', props.className, {
+	    'vertical': props.isVertical
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(TabsContent.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	TabsContent.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  isActive: _propTypes2.default.bool,
+	  isVertical: _propTypes2.default.bool
+	});
+	
+	/**
+	 * Tab panel item component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var TabPanel = exports.TabPanel = function TabPanel(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'tabs-panel', props.className, {
+	    'is-active': props.isActive
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(TabPanel.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	TabPanel.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  isActive: _propTypes2.default.bool
+	});
+
+/***/ }),
+/* 268 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Cell = exports.Grid = exports.GridContainer = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(186);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _enums = __webpack_require__(246);
+	
+	var _utils = __webpack_require__(244);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Grid container component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var GridContainer = exports.GridContainer = function GridContainer(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'grid-container', props.className, {
+	    'fluid': props.fluid,
+	    'full': props.full
+	  }, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Grid.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	GridContainer.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  fluid: _propTypes2.default.bool,
+	  full: _propTypes2.default.bool
+	});
+	
+	/**
+	 * Grid component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Grid = exports.Grid = function Grid(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : (0, _utils.setDirection)(props.vertical), props.className, (0, _utils.isDefined)(props.gutters) ? (0, _utils.setDirection)(props.vertical, props.gutters) : null, (0, _utils.isDefined)(props.upOnSmall) ? 'small-up-' + props.upOnSmall : null, (0, _utils.isDefined)(props.upOnMedium) ? 'medium-up-' + props.upOnMedium : null, (0, _utils.isDefined)(props.upOnLarge) ? 'large-up-' + props.upOnLarge : null, (0, _utils.isDefined)(props.collapseOnSmall) ? 'small-' + props.collapseOnSmall + '-collapse' : null, (0, _utils.isDefined)(props.collapseOnMedium) ? 'medium-' + props.collapseOnMedium + '-collapse' : null, (0, _utils.isDefined)(props.collapseOnLarge) ? 'large-' + props.collapseOnLarge + '-collapse' : null, (0, _utils.isDefined)(props.gridFrame) ? (0, _utils.addBreakpoint)('grid-frame', props.gridFrame) : null, (0, _utils.generalClassNames)(props));
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Grid.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	Grid.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  vertical: _propTypes2.default.bool,
+	  gutters: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.GutterTypes)),
+	  upOnSmall: _propTypes2.default.number,
+	  upOnMedium: _propTypes2.default.number,
+	  upOnLarge: _propTypes2.default.number,
+	  collapseOnSmall: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.GutterTypes)),
+	  collapseOnMedium: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.GutterTypes)),
+	  collapseOnLarge: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.GutterTypes)),
+	  gridFrame: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.ExtendedBreakpoints))
+	});
+	
+	/**
+	 * Cell component.
+	 *
+	 * @param {Object} props
+	 * @returns {Object}
+	 */
+	var Cell = exports.Cell = function Cell(props) {
+	  var className = (0, _utils.createClassName)(props.noDefaultClassName ? null : 'cell', props.className, props.small ? 'small-' + props.small : null, props.medium ? 'medium-' + props.medium : null, props.large ? 'large-' + props.large : null, (0, _utils.isDefined)(props.auto) ? (0, _utils.addBreakpoint)('auto', props.auto) : null, (0, _utils.isDefined)(props.shrink) ? (0, _utils.addBreakpoint)('shrink', props.shrink) : null, (0, _utils.isDefined)(props.offsetOnSmall) ? 'small-offset-' + props.offsetOnSmall : null, (0, _utils.isDefined)(props.offsetOnMedium) ? 'medium-offset-' + props.offsetOnMedium : null, (0, _utils.isDefined)(props.offsetOnLarge) ? 'large-offset-' + props.offsetOnLarge : null);
+	
+	  var passProps = (0, _utils.removeProps)(props, (0, _utils.objectKeys)(Cell.propTypes));
+	
+	  return _react2.default.createElement('div', _extends({}, passProps, { className: className }));
+	};
+	
+	Cell.propTypes = _extends({}, _utils.GeneralPropTypes, _utils.FlexboxPropTypes, {
+	  small: _propTypes2.default.number,
+	  medium: _propTypes2.default.number,
+	  large: _propTypes2.default.number,
+	  auto: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.ExtendedBreakpoints)),
+	  shrink: _propTypes2.default.oneOf((0, _utils.objectValues)(_enums.ExtendedBreakpoints)),
+	  offsetOnSmall: _propTypes2.default.number,
+	  offsetOnMedium: _propTypes2.default.number,
+	  offsetOnLarge: _propTypes2.default.number
+	});
 
 /***/ })
 /******/ ]);
