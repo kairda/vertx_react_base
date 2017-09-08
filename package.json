@@ -7,10 +7,10 @@
     "node-sass": "^4.5.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-md": "^1.0.19",
     "react-mdc-web": "^0.14.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "sockjs-client": "^1.1.4",
     "superagent": "^3.6.0"
   },
   "author": "Kai Renz, heavily based on work by Paulo Lopes",
@@ -28,6 +28,7 @@
     "eslint-config-airbnb": "^3.0.2",
     "eslint-loader": "^1.2.0",
     "eslint-plugin-react": "^3.14.0",
+    "postcss-extract-styles": "^1.1.1",
     "style-loader": "^0.18.2",
     "webpack": "^1.12.2"
   }

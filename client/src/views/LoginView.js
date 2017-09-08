@@ -1,62 +1,76 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 
-import {Card, CardHeader, CardTitle, CardText, CardActions, Button, Textfield } from 'react-mdc-web/lib';
 
-import {connect} from 'react-redux';
+import Card from 'react-md/lib/Cards/Card';
+import CardTitle from 'react-md/lib/Cards/CardTitle';
+import CardActions from 'react-md/lib/Cards/CardActions';
+import CardText from 'react-md/lib/Cards/CardText';
+import Button from 'react-md/lib/Buttons/Button';
 
-import {doTryLogin } from "../actions/loginActions";
+import TextField from 'react-md/lib/TextFields';
+
+import { connect } from 'react-redux';
+
+import { doTryLogin } from '../actions/loginActions';
 
 class LoginView extends Component {
 
     constructor(props) {
-        super(props);
+      super(props);
 
         // default username and password ...
-        this.state = { username : "kai", password : "sausages" };
+      this.state = { username: 'kai', password: 'sausages' };
 
     }
 
+    onChangeUserName( value )  {
 
+        this.setState({username: value});
+    }
 
     doClickLogin() {
-        console.log("doClickLogin clicked with " + this.state.username);
-        this.props.doLoginAction(this.props.actions,this.props.loginInfo,this.state.username,this.state.password);
+      console.log('doClickLogin clicked with ' + this.state.username);
+      this.props.doLoginAction(this.props.actions, this.props.loginInfo,
+          this.state.username, this.state.password);
     }
 
     render() {
 
-        return (
+      return (
             <div>
 
-                <Card>
-                    <CardHeader>
-                        <CardTitle>
-                            Provide login details
-                        </CardTitle>
-                    </CardHeader>
+                <Card style={{ maxWidth: 400 }} className="md-block-centered">
+                        <CardTitle title="Provide login details"
+                                   subtitle="Card Subtitle"/>
                     <CardText>
-                        <Textfield
-                            floatingLabel="Username"
+                        <TextField
+                            id="username"
+                            label="Username"
+                            placeholder=""
+                            className="md-cell md-cell--bottom"
                             value={this.state.username}
-                            onChange={({target : {value : username}}) => {
-                                this.setState({ username:  username })
-                            }}
+                            onChange={(value) => { this.setState( { username : value } ); } }
                         />
                         <br/>
-                        <Textfield
-                        floatingLabel="Password"
-                        type="password"
-                        value={this.state.password}
-                        onChange={({target : {value : password}}) => {
-                            this.setState({ password : password })
-                        }}
-                    />
+                        <TextField
+                            id="password"
+                            type="password"
+                            label="Password"
+                            placeholder="Password"
+                            className="md-cell md-cell--bottom"
+                            value={this.state.password}
+                            onChange={(value) => { this.setState( { password : value } ); } }
+                        />
                     </CardText>
-                    <CardActions>
-                        <Button compact onClick={this.doClickLogin.bind(this)}>Login</Button>
+                    <CardActions expander>
+                        <Button flat primary onClick={this.doClickLogin.bind(this)}
+                         label="Login" />
 
-                        <Button compact accent>Cancel</Button>
+                        <Button flat label="Cancel"/>
                     </CardActions>
+                    <CardText expandable>
+                        What-Ever should be put in the expandable ....
+                    </CardText>
                 </Card>
 
             </div>
@@ -65,10 +79,9 @@ class LoginView extends Component {
 }
 
 
-
-export default connect( (state) => ({ loginInfo: state.login.loginInfo, actions: state.base.actions}),
+export default connect((state) => ({ loginInfo: state.login.loginInfo, actions: state.base.actions }),
     (dispatch) => ({
-        doLoginAction: (actions, loginInfo, username, password) => {
-            doTryLogin(actions, loginInfo, username, password );
-        }
+      doLoginAction: (actions, loginInfo, username, password) => {
+        doTryLogin(actions, loginInfo, username, password);
+      }
     }))(LoginView)
