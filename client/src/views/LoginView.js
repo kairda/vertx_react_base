@@ -1,14 +1,5 @@
 import React, { Component } from 'react'
 
-
-import Card from 'react-md/lib/Cards/Card';
-import CardTitle from 'react-md/lib/Cards/CardTitle';
-import CardActions from 'react-md/lib/Cards/CardActions';
-import CardText from 'react-md/lib/Cards/CardText';
-import Button from 'react-md/lib/Buttons/Button';
-
-import TextField from 'react-md/lib/TextFields';
-
 import { connect } from 'react-redux';
 
 import { doTryLogin } from '../actions/loginActions';
@@ -39,39 +30,22 @@ class LoginView extends Component {
       return (
             <div>
 
-                <Card style={{ maxWidth: 400 }} className="md-block-centered">
-                        <CardTitle title="Provide login details"
-                                   subtitle="Card Subtitle"/>
-                    <CardText>
-                        <TextField
+                <h2>Provide login details</h2>
+                <label>Username:</label><input
                             id="username"
-                            label="Username"
-                            placeholder=""
-                            className="md-cell md-cell--bottom"
+                            type="text"
                             value={this.state.username}
                             onChange={(value) => { this.setState( { username : value } ); } }
                         />
                         <br/>
-                        <TextField
+                <label>Password:</label><input
                             id="password"
                             type="password"
-                            label="Password"
-                            placeholder="Password"
-                            className="md-cell md-cell--bottom"
                             value={this.state.password}
                             onChange={(value) => { this.setState( { password : value } ); } }
                         />
-                    </CardText>
-                    <CardActions expander>
-                        <Button flat primary onClick={this.doClickLogin.bind(this)}
-                         label="Login" />
-
-                        <Button flat label="Cancel"/>
-                    </CardActions>
-                    <CardText expandable>
-                        What-Ever should be put in the expandable ....
-                    </CardText>
-                </Card>
+                <br/>
+                <button onClick={this.doClickLogin.bind(this)}>Login</button>
 
             </div>
         );

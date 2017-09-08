@@ -14,25 +14,7 @@ module.exports = {
                 test: /\.js$/,
                 loaders: ["babel"],
                 exclude: /node_modules/
-            }, {
-                test: /\.scss$/,
-                exclude: /node_modules/,
-                loaders: [{
-                    loader: 'css-loader',
-                    options: {
-                        sourceMap: true,
-                    },
-                }, {
-                    loader: 'postcss-loader',
-                }, {
-                    loader: 'sass-loader',
-                    options: {
-                        sourceMap: true,
-                        outputStyle: 'expanded',
-                    },
-                }],
-                fallback: 'style-loader',
-            }
+            }, 
         ]
     }
 
