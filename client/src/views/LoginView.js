@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-
 import { connect } from 'react-redux';
+
+import Button  from 'muicss/lib/react/Button'
+import Container from 'muicss/lib/react/container';
+import Input from 'muicss/lib/react/input';
 
 import { doTryLogin } from '../actions/loginActions';
 
@@ -28,26 +31,30 @@ class LoginView extends Component {
     render() {
 
       return (
-            <div>
+            <Container fluid={true}>
 
                 <h2>Provide login details</h2>
-                <label>Username:</label><input
+                <Input
                             id="username"
+                            label="Username:"
+                            floatingLabel={true}
                             type="text"
                             value={this.state.username}
-                            onChange={(value) => { this.setState( { username : value } ); } }
+                            onChange={(evt) => { this.setState( { username : evt.target.value } ); } }
                         />
                         <br/>
-                <label>Password:</label><input
+                <Input
                             id="password"
+                            label="Password"
+                            floatingLabel={true}
                             type="password"
                             value={this.state.password}
-                            onChange={(value) => { this.setState( { password : value } ); } }
+                            onChange={(evt) => { this.setState( { password : evt.target.value } ); } }
                         />
                 <br/>
-                <button onClick={this.doClickLogin.bind(this)}>Login</button>
+                <Button color="primary" onClick={this.doClickLogin.bind(this)}>Login</Button>
 
-            </div>
+            </Container>
         );
     }
 }

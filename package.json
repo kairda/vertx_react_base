@@ -4,10 +4,11 @@
   "description": "",
   "main": "app-client.js",
   "dependencies": {
+    "muicss": "^0.9.25",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "redux": "^3.7.2",
     "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
     "superagent": "^3.6.0"
   },
   "author": "Kai Renz, heavily based on work by Paulo Lopes",
