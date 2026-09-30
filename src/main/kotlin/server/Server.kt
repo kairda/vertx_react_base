@@ -55,7 +55,8 @@ class Server : CoroutineVerticle(), CoroutineRouterSupport {
         }
 
         // Static content. In the fat jar it comes from the classpath ("webroot");
-        // in development mode straight from the source tree, so webpack --watch results show up on reload.
+        // in development mode straight from the source tree, so a fresh `npm run build` shows up on reload
+        // without restarting the server. (For live editing, the Vite dev server is the better option.)
         val staticHandler = if (config.getBoolean("isDevelopment", false)) {
             logger.info("Serving webroot from src/main/resources/webroot (development mode)")
             StaticHandler.create("src/main/resources/webroot")

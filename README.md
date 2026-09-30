@@ -1,48 +1,56 @@
 # A most simple web-application with Vert.x, Kotlin and React
 
-Server: Kotlin 2.4 on Vert.x 5 (coroutines via `vertx-lang-kotlin-coroutines`), Java 21.
-Client: React/Redux, bundled with webpack into `src/main/resources/webroot/js/bundle.js`.
+- **Server:** Kotlin 2.4 on Vert.x 5 (coroutines via `vertx-lang-kotlin-coroutines`), Java 21 – in `src/main/kotlin`
+- **Client:** React 19, Redux Toolkit, Material UI, built with Vite – in `client/`
 
 Log in with user `kai`, password `sausages` (see `src/main/resources/vertx-users.properties`).
 
 ## Building and running
 
-Requires JDK 21+ and Maven 3.9+.
+Requires JDK 21+, Maven 3.9+ and Node.js 20.19+ / 22.12+ (with npm).
 
 ```
-npm install
-npx webpack
-
 mvn clean package
-
 java -jar target/vertxreactbase-2.0.0-SNAPSHOT-fat.jar
 ```
 
 Open browser and point to [http://localhost:8080](http://localhost:8080)
 
-Command line options:
+`mvn package` also builds the client: it runs `npm ci` and `npm run build` in `client/`, which writes
+the production bundle to `src/main/resources/webroot` (generated, not in git), from where it goes into the jar.
+Use `mvn package -DskipFrontend` to package the server with the client build that is already there.
+
+Command line options of the server:
 
 - `httpPort=<port>` – listen on another port than 8080
 - `isDevelopment` – serve the web root directly from `src/main/resources/webroot` without caching
 
-## Running within an IDE
+## Development
 
-Run webpack in watch mode:
+Start the server (from the IDE: run `server.MainKt`, i.e. `main` in `src/main/kotlin/server/Main.kt`),
+then start the Vite dev server:
 
 ```
-npx webpack --watch --progress --colors --source-maps
+cd client
+npm install
+npm run dev
 ```
 
-Run `server.MainKt` (the `main` function in `src/main/kotlin/server/Main.kt`) with the program argument
+and open [http://localhost:5173](http://localhost:5173). Vite serves the client with hot module replacement
+and forwards `/api` and the WebSocket (`/ws`) to the Vert.x server on port 8080, so edits to the React code
+show up immediately without reloading.
 
-> isDevelopment
+Other scripts in `client/`:
 
-(this will prevent the bundle.js file to be cached)
+| Command | Purpose |
+|---------|---------|
+| `npm run build` | Production build into `src/main/resources/webroot` |
+| `npm test` | Unit tests (Vitest + Testing Library) |
+| `npm run lint` | ESLint |
 
-You can edit the Javascript files and bundle.js is automatically rebuilt.
-A simple reload in the browser shows the effect immediately.
+## Structure
 
-## Server structure
+### Server (`src/main/kotlin/server`)
 
 | File | Purpose |
 |------|---------|
@@ -51,3 +59,14 @@ A simple reload in the browser shows the effect immediately.
 | `login/LoginLogoutHandler.kt` | `/api/login`, `/api/logout`, `/api/isLoggedIn` and the login guard for `/api/*` |
 | `websocket/WebSocketHandler.kt` | Accepts WebSockets on `/ws/...` for logged-in sessions (`?token=<session id>`), broadcasts |
 | `businesslogic/BusinessLogicHandler.kt` | The shared counter |
+
+### Client (`client/src`)
+
+| File | Purpose |
+|------|---------|
+| `main.jsx` | Entry point: Redux store, Material UI theme |
+| `NavBar.jsx` | App bar with login state; shows `LoginView` or the content |
+| `App.jsx` | The counter cards |
+| `views/LoginView.jsx` | Login form |
+| `store/` | Redux Toolkit slices (`counterSlice`, `loginSlice`) and the login/logout thunks (`loginActions`) |
+| `server/connection.js` | The WebSocket connection to the server |

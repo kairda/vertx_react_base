@@ -18,6 +18,9 @@
     <slf4j.version>2.0.20</slf4j.version>
 
     <main.class>server.MainKt</main.class>
+
+    <!-- set -DskipFrontend to package the server without (re)building the React client -->
+    <skipFrontend>false</skipFrontend>
   </properties>
 
   <dependencyManagement>
@@ -80,6 +83,46 @@
     <sourceDirectory>src/main/kotlin</sourceDirectory>
 
     <plugins>
+      <!-- Builds the React client (client/) into src/main/resources/webroot, so it ends up in the jar.
+           Uses the locally installed npm (Node >= 20.19). -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.6.4</version>
+        <configuration>
+          <executable>npm</executable>
+          <workingDirectory>${project.basedir}/client</workingDirectory>
+          <skip>${skipFrontend}</skip>
+        </configuration>
+        <executions>
+          <execution>
+            <id>npm-ci</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <arguments>
+                <argument>ci</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>npm-build</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <arguments>
+                <argument>run</argument>
+                <argument>build</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>
