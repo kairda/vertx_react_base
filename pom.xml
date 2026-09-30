@@ -6,200 +6,128 @@
 
   <groupId>de.l43f</groupId>
   <artifactId>vertxreactbase</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-
+  <version>2.0.0-SNAPSHOT</version>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>21</java.version>
 
-    <slf4j.version>1.7.21</slf4j.version>
-    <vertx.version>3.4.2</vertx.version>
+    <vertx.version>5.2.0</vertx.version>
+    <kotlin.version>2.4.20</kotlin.version>
+    <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
+    <slf4j.version>2.0.20</slf4j.version>
+
+    <main.class>server.MainKt</main.class>
   </properties>
 
-  <dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <!-- Aligns the versions of all Vert.x modules -->
+      <dependency>
+        <groupId>io.vertx</groupId>
+        <artifactId>vertx-stack-depchain</artifactId>
+        <version>${vertx.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
+  <dependencies>
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
-      <version>${vertx.version}</version>
     </dependency>
-
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web</artifactId>
-      <version>${vertx.version}</version>
     </dependency>
-
-      <dependency>
-          <groupId>io.vertx</groupId>
-          <artifactId>vertx-auth-shiro</artifactId>
-          <version>${vertx.version}</version>
-      </dependency>
-
-
-      <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-tcnative-boringssl-static</artifactId>
-      <version>1.1.33.Fork26</version>
-    </dependency>
-
-<!--    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-mongo-client</artifactId>
-      <version>${vertx.version}</version>
-    </dependency>
-
+    <!-- Replaces vertx-auth-shiro, which no longer exists since Vert.x 4 -->
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-mongo-embedded-db</artifactId>
-      <version>${vertx.version}</version>
+      <artifactId>vertx-auth-properties</artifactId>
     </dependency>
 
-
+    <!-- Kotlin support: JSON builders, coroutines (coAwait, CoroutineVerticle, coHandler) -->
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-auth-jdbc</artifactId>
-      <version>${vertx.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-jdbc-client</artifactId>
-      <version>${vertx.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-auth-jwt</artifactId>
-      <version>${vertx.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>examples-utils</artifactId>
-      <version>${vertx.version}</version>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-dropwizard-metrics</artifactId>
-      <version>${vertx.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-hazelcast</artifactId>
-      <version>${vertx.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
-      <version>2.3.4</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-web-templ-handlebars</artifactId>
-      <version>${vertx.version}</version>
-      <classifier>shaded</classifier>
+      <artifactId>vertx-lang-kotlin</artifactId>
     </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-web-templ-jade</artifactId>
-      <version>${vertx.version}</version>
-      <classifier>shaded</classifier>
+      <artifactId>vertx-lang-kotlin-coroutines</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-web-templ-mvel</artifactId>
-      <version>${vertx.version}</version>
-      <classifier>shaded</classifier>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-web-templ-thymeleaf</artifactId>
-      <version>${vertx.version}</version>
-      <classifier>shaded</classifier>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-web-templ-freemarker</artifactId>
-      <version>${vertx.version}</version>
-      <classifier>shaded</classifier>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-web-templ-pebble</artifactId>
-      <version>${vertx.version}</version>
-      <classifier>shaded</classifier>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+      <version>${kotlin.version}</version>
     </dependency>
 
--->
-
+    <!-- Logging (io.vertx.core.logging was removed in Vert.x 5) -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-jdk14</artifactId>
       <version>${slf4j.version}</version>
     </dependency>
-
   </dependencies>
 
   <build>
-      <plugins>
-        <!-- We specify the Maven compiler plugin as we need to set it to Java 1.8 -->
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.1</version>
-          <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
-            <compilerArgs>
-              <arg>-Acodetrans.output=${project.basedir}/src/main</arg>
-              <arg>-Acodetrans.config=${basedir}/codetrans-config.json</arg>
-            </compilerArgs>
-          </configuration>
-        </plugin>
-          <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-shade-plugin</artifactId>
-              <version>2.3</version>
-              <executions>
-                  <execution>
-                      <phase>package</phase>
-                      <goals>
-                          <goal>shade</goal>
-                      </goals>
-                      <configuration>
-                          <transformers>
-                              <transformer
-                                      implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                  <manifestEntries>
-                                      <Main-Class>server.Server</Main-Class>
-                                      <Main-Verticle>server.Server</Main-Verticle>
-                                  </manifestEntries>
-                              </transformer>
-                          </transformers>
-                          <artifactSet/>
-                          <outputFile>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar</outputFile>
-                      </configuration>
-                  </execution>
-              </executions>
-          </plugin>
-      </plugins>
-  </build>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
 
-<!--  <profiles>
-    <profile>
-      <id>staging</id>
-      <repositories>
-        <repository>
-          <id>staging</id>
-          <url>https://oss.sonatype.org/content/repositories/iovertx-3684/</url>
-        </repository>
-      </repositories>
-    </profile>
-  </profiles>
--->
+    <plugins>
+      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${kotlin.version}</version>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.6.2</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>${main.class}</mainClass>
+                </transformer>
+                <!-- Vert.x relies on META-INF/services, which must be merged in a fat jar -->
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+              </transformers>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                    <exclude>module-info.class</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+              <outputFile>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar</outputFile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
